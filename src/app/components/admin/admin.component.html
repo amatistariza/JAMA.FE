@@ -17,7 +17,7 @@
       <!-- Columna derecha -->
       <div class="column-right">
         <div class="welcome-message">
-          <p>Bienvenido, <strong>[Nombre de usuario]</strong>, su última conexión fue <strong>[Fecha]</strong></p>
+          <p>Bienvenido/a, <strong>{{ user?.nombreUsuario || 'Usuario no encontrado' }}</strong>, su última conexión fue <strong>{{ formattedLastLogin || 'No disponible' }}</strong></p>
         </div>
         <div class="card large-card">
           <p>No tiene reportes anuales.</p>

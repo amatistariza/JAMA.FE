@@ -9,12 +9,11 @@ import { GestionInventarioDiluyenteComponent } from './components/admin/gestion-
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'admin', redirectTo: 'admin/home', pathMatch: 'full' },
-  { path: 'admin/home', component: AdminComponent },
-  { path: 'admin/gestionInventarioVacuna', component: GestionInventarioComponent },
-  { path: 'admin/gestionUsuario', component: GestionUsuarioComponent },
-  { path: 'admin/gestionInventarioJeringa', component: GestionInventarioJeringaComponent },
-  { path: 'admin/gestionInventarioDiluyente', component: GestionInventarioDiluyenteComponent },
+  { path: 'admin/:id/home', component: AdminComponent },
+  { path: 'admin/:id/gestionInventarioVacuna', component: GestionInventarioComponent },
+  { path: 'admin/:id/gestionUsuario', component: GestionUsuarioComponent },
+  { path: 'admin/:id/gestionInventarioJeringa', component: GestionInventarioJeringaComponent },
+  { path: 'admin/:id/gestionInventarioDiluyente', component: GestionInventarioDiluyenteComponent },
 ];
 
 @NgModule({

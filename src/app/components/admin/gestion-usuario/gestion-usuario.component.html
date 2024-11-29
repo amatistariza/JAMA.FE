@@ -13,18 +13,24 @@
             <tr>
               <th>ID</th>
               <th>Nombre de Usuario</th>
+              <th>Rol Usuario</th>
               <th>Contraseña</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>String</td>
-              <td>Password</td>
+            <tr *ngFor="let usuario of usuarios">
+              <td>{{ usuario.id }}</td>
+              <td>{{ usuario.nombreUsuario }}</td>
+              <td>{{ usuario.rolUser }}</td>
+              <td>{{ usuario.password ? '**********' : '' }}</td>
               <td style="text-align: center;">
-                <button class="btn btn-custom" style="margin-right: 5px;" (click)="editItem(1)"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-                <button class="btn btn-custom"  (click)="deleteItem(1)"><i class="fa-solid fa-trash"></i> Eliminar</button>
+                <button class="btn btn-custom" style="margin-right: 5px;" (click)="editItem(usuario.id)">
+                  <i class="fa-solid fa-pen-to-square"></i> Editar
+                </button>
+                <button class="btn btn-custom" (click)="deleteItem(usuario.id)">
+                  <i class="fa-solid fa-trash"></i> Eliminar
+                </button>
               </td>
             </tr>
           </tbody>

@@ -11,11 +11,9 @@
 
             <!-- Formulario Reactivo -->
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
               <div class="form-outline mb-4">
                 <input 
                   type="text" 
-                  id="username" 
                   class="form-control form-control-lg" 
                   placeholder="Nombre de Usuario"
                   formControlName="username"
@@ -24,11 +22,10 @@
                   Este campo es obligatorio
                 </small>
               </div>
-
+            
               <div class="form-outline mb-4">
                 <input 
                   type="password" 
-                  id="password" 
                   class="form-control form-control-lg" 
                   placeholder="Contraseña"
                   formControlName="password"
@@ -37,30 +34,29 @@
                   Este campo es obligatorio
                 </small>
               </div>
-
-              <!-- Checkbox -->
-              <div class="form-check d-flex justify-content-start mb-4">
-                <input 
-                  class="form-check-input" 
-                  type="checkbox" 
-                  id="form1Example3" 
-                  style="margin-right: 10px;"
-                />
-                <label class="form-check-label" for="form1Example3"> Recuerda tu contraseña </label>
+            
+              <div class="form-outline mb-4">
+                <select 
+                  class="form-control form-control-lg" 
+                  formControlName="rolUser"
+                >
+                  <option value="" disabled>Selecciona tu Rol</option>
+                  <option value="ADMINISTRADOR">Administrador</option>
+                  <option value="ENFERMERA">Enfermera</option>
+                </select>
+                <small *ngIf="loginForm.get('rolUser')?.invalid && loginForm.get('rolUser')?.touched" class="text-danger">
+                  Selecciona un rol
+                </small>
               </div>
-
-              <p class="small mb-3 pb-lg-2"><a class="text-black-50" href="#!">¿Se olvidó su contraseña?</a></p>
-
-              <!-- Botón Bloqueado si el Formulario es Inválido -->
+            
               <button 
                 class="btn btn-lg px-5 btn-custom" 
                 type="submit" 
-                [disabled]="loginForm.invalid"
-              >
+                [disabled]="loginForm.invalid">
                 Inicia Sesión
               </button>
-
             </form>
+            
           </div>
         </div>
       </div>
