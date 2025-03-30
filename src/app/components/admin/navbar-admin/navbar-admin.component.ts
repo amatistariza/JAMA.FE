@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../../services/login.service';
+import { Router } from '@angular/router';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-navbar-admin',
@@ -11,7 +12,10 @@ export class NavbarAdminComponent implements OnInit {
   activeSubMenu: string | null = null; // Submenú abierto
   userId: string | null = null;  // Variable para almacenar el ID del usuario
 
-  constructor(private loginService: LoginService) {}
+  constructor(
+    private loginService: LoginService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.userId = this.loginService.getUserIdFromToken(); // Obtener el ID del usuario desde el token
@@ -35,5 +39,10 @@ export class NavbarAdminComponent implements OnInit {
   // Verificar si un submenú está activo
   isActiveSubMenu(subMenu: string): boolean {
     return this.activeSubMenu === subMenu;
+  }
+
+  cerrarSesion(): void {
+    this.loginService.removeLocalStorage();
+    this.router.navigate(['/login']);
   }
 }

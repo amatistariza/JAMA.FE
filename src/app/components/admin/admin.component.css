@@ -1,77 +1,127 @@
 /* Aplica el fondo al cuerpo de la página completa */
 :host {
-    display: block;
-    min-height: 100vh; /* Asegura que cubra toda la altura de la ventana */
-    background: rgba(82, 194, 52, 0.9);
-    background: -webkit-linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
-    background: linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
-    font-family: 'Poppins', sans-serif;
-  }
-  
-  /* Para mantener el estilo del contenedor principal */
-  .main-container {
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    width: 100%;
-  }
-  
-  .row {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 1200px;
-  }
-  
+  display: block;
+  min-height: 100vh; /* Asegura que cubra toda la altura de la ventana */
+  background: rgba(82, 194, 52, 0.9);
+  background: -webkit-linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
+  background: linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Para mantener el estilo del contenedor principal */
+.main-container {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+}
+
+/* Estilo de la fila */
+.row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  flex-wrap: wrap; /* Permite que los elementos se acomoden en múltiples líneas si es necesario */
+}
+
+/* Columnas para los contenedores */
+.column-left,
+.column-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Espacio entre tarjetas */
+}
+
+.column-left {
+  width: 40%; /* Tamaño para la columna izquierda */
+}
+
+.column-right {
+  width: 55%; /* Tamaño para la columna derecha */
+}
+
+/* Estilo de las tarjetas */
+.card {
+  background-color: white;
+  border: 2px solid #FFF5E9;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  color: black;
+}
+
+.small-card,
+.large-card {
+  width: 100%; /* Tarjetas ocupan toda la columna */
+}
+
+/* Mensaje de bienvenida */
+.welcome-message {
+  margin-bottom: 10px;
+  color: white;
+}
+
+.card h4 {
+  margin-bottom: 10px;
+  color: black;
+}
+
+.card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.card ul li {
+  margin: 5px 0;
+}
+
+/* --- Responsive Design para móviles --- */
+
+/* En pantallas de hasta 768px (tabletas y móviles) */
+@media (max-width: 768px) {
   .column-left,
   .column-right {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Espacio entre tarjetas */
+    width: 100%; /* Las columnas se apilan y ocupan el 100% del ancho */
   }
-  
-  .column-left {
-    width: 40%; /* Tamaño para la columna izquierda */
+
+  .row {
+    flex-direction: column; /* Los elementos de la fila se apilan uno debajo del otro */
   }
-  
-  .column-right {
-    width: 55%; /* Tamaño para la columna derecha */
+
+  .main-container {
+    padding: 15px; /* Reducir padding en móviles */
   }
-  
+
   .card {
-    background-color: white;
-    border: 2px solid #FFF5E9;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    color: black;
+    padding: 10px; /* Reducir el padding de las tarjetas en móviles */
   }
-  
-  .small-card {
-    width: 100%; /* Tarjetas pequeñas ocupan toda la columna */
-  }
-  
-  .large-card {
-    width: 100%; /* Tarjeta grande ocupa toda la columna derecha */
-  }
-  
+
   .welcome-message {
-    margin-bottom: 10px;
-    color: white;
+    font-size: 18px; /* Ajustar tamaño del mensaje de bienvenida */
   }
-  
+
   .card h4 {
-    margin-bottom: 10px;
-    color: black;
+    font-size: 20px; /* Ajustar tamaño de los títulos de las tarjetas */
   }
-  
-  .card ul {
-    list-style: none;
-    padding: 0;
+}
+
+/* En pantallas de hasta 480px (móviles pequeños) */
+@media (max-width: 480px) {
+  .card {
+    padding: 8px; /* Aumentar el ajuste en móviles muy pequeños */
   }
-  
-  .card ul li {
-    margin: 5px 0;
+
+  .main-container {
+    padding: 10px; /* Menos padding en pantallas más pequeñas */
   }
-  
+
+  .welcome-message {
+    font-size: 16px; /* Ajustar aún más el tamaño en pantallas pequeñas */
+  }
+
+  .card h4 {
+    font-size: 18px; /* Ajuste adicional del tamaño del título */
+  }
+}

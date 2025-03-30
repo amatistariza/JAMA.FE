@@ -49,3 +49,19 @@
   .add-button:hover {
     background-color: #45a827;
   }
+
+      /* Define el tamaño máximo de la tabla y habilita el desplazamiento */
+.table-responsive {
+  max-height: 400px; /* Ajusta según el tamaño deseado */
+  overflow-y: auto;
+  overflow-x: hidden; /* Opcional, para ocultar el desplazamiento horizontal */
+}
+
+/* Estilos para los botones de paginación */
+.pagination-container {
+  margin-top: 20px;
+}
+
+.pagination-container button {
+  margin: 0 10px;
+}

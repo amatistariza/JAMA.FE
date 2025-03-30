@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/enfermera/home">
+      <img src="assets/Logo.png" alt="Vacunacion logo" width="70">
+    </a>
+
+    <button class="navbar-toggler" type="button" (click)="toggleMenu('mainMenu')" aria-controls="navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" [ngClass]="{'show': isActiveMenu('mainMenu')}" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/enfermera/home" routerLinkActive="active">Inicio</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/enfermera/gestionPaciente" routerLinkActive="active">Gestionar Pacientes</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/enfermera/registro-vacuna" routerLinkActive="active">Registro Vacunas</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/enfermera/alertas" routerLinkActive="active">Alertas</a>
+        </li>
+      </ul>
+
+      <button class="btn btn-outline-danger" (click)="cerrarSesion()">Cerrar Sesión</button>
+    </div>
+  </div>
+</nav>

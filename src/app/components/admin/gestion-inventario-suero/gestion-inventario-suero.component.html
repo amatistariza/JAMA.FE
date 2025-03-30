@@ -1,0 +1,89 @@
+<app-navbar-admin></app-navbar-admin>
+<div class="container mt-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="header">
+          <h2>Gestión Inventario Suero</h2>
+        </div>
+    
+        <div *ngIf="!mostrarFormulario">
+          <button class="add-button mb-4" (click)="addItem()">
+            <i class="fa-solid fa-plus"></i> Añadir
+          </button>
+          <div class="mb-4">
+            <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Buscar por nombre de suero..." 
+              [(ngModel)]="filtro" 
+              (input)="filtrarSueros()" />
+          </div>
+
+          <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre de Suero</th>
+                    <th>Lote</th>
+                    <th>Frascos Disponible</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                      *ngFor="let suero of suerosFiltradas | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaActual }"
+                    >
+                      <td>{{ suero.id }}</td>
+                      <td>{{ suero.nombre }}</td>
+                      <td>{{ suero.lote }}</td>
+                      <td>{{ suero.frascosDisponibles }}</td>
+                      <td>
+                        <button
+                          class="btn btn-custom btn-sm"
+                          style="margin-right: 5px;"
+                          (click)="editItem(suero)"
+                        >
+                          <i class="fa-solid fa-pen-to-square"></i> Editar
+                        </button>
+                        <button
+                          class="btn btn-custom btn-sm"
+                          (click)="eliminarSuero(suero.id)"
+                        >
+                          <i class="fa-solid fa-trash"></i> Eliminar
+                        </button>
+                      </td>
+                    </tr>
+                </tbody>
+              </table>
+          </div>
+
+          <!-- Paginación -->
+          <div class="pagination-container" style="text-align: center;">
+        <button
+          class="btn btn-custom"
+          [disabled]="paginaActual === 1"
+          (click)="cambiarPagina(paginaActual - 1)"
+        >
+          Atrás
+        </button>
+        <span class="mx-2">Página {{ paginaActual }}</span>
+        <button
+          class="btn btn-custom"
+          [disabled]="paginaActual * itemsPorPagina >= suerosFiltradas.length"
+          (click)="cambiarPagina(paginaActual + 1)"
+        >
+          Siguiente
+        </button>
+          </div>
+      </div>
+      <div *ngIf="mostrarFormulario">
+        <app-suero-form
+          [modo]="modoFormulario"
+          [suero]="sueroSeleccionada!"
+          (onGuardar)="guardarSuero($event)"
+          (onCancelar)="cancelar()"
+        ></app-suero-form>
+      </div>
+    </div>
+</div>

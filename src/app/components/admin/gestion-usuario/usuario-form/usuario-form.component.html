@@ -1,0 +1,65 @@
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">{{ modo === 'crear' ? 'Añadir Usuario' : 'Editar Usuario' }}</h3>
+    <form [formGroup]="usuarioForm">
+      <div class="mb-3">
+        <label for="nombreUsuario" class="form-label required-field">Nombre de Usuario</label>
+        <input 
+          id="nombreUsuario" 
+          class="form-control" 
+          formControlName="nombreUsuario"
+          [ngClass]="{'is-invalid': isFieldInvalid('nombreUsuario')}"
+        />
+        <div class="validation-error" *ngIf="isFieldInvalid('nombreUsuario')">
+          {{ getErrorMessage('nombreUsuario') }}
+        </div>
+      </div>
+      <div class="form-outline mb-3">
+        <label for="rolUser" class="form-label">Rol de Usuario</label>
+        <select 
+          id="rolUser" 
+          class="form-control form-control-lg" 
+          formControlName="rolUser" 
+          [ngClass]="{'is-invalid': isFieldInvalid('rolUser')}"
+        >
+          <option value="" disabled>Selecciona tu Rol</option>
+          <option value="ADMINISTRADOR">Administrador</option>
+          <option value="ENFERMERA">Enfermera</option>
+        </select>
+        <div class="validation-error" *ngIf="isFieldInvalid('rolUser')">
+          {{ getErrorMessage('rolUser') }}
+        </div>
+      </div>      
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input 
+          id="password" 
+          class="form-control" 
+          formControlName="password" 
+          type="password" 
+          [ngClass]="{'is-invalid': isFieldInvalid('password')}"
+        />
+        <div class="validation-error" *ngIf="isFieldInvalid('password')">
+          {{ getErrorMessage('password') }}
+        </div>
+      </div>
+      <div class="buttoms">
+        <button 
+          type="submit" 
+          class="btn btn-custom" 
+          [disabled]="!usuarioForm.valid"
+          (click)="guardar()">
+          {{ modo === 'crear' ? 'Añadir' : 'Guardar' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="cancelar()">
+          Cancelar
+        </button>
+      </div>
+      <div class="form-status" 
+           *ngIf="formMessage" 
+           [ngClass]="{'success': formStatus === 'success', 'error': formStatus === 'error'}">
+        {{ formMessage }}
+      </div>
+    </form>
+  </div>
+</div>

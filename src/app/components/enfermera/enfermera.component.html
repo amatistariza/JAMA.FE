@@ -1,0 +1,27 @@
+<app-navbar-enfermera></app-navbar-enfermera>
+<div class="body">
+    <div class="main-container">
+      <div class="row">
+        <!-- Columna izquierda -->
+        <div class="column-left">
+          <div class="card small-card">
+            <img src="assets/Logo.png" alt="Vacunacion logo" width="500">
+          </div>
+          
+          <div class="card small-card">
+            <p>No tiene reportes mensuales.</p>
+          </div>
+        </div>
+    
+        <!-- Columna derecha -->
+        <div class="column-right">
+          <div class="welcome-message">
+            <p>Bienvenido/a, <strong>{{ user?.nombreUsuario || 'Usuario no encontrado' }}</strong>, su última conexión fue <strong>{{ formattedLastLogin || 'No disponible' }}</strong></p>
+          </div>
+          <div class="card large-card">
+            <p>No tiene alertas reportadas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

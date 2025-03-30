@@ -1,0 +1,73 @@
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">{{ modo === 'crear' ? 'Añadir Vacuna' : 'Editar Vacuna' }}</h3>
+    <form [formGroup]="vacunaForm">
+      <div class="mb-3">
+        <label for="nombre" class="form-label required-field">Nombre de Vacuna</label>
+        <input 
+          id="nombre" 
+          class="form-control" 
+          formControlName="nombre"
+          [ngClass]="{'is-invalid': isFieldInvalid('nombre')}"
+        />
+        <div class="validation-error" *ngIf="isFieldInvalid('nombre')">
+          {{ getErrorMessage('nombre') }}
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="laboratorio" class="form-label required-field">Laboratorio</label>
+        <input 
+          id="laboratorio" 
+          class="form-control" 
+          formControlName="laboratorio"
+          [ngClass]="{'is-invalid': isFieldInvalid('laboratorio')}"
+        />
+        <div class="validation-error" *ngIf="isFieldInvalid('laboratorio')">
+          {{ getErrorMessage('laboratorio') }}
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="lote" class="form-label required-field">Lote</label>
+        <input 
+          id="lote" 
+          class="form-control" 
+          formControlName="lote"
+          [ngClass]="{'is-invalid': isFieldInvalid('lote')}"
+        />
+        <div class="validation-error" *ngIf="isFieldInvalid('lote')">
+          {{ getErrorMessage('lote') }}
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="dosisDisponibles" class="form-label required-field">Dosis Disponibles</label>
+        <input 
+          id="dosisDisponibles" 
+          type="number" 
+          class="form-control" 
+          formControlName="dosisDisponibles"
+          [ngClass]="{'is-invalid': isFieldInvalid('dosisDisponibles')}"
+        />
+        <div class="validation-error" *ngIf="isFieldInvalid('dosisDisponibles')">
+          {{ getErrorMessage('dosisDisponibles') }}
+        </div>
+      </div>
+      <div class="buttoms">
+        <button 
+          type="submit" 
+          class="btn btn-custom" 
+          [disabled]="!vacunaForm.valid"
+          (click)="guardar()">
+          {{ modo === 'crear' ? 'Añadir' : 'Guardar' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="cancelar()">
+          Cancelar
+        </button>
+      </div>
+      <div class="form-status" 
+           *ngIf="formMessage" 
+           [ngClass]="{'success': formStatus === 'success', 'error': formStatus === 'error'}">
+        {{ formMessage }}
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<ng-container *ngIf="isEnfermera; else adminNav">
+  <app-navbar-enfermera></app-navbar-enfermera>
+</ng-container>
+<ng-template #adminNav>
+  <app-navbar-admin></app-navbar-admin>
+</ng-template>
+
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">Registro de Vacunación</h3>
+
+    <form [formGroup]="esquemaForm" (ngSubmit)="guardarEsquema()">
+      <div class="mb-3">
+        <label for="tipoCarnet" class="form-label required-field">Tipo de Carnet</label>
+        <input 
+          id="tipoCarnet" 
+          class="form-control" 
+          formControlName="tipoCarnet" 
+          [ngClass]="{'is-invalid': isFieldInvalid('tipoCarnet')}"
+        />
+        <div class="validation-error" *ngIf="isFieldInvalid('tipoCarnet')">
+          {{ getErrorMessage('tipoCarnet') }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="responsable" class="form-label">Responsable*</label>
+        <input id="responsable" class="form-control" formControlName="responsable" required />
+      </div>
+
+      <div class="form-check mb-3">
+        <input id="registradoPAI" type="checkbox" class="form-check-input" formControlName="registradoPAI" />
+        <label for="registradoPAI" class="form-check-label">Registrado en PAI</label>
+      </div>
+
+      <div class="mb-3">
+        <label for="motivoNoIngreso" class="form-label">Motivo de No Ingreso</label>
+        <textarea id="motivoNoIngreso" class="form-control" formControlName="motivoNoIngreso"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="observaciones" class="form-label">Observaciones</label>
+        <textarea id="observaciones" class="form-control" formControlName="observaciones"></textarea>
+      </div>
+
+      <div formArrayName="detalles">
+        <h4>Detalles de Vacunación</h4>
+        <button type="button" class="btn btn-custom mb-3" (click)="agregarDetalle()">
+          <i class="fa-solid fa-plus"></i> Agregar Detalle
+        </button>
+
+        <div *ngFor="let detalle of detalles.controls; let i=index" [formGroupName]="i" class="card mb-3">
+          <div class="card-body">
+            <!-- Aquí irían los campos para cada detalle -->
+            <div class="mb-3">
+              <label [for]="'vacuna'+i" class="form-label">Vacuna*</label>
+              <select [id]="'vacuna'+i" class="form-control" formControlName="vacunaId" required>
+                <!-- Opciones de vacunas -->
+              </select>
+            </div>
+            <!-- Repetir para suero, diluyente y jeringa -->
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-custom" [disabled]="!esquemaForm.valid">
+          Guardar Esquema
+        </button>
+      </div>
+
+      <div class="form-status" 
+           *ngIf="formMessage" 
+           [ngClass]="{'success': formStatus === 'success', 'error': formStatus === 'error'}">
+        {{ formMessage }}
+      </div>
+    </form>
+  </div>
+</div>

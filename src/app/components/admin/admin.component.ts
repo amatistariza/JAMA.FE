@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../services/login.service';
-import { Usuario } from '../models/usuario';
+import { LoginService } from '../../services/login.service';
+import { Usuario } from '../../models/usuario';
 import { DatePipe } from '@angular/common'; // Importar DatePipe
 
 @Component({
@@ -26,7 +26,7 @@ export class AdminComponent implements OnInit {
   
     if (this.lastLogin) {
       // Formatear la fecha de última conexión
-      this.formattedLastLogin = this.datePipe.transform(this.lastLogin, 'short');
+      this.formattedLastLogin = this.datePipe.transform(this.lastLogin, 'dd/MM/yyyy');
     }
   
     if (this.user) {

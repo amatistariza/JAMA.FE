@@ -6,14 +6,53 @@ import { GestionInventarioComponent } from './components/admin/gestion-inventari
 import { GestionUsuarioComponent } from './components/admin/gestion-usuario/gestion-usuario.component';
 import { GestionInventarioJeringaComponent } from './components/admin/gestion-inventario-jeringa/gestion-inventario-jeringa.component';
 import { GestionInventarioDiluyenteComponent } from './components/admin/gestion-inventario-diluyente/gestion-inventario-diluyente.component';
+import { GestionInventarioSueroComponent } from './components/admin/gestion-inventario-suero/gestion-inventario-suero.component';
+import { EnfermeraComponent } from './components/enfermera/enfermera.component';
+import { GestionPacienteComponent } from './components/admin/gestion-paciente/gestion-paciente.component';
+import { AlertaEnfermeraComponent } from './components/enfermera/alerta-enfermera/alerta-enfermera.component';
+import { NotFoundComponent } from './components/shared/not-found/not-found.component';
+import { AuthGuard } from './guards/auth.guard';
+import { RoleGuard } from './guards/role.guard';
+import { RegistroVacunaComponent } from './components/shared/registro-vacuna/registro-vacuna.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'admin/:id/home', component: AdminComponent },
-  { path: 'admin/:id/gestionInventarioVacuna', component: GestionInventarioComponent },
-  { path: 'admin/:id/gestionUsuario', component: GestionUsuarioComponent },
-  { path: 'admin/:id/gestionInventarioJeringa', component: GestionInventarioJeringaComponent },
-  { path: 'admin/:id/gestionInventarioDiluyente', component: GestionInventarioDiluyenteComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  
+  // Rutas de administrador
+  {
+    path: 'admin',
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ADMINISTRADOR' },
+    children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: AdminComponent },
+      { path: 'gestionInventarioVacuna', component: GestionInventarioComponent },
+      { path: 'gestionUsuario', component: GestionUsuarioComponent },
+      { path: 'gestionInventarioJeringa', component: GestionInventarioJeringaComponent },
+      { path: 'gestionInventarioDiluyente', component: GestionInventarioDiluyenteComponent },
+      { path: 'gestionInventarioSuero', component: GestionInventarioSueroComponent },
+      { path: 'registro-vacuna', component: RegistroVacunaComponent }
+    ]
+  },
+
+  // Rutas de enfermera
+  {
+    path: 'enfermera',
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ENFERMERA' },
+    children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: EnfermeraComponent },
+      { path: 'gestionPaciente', component: GestionPacienteComponent },
+      { path: 'registro-vacuna', component: RegistroVacunaComponent },
+      { path: 'alertas', component: AlertaEnfermeraComponent }
+    ]
+  },
+
+  // Ruta 404 y wildcard
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '/404' }
 ];
 
 @NgModule({

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { InventarioVacunaService } from '../../services/inventario-vacuna.service';
-import { Vacuna } from '../../models/vacuna';
+import { InventarioVacunaService } from '../../../services/inventario-vacuna.service';
+import { Vacuna } from '../../../models/vacuna';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-gestion-inventario',
@@ -9,6 +10,17 @@ import { Vacuna } from '../../models/vacuna';
 })
 export class GestionInventarioComponent implements OnInit {
   vacunas: Vacuna[] = [];
+  vacunasFiltradas: Vacuna[] = [];
+  vacunaSeleccionada: Vacuna | null = null;
+  modoFormulario: 'crear' | 'editar' = 'crear';
+  mostrarFormulario: boolean = false;
+  
+  // Paginación
+  itemsPorPagina: number = 5;
+  paginaActual: number = 1;
+
+  // Filtro
+  filtro: string = '';
 
   constructor(private vacunaService: InventarioVacunaService) {}
 
@@ -19,47 +31,75 @@ export class GestionInventarioComponent implements OnInit {
   loadVacunas(): void {
     this.vacunaService.getVacunas().subscribe(
       (vacunas) => {
-        // Mapear los campos para que coincidan con el modelo
-        this.vacunas = vacunas.map(vacuna => ({
-          ...vacuna,
-          fechaRegistro: new Date(vacuna.fechaRegistro)  // Convertir fechaRegistro en fecharegistro
-        }));
-        console.log('Vacunas cargadas:', this.vacunas); // Verifica en la consola si las vacunas se cargan
+        this.vacunas = vacunas;
+        this.vacunasFiltradas = [...this.vacunas]; // Inicializamos las vacunas filtradas
       },
       (error) => {
         console.error('Error al cargar las vacunas:', error);
       }
     );
-  }  
-
-  addItem(): void {
-    const nuevaVacuna: Vacuna = {
-      id: 0,  // El id se genera automáticamente en el backend
-      nombre: 'MODERNA',
-      laboratorio: 'N/A',
-      lote: 'yyyyyyy',
-      dosisDisponibles: 20,
-      fechaRegistro: new Date(),
-    };
-    this.vacunaService.addVacuna(nuevaVacuna).subscribe(() => {
-      this.loadVacunas(); // Recargar las vacunas después de agregar
-    });
   }
 
-  editItem(id: number): void {
-    this.vacunaService.getVacunaById(id).subscribe((vacuna) => {
-      if (vacuna) {
-        const vacunaEditada: Vacuna = { ...vacuna, nombre: 'Actualizado' };
-        this.vacunaService.editVacuna(id, vacunaEditada).subscribe(() => {
-          this.loadVacunas(); // Recargar las vacunas después de editar
+  // Cambiar página
+  cambiarPagina(pagina: number): void {
+    this.paginaActual = pagina;
+  }
+
+  // Filtrar vacunas por nombre
+  filtrarVacunas(): void {
+    this.vacunasFiltradas = this.vacunas.filter((vacuna) =>
+      vacuna.nombre.toLowerCase().includes(this.filtro.toLowerCase())
+    );
+    this.paginaActual = 1; // Resetear a la primera página después de aplicar el filtro
+  }
+
+  addItem(): void {
+    this.modoFormulario = 'crear';
+    this.vacunaSeleccionada = {
+      id: 0,
+      nombre: '',
+      laboratorio: '',
+      lote: '',
+      dosisDisponibles: 0,
+      fechaRegistro: new Date(),
+    };
+    this.mostrarFormulario = true;
+  }
+
+  editItem(vacuna: Vacuna): void {
+    this.modoFormulario = 'editar';
+    this.vacunaSeleccionada = { ...vacuna };
+    this.mostrarFormulario = true;
+  }
+
+  guardarVacuna(vacuna: Vacuna): void {
+    if (this.modoFormulario === 'crear') {
+      this.vacunaService.addVacuna(vacuna).subscribe(() => this.loadVacunas());
+    } else {
+      this.vacunaService.editVacuna(vacuna.id, vacuna).subscribe(() => this.loadVacunas());
+    }
+    this.mostrarFormulario = false;
+  }
+
+  eliminarVacuna(id: number): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.vacunaService.deleteVacuna(id).subscribe(() => {
+          this.loadVacunas();
+          Swal.fire('Eliminado', 'La vacuna ha sido eliminada con éxito.', 'success');
         });
       }
     });
   }
 
-  deleteItem(id: number): void {
-    this.vacunaService.deleteVacuna(id).subscribe(() => {
-      this.loadVacunas(); // Recargar las vacunas después de eliminar
-    });
+  cancelar(): void {
+    this.mostrarFormulario = false;
   }
 }
