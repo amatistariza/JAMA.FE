@@ -72,24 +72,6 @@ export class GestionUsuarioComponent implements OnInit {
     this.mostrarFormulario = false;
   }
 
-  deleteItem(id: number): void {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: 'Esta acción no se puede deshacer.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.usuarioService.deleteUsuario(id).subscribe(() => {
-          this.loadUsuarios();
-          Swal.fire('Eliminado', 'El usuario ha sido eliminado con éxito.', 'success');
-        });
-      }
-    });
-  }
-
   cancelar(): void {
     this.mostrarFormulario = false;
   }

@@ -1,30 +1,48 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { EsquemaVacunacion } from '../models/esquema-vacunacion';
 import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EsquemaVacunacionService {
-  private apiUrl = `${environment.endpoint}/EsquemaVacunacion`;
+  private apiUrl = `${environment.endpoint}api/esquemavacunacion`;
 
   constructor(private http: HttpClient) { }
 
-  getEsquemaById(id: number): Observable<EsquemaVacunacion> {
-    return this.http.get<EsquemaVacunacion>(`${this.apiUrl}/${id}`);
+  crearEsquema(esquemaData: any): Observable<any> {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'text/plain');
+
+    const formattedData = {
+      ...esquemaData,
+      usuarioId: Number(esquemaData.usuarioId),
+      pacienteId: Number(esquemaData.pacienteId),
+      detalles: esquemaData.detalles.map((detalle: any) => ({
+        vacunaId: Number(detalle.vacunaId),
+        jeringaId: Number(detalle.jeringaId),
+        diluyenteId: detalle.diluyenteId ? Number(detalle.diluyenteId) : null,
+        sueroId: detalle.sueroId ? Number(detalle.sueroId) : null,
+        dosis: Number(detalle.dosis),
+        cantidadUtilizadaVacuna: Number(detalle.cantidadUtilizadaVacuna),
+        cantidadUtilizadaJeringa: Number(detalle.cantidadUtilizadaJeringa),
+        cantidadUtilizadaSuero: Number(detalle.cantidadUtilizadaSuero),
+        cantidadUtilizadaDiluyente: Number(detalle.cantidadUtilizadaDiluyente),
+        via: detalle.via,
+        sitioAplicacion: detalle.sitioAplicacion,
+        lote: detalle.lote
+      }))
+    };
+
+    return this.http.post(this.apiUrl, formattedData, { 
+      headers: headers,
+      responseType: 'text'
+    });
   }
 
-  addEsquema(esquema: EsquemaVacunacion): Observable<EsquemaVacunacion> {
-    return this.http.post<EsquemaVacunacion>(this.apiUrl, esquema);
-  }
-
-  updateEsquema(id: number, esquema: EsquemaVacunacion): Observable<EsquemaVacunacion> {
-    return this.http.put<EsquemaVacunacion>(`${this.apiUrl}/${id}`, esquema);
-  }
-
-  deleteEsquema(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  getEsquemasByPacienteId(pacienteId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/paciente/${pacienteId}`);
   }
 }

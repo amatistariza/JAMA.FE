@@ -31,8 +31,4 @@ export class GestionUsuarioService {
   editUsuario(id: number, usuario: Usuario): Observable<Usuario> {
     return this.http.put<Usuario>(`${this.myAppUrl}${this.myApiUrl}/${id}`, usuario);
   }
-
-  deleteUsuario(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}/${id}`);
-  }
 }

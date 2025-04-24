@@ -23,7 +23,6 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>ID</th>
                   <th>Nombre de Diluyente</th>
                   <th>Lote</th>
                   <th>Cantidad Disponible</th>
@@ -31,29 +30,15 @@
                 </tr>
               </thead>
               <tbody>
-                <tr
-                    *ngFor="let diluyente of diluyentesFiltradas | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaActual }"
-                  >
-                    <td>{{ diluyente.id }}</td>
-                    <td>{{ diluyente.nombre }}</td>
-                    <td>{{ diluyente.lote }}</td>
-                    <td>{{ diluyente.cantidadDisponible }}</td>
-                    <td>
-                      <button
-                        class="btn btn-custom btn-sm"
-                        style="margin-right: 5px;"
-                        (click)="editItem(diluyente)"
-                      >
-                        <i class="fa-solid fa-pen-to-square"></i> Editar
-                      </button>
-                      <button
-                        class="btn btn-custom btn-sm"
-                        (click)="eliminarDiluyente(diluyente.id)"
-                      >
-                        <i class="fa-solid fa-trash"></i> Eliminar
-                      </button>
-                    </td>
-                  </tr>
+                <tr *ngFor="let diluyente of diluyentesFiltradas">
+                  <td>{{diluyente.nombre}}</td>
+                  <td>{{diluyente.lote}}</td>
+                  <td>{{diluyente.cantidadDisponible}}</td>
+                  <td>
+                    <button class="btn btn-primary btn-sm me-2" (click)="editItem(diluyente)"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+                    <button class="btn btn-danger btn-sm" (click)="eliminarDiluyente(diluyente.id)"> <i class="fa-solid fa-trash"></i> Eliminar</button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -77,13 +62,39 @@
         </button>
           </div>
       </div>
-      <div *ngIf="mostrarFormulario">
-        <app-diluyente-form
-          [modo]="modoFormulario"
-          [diluyente]="diluyenteSeleccionada!"
-          (onGuardar)="guardarDiluyente($event)"
-          (onCancelar)="cancelar()"
-        ></app-diluyente-form>
-      </div>
+      <!-- Formulario -->
+<form [formGroup]="diluyenteForm" (ngSubmit)="guardarDiluyente()" *ngIf="mostrarFormulario">
+  <div class="mb-3">
+    <label class="form-label">Nombre</label>
+    <input type="text" class="form-control" formControlName="nombre"
+           [class.is-invalid]="diluyenteForm.get('nombre')?.invalid && diluyenteForm.get('nombre')?.touched">
+    <div class="invalid-feedback">
+      El nombre es requerido
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Lote</label>
+    <input type="text" class="form-control" formControlName="lote">
+    <div class="invalid-feedback" *ngIf="diluyenteForm.get('lote')?.invalid && diluyenteForm.get('lote')?.touched">
+      El lote es requerido
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Cantidad Disponible</label>
+    <input type="number" class="form-control" formControlName="cantidadDisponible">
+    <div class="invalid-feedback" *ngIf="diluyenteForm.get('cantidadDisponible')?.invalid && diluyenteForm.get('cantidadDisponible')?.touched">
+      La cantidad disponible es requerida y debe ser mayor o igual a 0
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end gap-2">
+    <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+    <button type="submit" class="btn btn-primary" [disabled]="diluyenteForm.invalid">
+      {{ modoFormulario === 'crear' ? 'Agregar' : 'Actualizar' }}
+    </button>
+  </div>
+</form>
     </div>
 </div>

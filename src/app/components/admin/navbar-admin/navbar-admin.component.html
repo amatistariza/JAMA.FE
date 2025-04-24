@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
-    <a class="navbar-brand" routerLink="/admin/home">
+    <a class="navbar-brand" [routerLink]="['/admin', userId, 'home']">
       <img src="assets/Logo.png" alt="Vacunacion logo" width="70">
     </a>
 
@@ -11,11 +11,11 @@
     <div class="collapse navbar-collapse" [ngClass]="{'show': isActiveMenu('mainMenu')}" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/admin/home" routerLinkActive="active">Inicio</a>
+          <a class="nav-link" [routerLink]="['/admin', userId, 'home']" routerLinkActive="active">Inicio</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" routerLink="/admin/gestionUsuario" routerLinkActive="active">Gestionar Usuarios</a>
+          <a class="nav-link" [routerLink]="['/admin', userId, 'gestionUsuario']" routerLinkActive="active">Gestionar Usuarios</a>
         </li>
 
         <li class="nav-item dropdown">
@@ -23,19 +23,15 @@
             Gestionar Inventario
           </a>
           <ul class="dropdown-menu" [ngClass]="{'show': isActiveSubMenu('inventario')}">
-            <li><a class="dropdown-item" routerLink="/admin/gestionInventarioVacuna">Vacunas</a></li>
-            <li><a class="dropdown-item" routerLink="/admin/gestionInventarioJeringa">Jeringas</a></li>
-            <li><a class="dropdown-item" routerLink="/admin/gestionInventarioDiluyente">Diluyentes</a></li>
-            <li><a class="dropdown-item" routerLink="/admin/gestionInventarioSuero">Sueros</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/admin', userId, 'gestionInventarioVacuna']">Vacunas</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/admin', userId, 'gestionInventarioJeringa']">Jeringas</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/admin', userId, 'gestionInventarioDiluyente']">Diluyentes</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/admin', userId, 'gestionInventarioSuero']">Sueros</a></li>
           </ul>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" routerLink="/admin/registro-vacuna" routerLinkActive="active">Registro Vacunas</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/admin/reportes" routerLinkActive="active">Reportes</a>
+          <a class="nav-link" [routerLink]="['/admin', userId, 'registro-vacuna']" routerLinkActive="active">Registro Vacunas</a>
         </li>
       </ul>
 

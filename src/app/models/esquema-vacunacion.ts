@@ -10,24 +10,27 @@ export interface EsquemaVacunacion {
 }
 
 export interface DetalleEsquema {
-  id: number;
-  esquemaVacunacionId: number;
-  esquemaVacunacion: string;
+  id?: number;
+  esquemaVacunacionId?: number;
   vacunaId: number;
-  vacuna: Vacuna;
+  vacuna?: Vacuna;
   cantidadUtilizadaVacuna: number;
-  sueroId: number;
-  suero: Suero;
+  sueroId?: number;
+  suero?: Suero;
   cantidadUtilizadaSuero: number;
-  diluyenteId: number;
-  diluyente: Diluyente;
+  diluyenteId?: number;
+  diluyente?: Diluyente;
   cantidadUtilizadaDiluyente: number;
   jeringaId: number;
-  jeringa: Jeringa;
+  jeringa?: Jeringa;
   cantidadUtilizadaJeringa: number;
+  dosis: number;
+  via: string;
+  sitioAplicacion: string;
+  lote: string;
 }
 
-interface Vacuna {
+export interface Vacuna {
   id: number;
   nombre: string;
   laboratorio: string;
@@ -36,21 +39,21 @@ interface Vacuna {
   fechaRegistro: string;
 }
 
-interface Suero {
+export interface Suero {
   id: number;
   nombre: string;
   lote: string;
   frascosDisponibles: number;
 }
 
-interface Diluyente {
+export interface Diluyente {
   id: number;
   nombre: string;
   lote: string;
   cantidadDisponible: number;
 }
 
-interface Jeringa {
+export interface Jeringa {
   id: number;
   tipo: string;
   lote: string;

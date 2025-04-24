@@ -77,4 +77,13 @@ export class LoginService {
       localStorage.removeItem('lastLogin');
     }
   }
+
+  getRoleFromToken(): string | null {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const user = this.jwtHelper.decodeToken(token);
+      return user?.role || null;
+    }
+    return null;
+  }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Paciente } from '../models/paciente';
 import { environment } from '../../environments/environment';
 
@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class PacienteService {
-  private apiUrl = `${environment.endpoint}/paciente`; // Cambiado a endpoint
+  private apiUrl = `${environment.endpoint}/api/paciente`;
 
   constructor(private http: HttpClient) { }
 
@@ -44,10 +44,20 @@ export class PacienteService {
   }
 
   getPacienteById(id: number): Observable<Paciente> {
-    return this.http.get<Paciente>(`${this.apiUrl}${id}`);
+    return this.http.get<Paciente>(`${this.apiUrl}/${id}`);
   }
 
   getPacienteByNumeroIdentificacion(numeroIdentificacion: string): Observable<Paciente> {
-    return this.http.get<Paciente>(`${this.apiUrl}/BuscarPaciente/${numeroIdentificacion}`);
+    const url = `${environment.endpoint}api/paciente/BuscarPaciente/${numeroIdentificacion}`;
+    console.log('URL de búsqueda:', url);
+    return this.http.get<Paciente>(url).pipe(
+      catchError(error => {
+        console.log('Error response:', error);
+        if (error.status === 404) {
+          return throwError(() => new Error('Paciente no encontrado'));
+        }
+        return throwError(() => error);
+      })
+    );
   }
 }

@@ -1,38 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
 import { Suero } from '../models/suero';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InventarioSueroService {
-  private myAppUrl: string;
-  private myApiUrl: string;
+  private apiUrl = 'https://localhost:44332/api/sueros';
 
-  constructor(private http: HttpClient) {
-    this.myAppUrl = environment.endpoint
-    this.myApiUrl = 'api/sueros';
-  }
+  constructor(private http: HttpClient) { }
 
   getSueros(): Observable<Suero[]> {
-    return this.http.get<Suero[]>(`${this.myAppUrl}${this.myApiUrl}`);
+    return this.http.get<Suero[]>(this.apiUrl);
   }
 
   getSueroById(id: number): Observable<Suero> {
-    return this.http.get<Suero>(`${this.myAppUrl}${this.myApiUrl}/${id}`);
+    return this.http.get<Suero>(`${this.apiUrl}/${id}`);
   }
 
   addSuero(suero: Suero): Observable<Suero> {
-    return this.http.post<Suero>(`${this.myAppUrl}${this.myApiUrl}`, suero);
+    return this.http.post<Suero>(this.apiUrl, suero);
   }
 
   editSuero(id: number, suero: Suero): Observable<Suero> {
-    return this.http.put<Suero>(`${this.myAppUrl}${this.myApiUrl}/${id}`, suero);
+    return this.http.put<Suero>(`${this.apiUrl}/${id}`, suero);
   }
 
   deleteSuero(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

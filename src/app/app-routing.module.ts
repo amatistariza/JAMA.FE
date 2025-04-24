@@ -21,7 +21,7 @@ const routes: Routes = [
   
   // Rutas de administrador
   {
-    path: 'admin',
+    path: 'admin/:id',
     canActivate: [AuthGuard, RoleGuard],
     data: { role: 'ADMINISTRADOR' },
     children: [
@@ -38,7 +38,7 @@ const routes: Routes = [
 
   // Rutas de enfermera
   {
-    path: 'enfermera',
+    path: 'enfermera/:id',
     canActivate: [AuthGuard, RoleGuard],
     data: { role: 'ENFERMERA' },
     children: [
