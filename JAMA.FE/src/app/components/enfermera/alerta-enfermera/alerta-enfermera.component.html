@@ -1,0 +1,89 @@
+<app-navbar-enfermera></app-navbar-enfermera>
+
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-body">
+      <h2 class="card-title">Panel de Alertas</h2>
+
+      <!-- Filtros -->
+      <div class="mb-4">
+        <div class="row">
+          <div class="col-md-4">
+            <select class="form-select" [(ngModel)]="filtroTipo">
+              <option value="">Todos los tipos</option>
+              <option value="VACUNACION">Vacunación</option>
+              <option value="ESQUEMA">Esquema</option>
+              <option value="SEGUIMIENTO">Seguimiento</option>
+              <option value="INVENTARIO">Inventario</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <select class="form-select" [(ngModel)]="filtroEstado">
+              <option value="">Todos los estados</option>
+              <option value="PENDIENTE">Pendiente</option>
+              <option value="ATENDIDA">Atendida</option>
+              <option value="VENCIDA">Vencida</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <select class="form-select" [(ngModel)]="filtroPrioridad">
+              <option value="">Todas las prioridades</option>
+              <option value="ALTA">Alta</option>
+              <option value="MEDIA">Media</option>
+              <option value="BAJA">Baja</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lista de Alertas -->
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Descripción</th>
+              <th>Fecha Creación</th>
+              <th>Fecha Vencimiento</th>
+              <th>Estado</th>
+              <th>Prioridad</th>
+              <th>Paciente</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let alerta of alertasFiltradas">
+              <td>
+                <span [class]="'badge ' + getBadgeClass(alerta.tipo)">
+                  {{alerta.tipo}}
+                </span>
+              </td>
+              <td>{{alerta.descripcion}}</td>
+              <td>{{alerta.fechaCreacion | date:'dd/MM/yyyy'}}</td>
+              <td>{{alerta.fechaVencimiento | date:'dd/MM/yyyy'}}</td>
+              <td>
+                <span [class]="'badge ' + getEstadoBadgeClass(alerta.estado)">
+                  {{alerta.estado}}
+                </span>
+              </td>
+              <td>
+                <span [class]="'badge ' + getPrioridadBadgeClass(alerta.prioridad)">
+                  {{alerta.prioridad}}
+                </span>
+              </td>
+              <td>{{alerta.nombrePaciente || 'N/A'}}</td>
+              <td>
+                <button 
+                  class="btn btn-custom btn-sm"
+                  *ngIf="alerta.estado === 'PENDIENTE'"
+                  (click)="marcarComoAtendida(alerta.id)">
+                  Marcar como atendida
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

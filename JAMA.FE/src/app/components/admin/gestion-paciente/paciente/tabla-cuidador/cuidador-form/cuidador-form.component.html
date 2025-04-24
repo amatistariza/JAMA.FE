@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <h3>{{ modo === 'crear' ? 'Nuevo Cuidador' : 'Editar Cuidador' }}</h3>
+  <form [formGroup]="cuidadorForm" (ngSubmit)="guardar()">
+    <div class="mb-3">
+      <label for="tipoIdentificacion" class="form-label">Tipo de Identificación*</label>
+      <select class="form-control" id="tipoIdentificacion" formControlName="tipoIdentificacion">
+        <option value="">Seleccione...</option>
+        <option value="CC">Cédula de Ciudadanía</option>
+        <option value="CE">Cédula de Extranjería</option>
+        <option value="PA">Pasaporte</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="numeroIdentificacion" class="form-label">Número de Identificación*</label>
+      <input type="text" class="form-control" id="numeroIdentificacion" formControlName="numeroIdentificacion">
+    </div>
+
+    <div class="mb-3">
+      <label for="primerNombre" class="form-label">Primer Nombre*</label>
+      <input type="text" class="form-control" id="primerNombre" formControlName="primerNombre">
+    </div>
+
+    <div class="mb-3">
+      <label for="segundoNombre" class="form-label">Segundo Nombre</label>
+      <input type="text" class="form-control" id="segundoNombre" formControlName="segundoNombre">
+    </div>
+
+    <div class="mb-3">
+      <label for="primerApellido" class="form-label">Primer Apellido*</label>
+      <input type="text" class="form-control" id="primerApellido" formControlName="primerApellido">
+    </div>
+
+    <div class="mb-3">
+      <label for="segundoApellido" class="form-label">Segundo Apellido</label>
+      <input type="text" class="form-control" id="segundoApellido" formControlName="segundoApellido">
+    </div>
+
+    <div class="mb-3">
+      <label for="parentesco" class="form-label">Parentesco*</label>
+      <input type="text" class="form-control" id="parentesco" formControlName="parentesco">
+    </div>
+
+    <div class="text-center mt-4">
+      <button type="submit" class="btn btn-custom" style="margin-right: 5px;">
+        {{ modo === 'crear' ? 'Añadir' : 'Guardar' }}
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+    </div>
+  </form>
+</div>
