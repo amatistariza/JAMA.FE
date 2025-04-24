@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { Jeringa } from '../models/jeringa';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InventarioJeringaService {
-  private apiUrl = 'https://localhost:44332/api/jeringas';
+  private apiUrl = `${environment.endpoint}api/jeringas`; // Actualizar a la ruta correcta
 
   constructor(private http: HttpClient) { }
 

@@ -1,33 +1,35 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
-import { RegistroVacunaComponent } from './registro-vacuna/registro-vacuna.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BuscarPacienteComponent } from './buscar-paciente/buscar-paciente.component';
-import { HttpClientModule } from '@angular/common/http';
+import { RegistroVacunaComponent } from './registro-vacuna/registro-vacuna.component';
+import { EsquemaDetallesComponent } from './esquema-detalles/esquema-detalles.component';
+import { AdminModule } from '../admin/admin.module';
+import { EnfermeraModule } from '../enfermera/enfermera.module';
 
 @NgModule({
   declarations: [
-    LoadingSpinnerComponent,
+    BuscarPacienteComponent,
     RegistroVacunaComponent,
-    BuscarPacienteComponent
+    EsquemaDetallesComponent
   ],
   imports: [
     CommonModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule,
-    HttpClientModule
+    AdminModule,
+    EnfermeraModule
   ],
   exports: [
-    LoadingSpinnerComponent,
-    RegistroVacunaComponent,
     BuscarPacienteComponent,
+    RegistroVacunaComponent,
+    EsquemaDetallesComponent,
     CommonModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule
-  ],
-  providers: []
+  ]
 })
 export class SharedComponentsModule { }

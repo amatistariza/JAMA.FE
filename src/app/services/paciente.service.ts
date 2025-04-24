@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class PacienteService {
-  private apiUrl = `${environment.endpoint}/api/paciente`;
+  private apiUrl = `${environment.endpoint}api/paciente`;
 
   constructor(private http: HttpClient) { }
 
@@ -48,11 +48,11 @@ export class PacienteService {
   }
 
   getPacienteByNumeroIdentificacion(numeroIdentificacion: string): Observable<Paciente> {
-    const url = `${environment.endpoint}api/paciente/BuscarPaciente/${numeroIdentificacion}`;
-    console.log('URL de búsqueda:', url);
+    const url = `${this.apiUrl}/BuscarPaciente/${numeroIdentificacion}`;
+    console.log('URL de búsqueda:', url); // Para depuración
     return this.http.get<Paciente>(url).pipe(
       catchError(error => {
-        console.log('Error response:', error);
+        console.log('Error en búsqueda:', error); // Para depuración
         if (error.status === 404) {
           return throwError(() => new Error('Paciente no encontrado'));
         }

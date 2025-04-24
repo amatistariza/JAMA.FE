@@ -1,27 +1,53 @@
 <app-navbar-enfermera></app-navbar-enfermera>
+
 <div class="body">
-    <div class="main-container">
-      <div class="row">
-        <!-- Columna izquierda -->
-        <div class="column-left">
-          <div class="card small-card">
-            <img src="assets/Logo.png" alt="Vacunacion logo" width="500">
-          </div>
-          
-          <div class="card small-card">
-            <p>No tiene reportes mensuales.</p>
+  <div class="main-container">
+    <div class="row">
+      <div class="column-left">
+        <div class="welcome-message">
+          <p>Bienvenido/a, <strong>{{ user?.nombreUsuario || 'Usuario no encontrado' }}</strong></p>
+          <small>Última conexión: <strong>{{ formattedLastLogin || 'No disponible' }}</strong></small>
+        </div>
+        
+        <!-- Estadísticas de Vacunación -->
+        <div class="card stats-card">
+          <h4><i class="fas fa-syringe"></i> Estado de Vacunación</h4>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <i class="fas fa-vials"></i>
+              <span>Total Dosis Disponibles</span>
+              <h3>{{totalVacunasDisponibles}}</h3>
+            </div>
           </div>
         </div>
-    
-        <!-- Columna derecha -->
-        <div class="column-right">
-          <div class="welcome-message">
-            <p>Bienvenido/a, <strong>{{ user?.nombreUsuario || 'Usuario no encontrado' }}</strong>, su última conexión fue <strong>{{ formattedLastLogin || 'No disponible' }}</strong></p>
+      </div>
+
+      <div class="column-right">
+        <!-- Accesos Rápidos -->
+        <div class="card quick-access-card">
+          <h4><i class="fas fa-bolt"></i> Accesos Rápidos</h4>
+          <div class="quick-access-grid">
+            <button class="quick-access-btn" (click)="navegarA('gestionPaciente')">
+              <i class="fas fa-user-plus"></i>
+              <span>Registrar Paciente</span>
+            </button>
+            <button class="quick-access-btn" (click)="navegarA('registro-vacuna')">
+              <i class="fas fa-notes-medical"></i>
+              <span>Registrar Vacunación</span>
+            </button>
           </div>
-          <div class="card large-card">
-            <p>No tiene alertas reportadas.</p>
+        </div>
+
+        <!-- Sistema Info -->
+        <div class="card system-info-card">
+          <h4><i class="fas fa-info-circle"></i> Información del Sistema</h4>
+          <div class="system-info-content">
+            <p><i class="fas fa-code-branch"></i> Versión: 1.0.0</p>
+            <p><i class="fas fa-calendar-check"></i> Última actualización: 2024-01-25</p>
+            <p><i class="fas fa-shield-alt"></i> Estado: Activo</p>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Suero } from '../models/suero';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InventarioSueroService {
-  private apiUrl = 'https://localhost:44332/api/sueros';
+  private apiUrl = `${environment.endpoint}api/sueros`;
 
   constructor(private http: HttpClient) { }
 

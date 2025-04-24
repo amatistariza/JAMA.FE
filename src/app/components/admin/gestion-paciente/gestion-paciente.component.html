@@ -1,4 +1,11 @@
-<app-navbar-admin></app-navbar-admin>
+<!-- Navbar dinámico según el rol -->
+<ng-container *ngIf="isEnfermera; else adminNav">
+  <app-navbar-enfermera></app-navbar-enfermera>
+</ng-container>
+<ng-template #adminNav>
+  <app-navbar-admin></app-navbar-admin>
+</ng-template>
+
 <div class="container mt-4">
     <div class="card">
       <div class="card-body">
@@ -90,10 +97,10 @@
       <div *ngIf="mostrarFormulario">
         <app-paciente
           [modo]="modoFormulario"
-          [paciente]="pacienteSeleccionada!"
+          [paciente]="pacienteSeleccionada"
           (onGuardar)="guardarPaciente($event)"
-          (onCancelar)="cancelar()"
-        ></app-paciente>
+          (onCancelar)="cancelar()">
+        </app-paciente>
       </div>
     </div>
 </div>

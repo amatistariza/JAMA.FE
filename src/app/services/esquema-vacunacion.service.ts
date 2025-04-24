@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { PacienteService } from './paciente.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,7 @@ import { environment } from '../../environments/environment';
 export class EsquemaVacunacionService {
   private apiUrl = `${environment.endpoint}api/esquemavacunacion`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private pacienteService: PacienteService) { }
 
   crearEsquema(esquemaData: any): Observable<any> {
     const headers = new HttpHeaders()
@@ -44,5 +46,25 @@ export class EsquemaVacunacionService {
 
   getEsquemasByPacienteId(pacienteId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/paciente/${pacienteId}`);
+  }
+
+  getEsquemaById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
+  getEsquemaCompleto(id: number): Observable<any> {
+    return this.getEsquemaById(id).pipe(
+      switchMap(esquema => {
+        return forkJoin({
+          esquemaBase: Promise.resolve(esquema),
+          paciente: this.pacienteService.getPacienteById(esquema.pacienteId)
+        }).pipe(
+          map(({ esquemaBase, paciente }) => ({
+            ...esquemaBase,
+            paciente
+          }))
+        );
+      })
+    );
   }
 }

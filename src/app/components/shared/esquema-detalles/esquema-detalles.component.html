@@ -1,0 +1,74 @@
+<ng-container *ngIf="isEnfermera; else adminNav">
+  <app-navbar-enfermera></app-navbar-enfermera>
+</ng-container>
+<ng-template #adminNav>
+  <app-navbar-admin></app-navbar-admin>
+</ng-template>
+
+<div class="container mt-4 esquema-container">
+  <div class="card">
+    <div class="card-body">
+      <div class="print-header">
+        <img src="assets/Logo.png" alt="Logo" class="logo">
+        <h2 class="text-center mb-4">Esquema de Vacunación</h2>
+      </div>
+
+      <div class="info-section" *ngIf="esquema">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <p class="mb-2"><strong>Fecha:</strong> {{currentDate | date:'dd/MM/yyyy'}}</p>
+            <p class="mb-2"><strong>Tipo de Carnet:</strong> {{esquema.tipoCarnet}}</p>
+            <p class="mb-2"><strong>Responsable:</strong> {{esquema.responsable}}</p>
+          </div>
+          <div class="col-md-6">
+            <p class="mb-2"><strong>Registrado en PAI:</strong> {{esquema.registradoPAI ? 'Sí' : 'No'}}</p>
+            <p class="mb-2" *ngIf="!esquema.registradoPAI"><strong>Motivo no ingreso:</strong> {{esquema.motivoNoIngreso}}</p>
+          </div>
+        </div>
+
+        <div class="paciente-info mb-4">
+          <h4 class="border-bottom pb-2">Información del Paciente</h4>
+          <p class="mb-2"><strong>Nombre:</strong> {{esquema.paciente?.primerNombre}} {{esquema.paciente?.segundoNombre}} {{esquema.paciente?.primerApellido}} {{esquema.paciente?.segundoApellido}}</p>
+          <p class="mb-2"><strong>Identificación:</strong> {{esquema.paciente?.tipoIdentificacion}} {{esquema.paciente?.numeroIdentificacion}}</p>
+        </div>
+
+        <div class="detalles-section">
+          <h4 class="border-bottom pb-2">Detalles de Vacunación</h4>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Vacuna</th>
+                  <th>Dosis</th>
+                  <th>Vía</th>
+                  <th>Sitio</th>
+                  <th>Lote</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let detalle of esquema.detalles">
+                  <td>{{detalle.vacuna?.nombre}}</td>
+                  <td>{{detalle.cantidadUtilizadaVacuna}}</td>
+                  <td>{{detalle.via}}</td>
+                  <td>{{detalle.sitioAplicacion}}</td>
+                  <td>{{detalle.vacuna?.lote}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="observaciones mt-4" *ngIf="esquema.observaciones">
+          <h4 class="border-bottom pb-2">Observaciones</h4>
+          <p>{{esquema.observaciones}}</p>
+        </div>
+
+        <div class="mt-4 no-print text-center">
+          <button class="btn btn-custom" (click)="imprimir()">
+            <i class="fas fa-print"></i> Imprimir
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

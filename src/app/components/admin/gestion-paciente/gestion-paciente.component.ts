@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PacienteService } from '../../../services/paciente.service';
 import { Paciente } from '../../../models/paciente';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gestion-paciente',
@@ -20,7 +21,13 @@ export class GestionPacienteComponent implements OnInit {
 
   filtro: string = '';
 
-  constructor(private pacienteService: PacienteService) {}
+  // Agregar propiedad para determinar el rol
+  isEnfermera: boolean = false;
+
+  constructor(private pacienteService: PacienteService, private router: Router) {
+    this.isEnfermera = this.router.url.includes('/enfermera/');
+    console.log('Is Enfermera:', this.isEnfermera); // Para depuración
+  }
 
   ngOnInit(): void {
     this.loadPacientes();

@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Madre } from '../../../../../../models/madre';
+import { MadreService } from '../../../../../../services/madre.service';
 import { ValidationMessages } from '../../../../../shared/form-validation-messages';
 import Swal from 'sweetalert2';
 
@@ -11,34 +12,23 @@ import Swal from 'sweetalert2';
 })
 export class MadreFormComponent implements OnInit {
   @Input() modo: 'crear' | 'editar' = 'crear';
-  @Input() madre: Madre = {
-    id: 0,
-    tipoIdentificacion: '',
-    numeroIdentificacion: 0,
-    primerNombre: '',
-    segundoNombre: '',
-    primerApellido: '',
-    segundoApellido: '',    
-    correoElectronico: '',
-    indicativoTelefono: 0,
-    telefonoFijo: 0,
-    celular: 0,
-    regimenAfiliacion: '',
-    pertenenciaEtnica: '',
-    desplazado: false
-  };
-  @Output() onGuardar = new EventEmitter<Madre>(); // Evento para guardar
-  @Output() onCancelar = new EventEmitter<void>(); // Evento para cancelar
+  @Input() madre: Madre | null = null;
+  @Output() onGuardar = new EventEmitter<void>();
+  @Output() onCancelar = new EventEmitter<void>();
 
   madreForm: FormGroup;
   formMessage: string = '';
   formStatus: 'success' | 'error' | '' = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private madreService: MadreService) {
     this.initForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.modo === 'editar' && this.madre) {
+      this.madreForm.patchValue(this.madre);
+    }
+  }
 
   private initForm(): void {
     this.madreForm = this.fb.group({
@@ -73,18 +63,24 @@ export class MadreFormComponent implements OnInit {
   }
 
   guardar(): void {
-    Swal.fire({
-      title: this.modo === 'crear' ? '¿Deseas añadir esta madre?' : '¿Deseas guardar los cambios?',
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Sí',
-      cancelButtonText: 'No',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.onGuardar.emit(this.madre);
-        Swal.fire('¡Hecho!', `Madre ${this.modo === 'crear' ? 'añadida' : 'actualizada'} con éxito.`, 'success');
-      }
-    });
+    if (this.madreForm.valid) {
+      const madreData = this.madreForm.value;
+      
+      const request$ = this.modo === 'crear' 
+        ? this.madreService.addMadre(madreData)
+        : this.madreService.editMadre(this.madre!.id, madreData);
+
+      request$.subscribe({
+        next: () => {
+          Swal.fire('Éxito', `Madre ${this.modo === 'crear' ? 'creada' : 'actualizada'} correctamente`, 'success');
+          this.onGuardar.emit();
+        },
+        error: (error) => {
+          console.error('Error:', error);
+          Swal.fire('Error', `Error al ${this.modo === 'crear' ? 'crear' : 'actualizar'} la madre`, 'error');
+        }
+      });
+    }
   }
 
   cancelar(): void {

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { Diluyente } from '../models/diluyente';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InventarioDiluyenteService {
-  private apiUrl = 'https://localhost:44332/api/diluyentes';
+  private apiUrl = `${environment.endpoint}api/diluyentes`;
 
   constructor(private http: HttpClient) { }
 

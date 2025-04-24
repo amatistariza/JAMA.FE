@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { Usuario } from '../../models/usuario';
 import { DatePipe } from '@angular/common'; // Importar DatePipe
+import { Router } from '@angular/router'; // Importar Router
+import { InventarioVacunaService } from '../../services/inventario-vacuna.service';
 
 @Component({
   selector: 'app-admin',
@@ -13,8 +15,14 @@ export class AdminComponent implements OnInit {
   user: Usuario | null = null;
   lastLogin: string | null = null;
   formattedLastLogin: string | null = null;
+  totalVacunas: number = 0;
 
-  constructor(private loginService: LoginService, private datePipe: DatePipe) {}
+  constructor(
+    private loginService: LoginService,
+    private datePipe: DatePipe,
+    private router: Router,
+    private vacunaService: InventarioVacunaService
+  ) {}
 
   ngOnInit(): void {
     // Obtener el usuario desde el token
@@ -35,5 +43,18 @@ export class AdminComponent implements OnInit {
     } else {
       console.error('No se encontró usuario desde el token');
     }
+
+    this.cargarEstadisticas();
   }  
+
+  cargarEstadisticas() {
+    this.vacunaService.getVacunas().subscribe(data => {
+      this.totalVacunas = data.length;
+    });
+  }
+
+  navegarA(ruta: string) {
+    const userId = this.loginService.getUserIdFromToken();
+    this.router.navigate(['/admin', userId, ruta]);
+  }
 }

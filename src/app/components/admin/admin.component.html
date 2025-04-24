@@ -3,24 +3,57 @@
 <div class="body">
   <div class="main-container">
     <div class="row">
-      <!-- Columna izquierda -->
       <div class="column-left">
-        <div class="card small-card">
-          <p>No tiene alertas reportadas.</p>
+        <div class="welcome-message">
+          <p>Bienvenido/a, <strong>{{ user?.nombreUsuario || 'Usuario no encontrado' }}</strong></p>
+          <small>Última conexión: <strong>{{ formattedLastLogin || 'No disponible' }}</strong></small>
         </div>
         
-        <div class="card small-card">
-          <p>No tiene reportes mensuales.</p>
+        <!-- Estadísticas de Sistema -->
+        <div class="card stats-card">
+          <h4><i class="fas fa-chart-simple"></i> Inventario de Vacunas</h4>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <i class="fas fa-syringe"></i>
+              <span>Total Vacunas Registradas</span>
+              <h3>{{totalVacunas || 0}}</h3>
+            </div>
+          </div>
         </div>
       </div>
-  
-      <!-- Columna derecha -->
+
       <div class="column-right">
-        <div class="welcome-message">
-          <p>Bienvenido/a, <strong>{{ user?.nombreUsuario || 'Usuario no encontrado' }}</strong>, su última conexión fue <strong>{{ formattedLastLogin || 'No disponible' }}</strong></p>
+        <!-- Accesos Rápidos -->
+        <div class="card quick-access-card">
+          <h4><i class="fas fa-bolt"></i> Accesos Rápidos</h4>
+          <div class="quick-access-grid">
+            <button class="quick-access-btn" (click)="navegarA('gestionInventarioVacuna')">
+              <i class="fas fa-syringe"></i>
+              <span>Gestionar Vacunas</span>
+            </button>
+            <button class="quick-access-btn" (click)="navegarA('gestionPaciente')">
+              <i class="fas fa-user-plus"></i>
+              <span>Registrar Paciente</span>
+            </button>
+            <button class="quick-access-btn" (click)="navegarA('registro-vacuna')">
+              <i class="fas fa-notes-medical"></i>
+              <span>Registrar Vacunación</span>
+            </button>
+            <button class="quick-access-btn" (click)="navegarA('gestionUsuario')">
+              <i class="fas fa-users-gear"></i>
+              <span>Gestionar Usuarios</span>
+            </button>
+          </div>
         </div>
-        <div class="card large-card">
-          <p>No tiene reportes anuales.</p>
+
+        <!-- Sistema Info -->
+        <div class="card system-info-card">
+          <h4><i class="fas fa-info-circle"></i> Información del Sistema</h4>
+          <div class="system-info-content">
+            <p><i class="fas fa-code-branch"></i> Versión: 1.0.0</p>
+            <p><i class="fas fa-calendar-check"></i> Última actualización: 2024-01-25</p>
+            <p><i class="fas fa-shield-alt"></i> Estado: Activo</p>
+          </div>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ export interface Usuario {
   id: number;
   nombreUsuario: string;
   password: string;
-  rolUser: string; // changed to match backend model property name
+  rolUser: string;
 }
 
 export interface CambiarPasswordDTO {

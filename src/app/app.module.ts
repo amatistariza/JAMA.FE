@@ -19,6 +19,7 @@ import { LoadingService } from './services/loading.service';
 import { CoreModule } from './core/core.module';
 import { EnfermeraModule } from './components/enfermera/enfermera.module';
 import { SharedComponentsModule } from './components/shared/shared-components.module';
+import { LoadingSpinnerComponent } from './components/shared/loading-spinner/loading-spinner.component';
 
 export function tokenGetter(): string | null {
   return localStorage.getItem('token');
@@ -27,28 +28,25 @@ export function tokenGetter(): string | null {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule,
-    FormsModule,
-    ReactiveFormsModule,
+    CoreModule,
+    AdminModule,
+    EnfermeraModule,
+    SharedComponentsModule,
+    AppRoutingModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
         allowedDomains: ["localhost:4200"],
         disallowedRoutes: []
       }
-    }),
-    SharedComponentsModule,
-    CoreModule,
-    AdminModule,
-    GestionPacienteModule,
-    GestionUsuarioModule,
-    GestionInventarioModule,
-    AppRoutingModule
+    })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },

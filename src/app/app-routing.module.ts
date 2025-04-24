@@ -14,6 +14,7 @@ import { NotFoundComponent } from './components/shared/not-found/not-found.compo
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
 import { RegistroVacunaComponent } from './components/shared/registro-vacuna/registro-vacuna.component';
+import { EsquemaDetallesComponent } from './components/shared/esquema-detalles/esquema-detalles.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -32,7 +33,9 @@ const routes: Routes = [
       { path: 'gestionInventarioJeringa', component: GestionInventarioJeringaComponent },
       { path: 'gestionInventarioDiluyente', component: GestionInventarioDiluyenteComponent },
       { path: 'gestionInventarioSuero', component: GestionInventarioSueroComponent },
-      { path: 'registro-vacuna', component: RegistroVacunaComponent }
+      { path: 'gestionPaciente', component: GestionPacienteComponent },
+      { path: 'registro-vacuna', component: RegistroVacunaComponent },
+      { path: 'esquema-detalles/:esquemaId', component: EsquemaDetallesComponent }
     ]
   },
 
@@ -46,7 +49,8 @@ const routes: Routes = [
       { path: 'home', component: EnfermeraComponent },
       { path: 'gestionPaciente', component: GestionPacienteComponent },
       { path: 'registro-vacuna', component: RegistroVacunaComponent },
-      { path: 'alertas', component: AlertaEnfermeraComponent }
+      { path: 'alertas', component: AlertaEnfermeraComponent },
+      { path: 'esquema-detalles/:esquemaId', component: EsquemaDetallesComponent }
     ]
   },
 

@@ -11,6 +11,7 @@ import { Paciente } from '../../../models/paciente';
 import Swal from 'sweetalert2';
 import { ValidationMessages } from '../form-validation-messages';
 import { Vacuna } from '../../../models/vacuna';
+import { PacienteService } from '../../../services/paciente.service';
 
 @Component({
   selector: 'app-registro-vacuna',
@@ -27,6 +28,27 @@ export class RegistroVacunaComponent implements OnInit {
   jeringas: any[] = [];
   diluyentes: any[] = [];
   sueros: any[] = [];
+  searchTerm: string = '';
+  mensajeBusqueda: string = '';
+  mensajeBusquedaClass: string = '';
+  pacienteEncontrado: boolean = false;
+  viasAplicacion: string[] = [
+    'Intramuscular',
+    'Subcutánea',
+    'Intradérmica',
+    'Oral',
+    'Nasal'
+  ];
+  sitiosAplicacion: string[] = [
+    'Brazo Derecho',
+    'Brazo Izquierdo',
+    'Muslo Derecho',
+    'Muslo Izquierdo',
+    'Glúteo Derecho',
+    'Glúteo Izquierdo',
+    'Oral',
+    'Nasal'
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -36,7 +58,8 @@ export class RegistroVacunaComponent implements OnInit {
     private inventarioDiluyenteService: InventarioDiluyenteService,
     private inventarioSueroService: InventarioSueroService,
     private router: Router,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private pacienteService: PacienteService // Agregamos el servicio
   ) {
     this.esquemaForm = this.initForm(); // Inicializar aquí el formulario
     this.isEnfermera = this.router.url.includes('/enfermera/');
@@ -44,7 +67,11 @@ export class RegistroVacunaComponent implements OnInit {
 
   ngOnInit() {
     this.cargarInventarios();
-    //this.loadVacunas();
+    
+    // Suscribirse a cambios en registradoPAI
+    this.esquemaForm.get('registradoPAI')?.valueChanges.subscribe(value => {
+      this.onRegistradoPAIChange();
+    });
   }
 
   cargarInventarios() {
@@ -66,12 +93,25 @@ export class RegistroVacunaComponent implements OnInit {
     return this.fb.group({
       tipoCarnet: ['', Validators.required],
       responsable: ['', Validators.required],
-      registradoPAI: [false],
+      registradoPAI: [false], // Asegurarnos que se inicializa como booleano
       motivoNoIngreso: [''],
       observaciones: [''],
       pacienteId: ['', Validators.required],
       detalles: this.fb.array([this.createDetalleFormGroup()])
     });
+  }
+
+  // Agregar método para manejar cambios en registradoPAI
+  onRegistradoPAIChange(): void {
+    const registradoPAI = this.esquemaForm.get('registradoPAI');
+    const motivoNoIngreso = this.esquemaForm.get('motivoNoIngreso');
+
+    if (registradoPAI?.value) {
+      motivoNoIngreso?.disable();
+      motivoNoIngreso?.setValue('');
+    } else {
+      motivoNoIngreso?.enable();
+    }
   }
 
   createDetalleFormGroup(): FormGroup {
@@ -89,8 +129,8 @@ export class RegistroVacunaComponent implements OnInit {
       jeringa: [null],
       cantidadUtilizadaJeringa: [1, [Validators.required, Validators.min(1)]],
       dosis: ['', [Validators.required]],
-      via: ['', [Validators.required]],
-      sitioAplicacion: ['', [Validators.required]],
+      via: ['Intramuscular', [Validators.required]], // Valor por defecto
+      sitioAplicacion: ['Brazo Derecho', [Validators.required]], // Valor por defecto
       lote: ['']
     });
   }
@@ -126,14 +166,17 @@ export class RegistroVacunaComponent implements OnInit {
         usuarioId: userId,
         estado: 'ACTIVO'
       };
-      
-      console.log('Enviando esquema:', esquemaData);
 
       this.esquemaService.crearEsquema(esquemaData).subscribe({
         next: (response) => {
-          Swal.fire('Éxito', 'Esquema guardado correctamente', 'success');
-          this.esquemaForm.reset();
-          this.pacienteSeleccionado = null;
+          Swal.fire('Éxito', 'Esquema guardado correctamente', 'success')
+          .then(() => {
+            // Extraer el ID del esquema de la respuesta
+            const esquemaId = response;
+            // Redireccionar al detalle del esquema
+            const baseRoute = this.isEnfermera ? 'enfermera' : 'admin';
+            this.router.navigate([`/${baseRoute}/${userId}/esquema-detalles/${esquemaId}`]);
+          });
         },
         error: (error) => {
           console.error('Error al guardar:', error);
@@ -199,7 +242,8 @@ export class RegistroVacunaComponent implements OnInit {
     if (diluyente) {
       const detalleGroup = (this.detalles.at(index) as FormGroup);
       detalleGroup.patchValue({
-        diluyente: diluyente
+        diluyente: diluyente,
+        cantidadUtilizadaDiluyente: 1 // Valor por defecto
       });
     }
   }
@@ -209,8 +253,64 @@ export class RegistroVacunaComponent implements OnInit {
     if (suero) {
       const detalleGroup = (this.detalles.at(index) as FormGroup);
       detalleGroup.patchValue({
-        suero: suero
+        suero: suero,
+        cantidadUtilizadaSuero: 1 // Valor por defecto
       });
+    }
+  }
+
+  buscarPaciente(): void {
+    if (this.searchTerm.length >= 3) {
+      this.mensajeBusqueda = 'Buscando paciente...';
+      this.mensajeBusquedaClass = 'alert alert-info';
+
+      this.pacienteService.getPacienteByNumeroIdentificacion(this.searchTerm)
+        .subscribe({
+          next: (paciente) => {
+            if (paciente) {
+              this.pacienteEncontrado = true;
+              this.mensajeBusqueda = `Paciente encontrado: ${paciente.primerNombre} ${paciente.primerApellido}`;
+              this.mensajeBusquedaClass = 'alert alert-success';
+              this.onPacienteSelected(paciente);
+            }
+          },
+          error: (error) => {
+            this.pacienteEncontrado = false;
+            this.pacienteSeleccionado = null;
+            this.mensajeBusqueda = 'Paciente no encontrado. Haga clic en "Registrar" para crear uno nuevo.';
+            this.mensajeBusquedaClass = 'alert alert-warning';
+            this.esquemaForm.get('pacienteId')?.setValue(null);
+          }
+        });
+    } else if (this.searchTerm.length > 0) {
+      this.pacienteEncontrado = false;
+      this.pacienteSeleccionado = null;
+      this.mensajeBusqueda = 'Digite al menos 3 caracteres...';
+      this.mensajeBusquedaClass = 'alert alert-info';
+    } else {
+      this.limpiarBusqueda();
+    }
+  }
+
+  private limpiarBusqueda(): void {
+    this.mensajeBusqueda = '';
+    this.pacienteEncontrado = false;
+    this.pacienteSeleccionado = null;
+    this.esquemaForm.get('pacienteId')?.setValue(null);
+  }
+
+  irARegistro(): void {
+    const userId = this.loginService.getUserIdFromToken();
+    if (userId) {
+      const baseRoute = this.isEnfermera ? 'enfermera' : 'admin';
+      this.router.navigate([`/${baseRoute}/${userId}/gestionPaciente`]).then(success => {
+        if (!success) {
+          console.error('Error en la navegación');
+          Swal.fire('Error', 'No se pudo navegar al registro de pacientes', 'error');
+        }
+      });
+    } else {
+      Swal.fire('Error', 'No se pudo obtener el ID del usuario', 'error');
     }
   }
 }
