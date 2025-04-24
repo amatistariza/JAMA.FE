@@ -1,0 +1,63 @@
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">{{ modo === 'crear' ? 'Añadir Diluyente' : 'Editar Diluyente' }}</h3>
+    <form [formGroup]="diluyenteForm">
+      <div class="mb-3">
+        <label for="nombre" class="form-label required-field">Nombre de Diluyente</label>
+        <input 
+          id="nombre" 
+          class="form-control" 
+          formControlName="nombre"
+          [ngClass]="{'is-invalid': isFieldInvalid('nombre')}"
+        />
+        <div class="validation-error" *ngIf="isFieldInvalid('nombre')">
+          {{ getErrorMessage('nombre') }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="lote" class="form-label required-field">Lote</label>
+        <input 
+          id="lote" 
+          class="form-control" 
+          formControlName="lote"
+          [ngClass]="{'is-invalid': isFieldInvalid('lote')}"
+        />
+        <div class="validation-error" *ngIf="isFieldInvalid('lote')">
+          {{ getErrorMessage('lote') }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="cantidadDisponible" class="form-label required-field">Cantidad Disponible</label>
+        <input 
+          id="cantidadDisponible" 
+          type="number" 
+          class="form-control" 
+          formControlName="cantidadDisponible"
+          [ngClass]="{'is-invalid': isFieldInvalid('cantidadDisponible')}"
+        />
+        <div class="validation-error" *ngIf="isFieldInvalid('cantidadDisponible')">
+          {{ getErrorMessage('cantidadDisponible') }}
+        </div>
+      </div>
+
+      <div class="buttoms">
+        <button 
+          type="submit" 
+          class="btn btn-custom" 
+          [disabled]="!diluyenteForm.valid"
+          (click)="guardar()">
+          {{ modo === 'crear' ? 'Añadir' : 'Guardar' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+      </div>
+
+      <div class="form-status" 
+           *ngIf="formMessage" 
+           [ngClass]="{'success': formStatus === 'success', 'error': formStatus === 'error'}">
+        {{ formMessage }}
+      </div>
+    </form>
+  </div>
+</div>

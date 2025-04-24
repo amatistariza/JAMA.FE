@@ -1,0 +1,160 @@
+<ng-container *ngIf="isEnfermera; else adminNav">
+  <app-navbar-enfermera></app-navbar-enfermera>
+</ng-container>
+<ng-template #adminNav>
+  <app-navbar-admin></app-navbar-admin>
+</ng-template>
+
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">Registro de Vacunación</h3>
+
+    <form [formGroup]="esquemaForm" (ngSubmit)="guardarEsquema()">
+      <app-buscar-paciente (pacienteSelected)="onPacienteSelected($event)"></app-buscar-paciente>
+      
+      <!-- Resto del formulario solo visible si hay paciente seleccionado -->
+      <div *ngIf="pacienteSeleccionado">
+        <div class="mb-3">
+          <label for="tipoCarnet" class="form-label required-field">Tipo de Carnet</label>
+          <input 
+            id="tipoCarnet" 
+            class="form-control" 
+            formControlName="tipoCarnet" 
+            [ngClass]="{'is-invalid': isFieldInvalid('tipoCarnet')}"
+          />
+          <div class="validation-error" *ngIf="isFieldInvalid('tipoCarnet')">
+            {{ getErrorMessage('tipoCarnet') }}
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="responsable" class="form-label">Responsable*</label>
+          <input id="responsable" class="form-control" formControlName="responsable" required />
+        </div>
+
+        <div class="form-check mb-3">
+          <input id="registradoPAI" type="checkbox" class="form-check-input" formControlName="registradoPAI" />
+          <label for="registradoPAI" class="form-check-label">Registrado en PAI</label>
+        </div>
+
+        <div class="mb-3">
+          <label for="motivoNoIngreso" class="form-label">Motivo de No Ingreso</label>
+          <textarea id="motivoNoIngreso" class="form-control" formControlName="motivoNoIngreso"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label for="observaciones" class="form-label">Observaciones</label>
+          <textarea id="observaciones" class="form-control" formControlName="observaciones"></textarea>
+        </div>
+
+        <div formArrayName="detalles">
+          <div *ngFor="let detalle of detalles.controls; let i=index" [formGroupName]="i">
+            <!-- Selección de Vacuna -->
+            <div class="mb-3">
+              <label [for]="'vacuna'+i" class="form-label">Vacuna*</label>
+              <select [id]="'vacuna'+i" class="form-control" formControlName="vacunaId" (change)="onVacunaSelect($event, i)" required>
+                <option value="">Seleccione una vacuna</option>
+                <option *ngFor="let vacuna of vacunas" [value]="vacuna.id">
+                  {{vacuna.nombre}} - Lote: {{vacuna.lote}} (Disponible: {{vacuna.dosisDisponibles}})
+                </option>
+              </select>
+            </div>
+
+            <!-- Selección de Jeringa -->
+            <div class="mb-3">
+              <label [for]="'jeringa'+i" class="form-label">Jeringa*</label>
+              <select [id]="'jeringa'+i" class="form-control" formControlName="jeringaId" (change)="onJeringaSelect($event, i)" required>
+                <option value="">Seleccione una jeringa</option>
+                <option *ngFor="let jeringa of jeringas" [value]="jeringa.id">
+                  {{jeringa.tipo}} - {{jeringa.calibre}} (Disponible: {{jeringa.cantidad}})
+                </option>
+              </select>
+            </div>
+
+            <!-- Selección de Diluyente -->
+            <div class="mb-3">
+              <label [for]="'diluyente'+i" class="form-label">Diluyente</label>
+              <select [id]="'diluyente'+i" class="form-control" formControlName="diluyenteId" (change)="onDiluyenteSelect($event, i)">
+                <option value="">Seleccione un diluyente</option>
+                <option *ngFor="let diluyente of diluyentes" [value]="diluyente.id">
+                  {{diluyente.nombre}} (Disponible: {{diluyente.cantidad}})
+                </option>
+              </select>
+            </div>
+
+            <!-- Selección de Suero -->
+            <div class="mb-3">
+              <label [for]="'suero'+i" class="form-label">Suero</label>
+              <select [id]="'suero'+i" class="form-control" formControlName="sueroId" (change)="onSueroSelect($event, i)">
+                <option value="">Seleccione un suero</option>
+                <option *ngFor="let suero of sueros" [value]="suero.id">
+                  {{suero.nombre}} (Disponible: {{suero.cantidad}})
+                </option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label [for]="'cantidadVacuna'+i" class="form-label">Cantidad de Dosis*</label>
+              <input 
+                [id]="'cantidadVacuna'+i" 
+                type="number" 
+                class="form-control" 
+                formControlName="cantidadUtilizadaVacuna"
+                min="1"
+              />
+            </div>
+            <div class="mb-3">
+              <label [for]="'dosis'+i" class="form-label">Número de dosis*</label>
+              <select [id]="'dosis'+i" class="form-control" formControlName="dosis" required>
+                <option value="">Seleccione la dosis</option>
+                <option value="1">Primera dosis</option>
+                <option value="2">Segunda dosis</option>
+                <option value="3">Tercera dosis</option>
+                <option value="4">Cuarta dosis</option>
+                <option value="5">Quinta dosis</option>
+                <option value="R">Refuerzo</option>
+              </select>
+              <div *ngIf="detalle.get('dosis')?.errors?.['required'] && detalle.get('dosis')?.touched" 
+                   class="text-danger">
+                La dosis es requerida
+              </div>
+            </div>
+            <div class="mb-3">
+              <label [for]="'via'+i">Vía de administración*</label>
+              <select [id]="'via'+i" class="form-control" formControlName="via" required>
+                <option value="">Seleccione...</option>
+                <option value="INTRAMUSCULAR">Intramuscular</option>
+                <option value="SUBCUTANEA">Subcutánea</option>
+                <option value="INTRADERMICA">Intradérmica</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label [for]="'sitio'+i">Sitio de aplicación*</label>
+              <select [id]="'sitio'+i" class="form-control" formControlName="sitioAplicacion" required>
+                <option value="">Seleccione...</option>
+                <option value="DELTOIDES">Deltoides</option>
+                <option value="VASTOLATERAL">Vasto lateral</option>
+                <option value="GLUTEO">Glúteo</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label [for]="'lote'+i">Lote*</label>
+              <input [id]="'lote'+i" type="text" class="form-control" formControlName="lote" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-3">
+          <button type="submit" class="btn btn-primary" [disabled]="!pacienteSeleccionado">
+            Guardar Registro
+          </button>
+        </div>
+
+        <!-- Mostrar errores de validación -->
+        <div *ngIf="esquemaForm.touched && !esquemaForm.valid" class="alert alert-danger mt-3">
+          Por favor complete todos los campos requeridos.
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

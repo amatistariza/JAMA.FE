@@ -1,0 +1,33 @@
+.badge {
+  font-size: 0.9em;
+  padding: 0.5em 0.7em;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.btn-custom {
+  background-color: #52c234;
+  border-color: #52c234;
+  color: white;
+}
+
+.btn-custom:hover {
+  background-color: #45a827;
+  border-color: #45a827;
+}
+
+.form-select {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .table-responsive {
+    font-size: 0.9em;
+  }
+  
+  .badge {
+    font-size: 0.8em;
+  }
+}

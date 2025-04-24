@@ -1,0 +1,24 @@
+   .btn-custom {
+      background-color: #52c234;
+      border-color: #52c234;
+      color: white;
+    }
+    
+    .btn-custom:hover {
+      background-color: #45a827;
+      border-color: #45a827;
+    }
+  
+    .add-button {
+      float: inline-end;
+      background-color: #52c234;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .add-button:hover {
+      background-color: #45a827;
+    }

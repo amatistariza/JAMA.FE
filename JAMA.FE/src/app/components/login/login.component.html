@@ -1,0 +1,69 @@
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+            
+            <div><img src="assets/Logo.png" alt="Vacunacion logo" width="150"></div>
+            <h3 class="mb-5">Inicio de Sesión</h3>
+
+            <!-- Muestra error global -->
+            <div *ngIf="errorMessage" class="alert alert-danger">
+              {{ errorMessage }}
+            </div>
+
+            <!-- Formulario Reactivo -->
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="form-outline mb-4">
+                <input 
+                  type="text" 
+                  class="form-control form-control-lg" 
+                  placeholder="Nombre de Usuario"
+                  formControlName="username"
+                />
+                <small *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="text-danger">
+                  Este campo es obligatorio
+                </small>
+              </div>
+              
+              <div class="form-outline mb-4">
+                <input 
+                  type="password" 
+                  class="form-control form-control-lg" 
+                  placeholder="Contraseña"
+                  formControlName="password"
+                />
+                <small *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+                  Este campo es obligatorio
+                </small>
+              </div>
+              
+              <div class="form-outline mb-4">
+                <select 
+                  class="form-control form-control-lg" 
+                  formControlName="rolUser"
+                >
+                  <option value="" disabled>Selecciona tu Rol</option>
+                  <option value="ADMINISTRADOR">Administrador</option>
+                  <option value="ENFERMERA">Enfermera</option>
+                </select>
+                <small *ngIf="loginForm.get('rolUser')?.invalid && loginForm.get('rolUser')?.touched" class="text-danger">
+                  Selecciona un rol
+                </small>
+              </div>
+
+              <button 
+                class="btn btn-lg px-5 btn-custom" 
+                type="submit" 
+                [disabled]="loginForm.invalid">
+                Inicia Sesión
+              </button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
