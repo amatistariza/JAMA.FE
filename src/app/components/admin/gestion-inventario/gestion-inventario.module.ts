@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AdminModule } from '../admin.module';
 import { GestionInventarioComponent } from './gestion-inventario.component';
 import { GestionInventarioSueroComponent } from '../gestion-inventario-suero/gestion-inventario-suero.component';
@@ -14,6 +16,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     GestionInventarioDiluyenteComponent
   ],
   imports: [
+    CommonModule,
+    ReactiveFormsModule,
     AdminModule,
     NgxPaginationModule
   ]

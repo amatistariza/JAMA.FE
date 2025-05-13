@@ -3,6 +3,7 @@ import { Usuario } from '../../../../models/usuario';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationMessages } from '../../../shared/form-validation-messages';
+import { GestionUsuarioService } from '../../../../services/gestion-usuario.service';
 
 @Component({
   selector: 'app-usuario-form',
@@ -10,26 +11,39 @@ import { ValidationMessages } from '../../../shared/form-validation-messages';
   styleUrl: './usuario-form.component.css'
 })
 export class UsuarioFormComponent implements OnInit {
-  @Input() modo: 'crear' | 'editar' = 'crear'; // Modo del formulario
-  @Output() onGuardar = new EventEmitter<Usuario>(); // Evento para guardar
-  @Output() onCancelar = new EventEmitter<void>(); // Evento para cancelar
+  @Input() modo: 'crear' | 'editar' = 'crear';
+  @Input() usuario: Usuario = this.inicializarUsuario();
+  @Output() onGuardar = new EventEmitter<Usuario>();
+  @Output() onCancelar = new EventEmitter<void>();
 
   usuarioForm: FormGroup;
   formMessage: string = '';
   formStatus: 'success' | 'error' | '' = '';
 
-  constructor(private fb: FormBuilder) {
+
+  constructor(private fb: FormBuilder, private usuarioService: GestionUsuarioService) {
+    this.usuarioForm = this.fb.group({
+      id: [0],
+      nombreUsuario: ['', [Validators.required, Validators.minLength(4)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      rolUser: ['', Validators.required],
+    });
+  }
+
+  ngOnInit(): void {
     this.initForm();
   }
 
-  ngOnInit(): void {}
-
   private initForm(): void {
     this.usuarioForm = this.fb.group({
+      id:[0],
       nombreUsuario: ['', [Validators.required, Validators.minLength(4)]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      rolUser: ['', [Validators.required]]
+      password: ['', this.modo === 'crear' ? [Validators.required, Validators.minLength(6)] : []],
+      rolUser: ['', Validators.required],
     });
+    if (this.usuario) {
+      this.usuarioForm.patchValue(this.usuario);
+    }
   }
 
   isFieldInvalid(fieldName: string): boolean {
@@ -47,21 +61,56 @@ export class UsuarioFormComponent implements OnInit {
   }
 
   guardar(): void {
+    if (this.usuarioForm.invalid &&  this.modo === 'crear') {
+      Swal.fire({
+        title: 'Hay campos sin llenar',
+        icon: 'warning',
+        confirmButtonText: 'Volver a intentar',
+      })
+    } else {
+      Swal.fire({
+        title: this.modo === 'crear' ? '¿Deseas añadir este usuario?' : '¿Deseas guardar los cambios?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí',
+        cancelButtonText: 'No',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.onGuardar.emit(this.usuarioForm.value);
+          Swal.fire('¡Hecho!', `Usuario ${this.modo === 'crear' ? 'añadido' : 'actualizado'} con éxito.`, 'success');
+        }
+      });
+    }
+
+  }
+
+  cancelar(): void {
     Swal.fire({
-      title: this.modo === 'crear' ? '¿Deseas añadir este usuario?' : '¿Deseas guardar los cambios?',
+      title: '¿Deseas salir este usuario?',
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Sí',
       cancelButtonText: 'No',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.onGuardar.emit(this.usuarioForm.value);
-        Swal.fire('¡Hecho!', `Usuario ${this.modo === 'crear' ? 'añadido' : 'actualizado'} con éxito.`, 'success');
+        this.onCancelar.emit();
       }
     });
   }
 
-  cancelar(): void {
-    this.onCancelar.emit();
+  inicializarUsuario(): Usuario {
+    return {
+      id: 0,
+      nombreUsuario: '',
+      password: '',
+      rolUser: ''
+    };
   }
+
+  passwordVisible: boolean = false;
+
+  togglePasswordVisibility(): void {
+    this.passwordVisible = !this.passwordVisible;
+  }
+
 }

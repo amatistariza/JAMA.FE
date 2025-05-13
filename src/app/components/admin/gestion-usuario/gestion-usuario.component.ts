@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GestionUsuarioService } from '../../../services/gestion-usuario.service';
 import { Usuario } from '../../../models/usuario';
 import Swal from 'sweetalert2';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-gestion-usuario',
@@ -11,14 +12,15 @@ import Swal from 'sweetalert2';
 export class GestionUsuarioComponent implements OnInit {
   usuarios: Usuario[] = [];
   usuariosPaginados: Usuario[] = [];
+  usuarioSeleccionado: Usuario | null = null;
   filtro: string = '';
   itemsPorPagina: number = 5;
   paginaActual: number = 1;
-  usuarioSeleccionada: Usuario | null = null;
   modoFormulario: 'crear' | 'editar' = 'crear';
   mostrarFormulario: boolean = false; // Booleano directo
 
-  constructor(private usuarioService: GestionUsuarioService) {}
+  constructor(private usuarioService: GestionUsuarioService) {
+  }
 
   ngOnInit(): void {
     this.loadUsuarios();
@@ -46,20 +48,24 @@ export class GestionUsuarioComponent implements OnInit {
     );
   }
 
+  
   addItem(): void {
     this.modoFormulario = 'crear';
-    this.usuarioSeleccionada = {
+    this.usuarioSeleccionado = this.inicializarUsuario(); // Inicializa el formulario
+    this.mostrarFormulario = true;
+  }
+  inicializarUsuario(): Usuario {
+    return {
       id: 0,
       nombreUsuario: '',
-      rolUser: null,
       password: '',
+      rolUser: ''
     };
-    this.mostrarFormulario = true;
   }
 
   editItem(usuario: Usuario): void {
     this.modoFormulario = 'editar';
-    this.usuarioSeleccionada = { ...usuario };
+    this.usuarioSeleccionado = { ...usuario };
     this.mostrarFormulario = true;
   }
 
@@ -67,10 +73,35 @@ export class GestionUsuarioComponent implements OnInit {
     if (this.modoFormulario === 'crear') {
       this.usuarioService.addUsuario(usuario).subscribe(() => this.loadUsuarios());
     } else {
-      this.usuarioService.editUsuario(usuario.id, usuario).subscribe(() => this.loadUsuarios());
+      this.usuarioService.editUsuario(usuario.id, usuario.nombreUsuario,usuario.password).subscribe(() => this.loadUsuarios());
     }
     this.mostrarFormulario = false;
   }
+
+    eliminarUsuario(id: number): void {
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Esta acción no se puede deshacer.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.usuarioService.deleteUsuario(id).subscribe(
+            () => {
+              this.loadUsuarios();
+              Swal.fire('Eliminado', 'El paciente ha sido eliminado con éxito.', 'success');
+            },
+            (error) => {
+              console.error('Error al eliminar el paciente:', error);
+              Swal.fire('Error', 'No se pudo eliminar el paciente', 'error');
+            }
+          );
+        }
+      });
+    }
+  
 
   cancelar(): void {
     this.mostrarFormulario = false;

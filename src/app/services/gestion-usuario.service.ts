@@ -28,7 +28,12 @@ export class GestionUsuarioService {
     return this.http.post<Usuario>(`${this.myAppUrl}${this.myApiUrl}`, usuario);
   }
 
-  editUsuario(id: number, usuario: Usuario): Observable<Usuario> {
-    return this.http.put<Usuario>(`${this.myAppUrl}${this.myApiUrl}/${id}`, usuario);
+  editUsuario(id: number, nombreUsuario: string, password: string): Observable<Usuario> {
+    return this.http.put<Usuario>(`${this.myAppUrl}${this.myApiUrl}/${id}`, { nombreUsuario,  password});
   }
+
+  deleteUsuario(id: number): Observable<Usuario> {
+    return this.http.delete<Usuario>(`${this.myAppUrl}${this.myApiUrl}/${id}`);
+  }
+
 }

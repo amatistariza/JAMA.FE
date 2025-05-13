@@ -67,3 +67,13 @@
       font-size: 0.9rem;
   }
 }
+
+.input-group .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.note {
+  font-style: italic; /* Hace el texto en itálica */
+  opacity: 0.7;       /* Aplica un nivel de transparencia */
+}

@@ -9,14 +9,9 @@
         <button class="add-button mb-4" (click)="addItem()">
           <i class="fa-solid fa-plus"></i> Añadir
         </button>
-        <input
-          type="text"
-          class="form-control mb-3"
-          placeholder="Buscar por nombre de usuario..."
-          [(ngModel)]="filtro"
-          (ngModelChange)="filtrarUsuarios()"
-        />
-        
+        <input type="text" class="form-control mb-3" placeholder="Buscar por nombre de usuario..." [(ngModel)]="filtro"
+          (ngModelChange)="filtrarUsuarios()" />
+
         <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
           <table class="table table-striped">
             <thead>
@@ -29,52 +24,41 @@
             </thead>
             <tbody>
               <tr
-                *ngFor="let usuario of usuariosPaginados | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaActual }"
-              >
+                *ngFor="let usuario of usuariosPaginados | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaActual }">
                 <td>{{ usuario.id }}</td>
                 <td>{{ usuario.nombreUsuario }}</td>
                 <td>{{ usuario.rolUser }}</td>
                 <td style="text-align: center;">
-                  <button
-                    class="btn btn-custom btn-sm"
-                    style="margin-right: 5px;"
-                    (click)="editItem(usuario)"
-                  >
+                  <button class="btn btn-custom btn-sm" style="margin-right: 5px;" (click)="editItem(usuario)">
                     <i class="fa-solid fa-pen-to-square"></i> Editar
+                  </button>
+                  <button class="btn btn-custom btn-sm" (click)="eliminarUsuario(usuario.id)">
+                    <i class="fa-solid fa-trash"></i> Eliminar
                   </button>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        
+
         <!-- Paginación -->
         <div class="pagination-container" style="text-align: center;">
-          <button
-            class="btn btn-custom"
-            [disabled]="paginaActual === 1"
-            (click)="cambiarPagina(paginaActual - 1)"
-          >
+          <button class="btn btn-custom" [disabled]="paginaActual === 1" (click)="cambiarPagina(paginaActual - 1)">
             Atrás
           </button>
           <span class="mx-2">Página {{ paginaActual }}</span>
-          <button
-            class="btn btn-custom"
-            [disabled]="paginaActual * itemsPorPagina >= usuariosPaginados.length"
-            (click)="cambiarPagina(paginaActual + 1)"
-          >
+          <button class="btn btn-custom" [disabled]="paginaActual * itemsPorPagina >= usuariosPaginados.length"
+            (click)="cambiarPagina(paginaActual + 1)">
+
             Siguiente
           </button>
         </div>
       </div>
 
+      <!-- Formulario para agregar o editar usuario -->
       <div *ngIf="mostrarFormulario">
-        <app-usuario-form
-          [modo]="modoFormulario"
-          [usuario]="usuarioSeleccionada!"
-          (onGuardar)="guardarUsuario($event)"
-          (onCancelar)="cancelar()"
-        ></app-usuario-form>
+        <app-usuario-form [modo]="modoFormulario" [usuario]="usuarioSeleccionado" (onGuardar)="guardarUsuario($event)"
+          (onCancelar)="cancelar()"></app-usuario-form>
       </div>
     </div>
   </div>

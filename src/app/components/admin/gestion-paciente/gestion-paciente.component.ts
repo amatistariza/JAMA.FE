@@ -26,7 +26,6 @@ export class GestionPacienteComponent implements OnInit {
 
   constructor(private pacienteService: PacienteService, private router: Router) {
     this.isEnfermera = this.router.url.includes('/enfermera/');
-    console.log('Is Enfermera:', this.isEnfermera); // Para depuración
   }
 
   ngOnInit(): void {

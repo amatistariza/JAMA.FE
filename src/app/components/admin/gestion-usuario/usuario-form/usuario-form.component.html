@@ -2,64 +2,55 @@
   <div class="card-body">
     <h3 class="card-title">{{ modo === 'crear' ? 'Añadir Usuario' : 'Editar Usuario' }}</h3>
     <form [formGroup]="usuarioForm">
+
       <div class="mb-3">
         <label for="nombreUsuario" class="form-label required-field">Nombre de Usuario</label>
-        <input 
-          id="nombreUsuario" 
-          class="form-control" 
-          formControlName="nombreUsuario"
-          [ngClass]="{'is-invalid': isFieldInvalid('nombreUsuario')}"
-        />
+        <input id="nombreUsuario" class="form-control" formControlName="nombreUsuario"
+          [ngClass]="{'is-invalid': isFieldInvalid('nombreUsuario')}" />
         <div class="validation-error" *ngIf="isFieldInvalid('nombreUsuario')">
           {{ getErrorMessage('nombreUsuario') }}
         </div>
       </div>
-      <div class="form-outline mb-3">
-        <label for="rolUser" class="form-label">Rol de Usuario</label>
-        <select 
-          id="rolUser" 
-          class="form-control form-control-lg" 
-          formControlName="rolUser" 
-          [ngClass]="{'is-invalid': isFieldInvalid('rolUser')}"
-        >
-          <option value="" disabled>Selecciona tu Rol</option>
-          <option value="ADMINISTRADOR">Administrador</option>
-          <option value="ENFERMERA">Enfermera</option>
+
+      <div *ngIf="modo === 'crear'" class="mb-3">
+        <label for="rolUser" class="form-label">Rol</label>
+        <select id="rolUser" class="form-control form-control-lg" formControlName="rolUser"
+          [disabled]="modo === 'editar'" required>
+          <option value="" disabled>Seleccione el Rol del Usuario</option>
+          <option *ngIf="modo === 'crear'" value="ENFERMERA">ENFERMERA</option>
         </select>
+      </div>
+
+      <div *ngIf="modo !== 'crear'" class="mb-3">
+        <label for="rolUser" class="form-label required-field">Rol del Usuario</label>
+        <input id="rolUser" class="form-control" formControlName="rolUser" [readonly]="true"
+          [ngClass]="{'is-invalid': isFieldInvalid('rolUser')}" />
         <div class="validation-error" *ngIf="isFieldInvalid('rolUser')">
           {{ getErrorMessage('rolUser') }}
         </div>
-      </div>      
-      <div class="mb-3">
+      </div>
+
+
+      <div class="mb-3 position-relative">
         <label for="password" class="form-label">Contraseña</label>
-        <input 
-          id="password" 
-          class="form-control" 
-          formControlName="password" 
-          type="password" 
-          [ngClass]="{'is-invalid': isFieldInvalid('password')}"
-        />
+        <input id="password" class="form-control pe-5" formControlName="password"
+          [type]="passwordVisible ? 'text' : 'password'" [ngClass]="{'is-invalid': isFieldInvalid('password')}" />
+        <i class="fa" [ngClass]="passwordVisible ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePasswordVisibility()"
+          style="position: absolute; top: 50%; right: 15px; transform: translateY(50%); cursor: pointer; color: #6c757d;"></i>
         <div class="validation-error" *ngIf="isFieldInvalid('password')">
           {{ getErrorMessage('password') }}
         </div>
       </div>
-      <div class="buttoms">
-        <button 
-          type="submit" 
-          class="btn btn-custom" 
-          [disabled]="!usuarioForm.valid"
-          (click)="guardar()">
+
+      <label for="password" class="form-label note">Dejar la contraseña en blanco si no es necesario</label>
+
+      <div class="text-center mt-4">
+        <button type="button" class="btn btn-custom" style="margin-right: 5px;" (click)="guardar()">
           {{ modo === 'crear' ? 'Añadir' : 'Guardar' }}
         </button>
-        <button type="button" class="btn btn-secondary" (click)="cancelar()">
-          Cancelar
-        </button>
+        <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
       </div>
-      <div class="form-status" 
-           *ngIf="formMessage" 
-           [ngClass]="{'success': formStatus === 'success', 'error': formStatus === 'error'}">
-        {{ formMessage }}
-      </div>
+
     </form>
   </div>
 </div>

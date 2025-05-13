@@ -16,7 +16,6 @@ import { CuidadorService } from '../../../../services/cuidador.service';
 export class PacienteComponent implements OnInit {
   @Input() modo: 'crear' | 'editar' = 'crear';
   @Input() paciente: Paciente = this.inicializarPaciente();
-  
   @Output() onGuardar = new EventEmitter<Paciente>();
   @Output() onCancelar = new EventEmitter<void>();
 
@@ -31,9 +30,9 @@ export class PacienteComponent implements OnInit {
   cuidadorSeleccionadoNombre: string = '';
 
   constructor(private fb: FormBuilder,
-              private pacienteService: PacienteService,
-              private madreService: MadreService,
-              private cuidadorService: CuidadorService) {}
+    private pacienteService: PacienteService,
+    private madreService: MadreService,
+    private cuidadorService: CuidadorService) { }
 
   ngOnInit(): void {
     this.pacienteForm = this.fb.group({
@@ -97,7 +96,7 @@ export class PacienteComponent implements OnInit {
       descripcion: [''],
       observacionesEspeciales: ['']
     }));
-  
+
     if (this.modo === 'editar') {
       this.cargarDatos();
     }
@@ -180,29 +179,29 @@ export class PacienteComponent implements OnInit {
       fechaNacimiento: this.paciente.fechaNacimiento ? this.formatFecha(new Date(this.paciente.fechaNacimiento)) : ''
     });
     this.cargarAntecedentes(this.paciente.antecedentes || []);
-    
+
     if (this.paciente.madreId) {
       this.cargarMadre(this.paciente.madreId);  // Se mantiene sin cambios
     }
-  
+
     if (this.paciente.cuidadorId) {
       this.cargarCuidador(this.paciente.cuidadorId);
     }
   }
-  
+
   // Método para cargar la madre con los datos completos
   cargarMadre(madreId: number): void {
     this.madreService.getMadreById(madreId).subscribe(
       (madre) => {
         this.madreSeleccionada = madre;
         this.pacienteForm.patchValue({ madreId: madre.id });
-        
+
         // Nueva variable para manejar el nombre completo de la madre
         this.madreSeleccionadaNombre = `${madre.primerNombre} ${madre.segundoNombre || ''} ${madre.primerApellido} ${madre.segundoApellido || ''}`;
       },
       (error) => console.error('Error al cargar la madre:', error)
     );
-  }  
+  }
 
   // Carga la información del cuidador usando el servicio
   cargarCuidador(cuidadorId: number): void {
@@ -295,33 +294,33 @@ export class PacienteComponent implements OnInit {
       this.step++;
     }
   }
-  
+
   previousStep() {
     if (this.step > 1) {
       this.step--;
     }
-  }  
+  }
 
   formatFecha(date: Date): string {
     const yyyy = date.getFullYear();
     const mm = String(date.getMonth() + 1).padStart(2, '0');
     const dd = String(date.getDate()).padStart(2, '0');
     return `${yyyy}-${mm}-${dd}`; // Formato: YYYY-MM-DD
-  }  
+  }
 
   guardar(): void {
     // Asignar los IDs de madre y cuidador si están seleccionados
     if (this.madreSeleccionada) {
       this.paciente.madreId = this.madreSeleccionada.id;
     }
-  
+
     if (this.cuidadorSeleccionado) {
       this.paciente.cuidadorId = this.cuidadorSeleccionado.id;
     }
-  
+
     // Validar antecedentes y asignar valores predeterminados si no hay datos
     let antecedentes = this.pacienteForm.get('antecedentes')?.value;
-    
+
     // Si no hay antecedentes, asignamos un objeto vacío con valores predeterminados
     if (!antecedentes || antecedentes.length === 0) {
       antecedentes = [{
@@ -341,7 +340,7 @@ export class PacienteComponent implements OnInit {
           : new Date().toISOString()
       }));
     }
-  
+
     // Construir el objeto JSON para enviar
     const pacienteJson: Paciente = {
       id: this.paciente.id,
@@ -355,14 +354,14 @@ export class PacienteComponent implements OnInit {
         : null,  // Enviar null si no hay antecedentesMedicos
       fechaAtencion: new Date().toISOString(),
     };
-  
+
     console.log('JSON a enviar:', pacienteJson);
-  
+
     // Solicitud al backend
     const request$ = this.modo === 'crear'
       ? this.pacienteService.addPaciente(pacienteJson)
       : this.pacienteService.editPaciente(this.paciente.id, pacienteJson);
-  
+
     request$.subscribe(
       response => {
         Swal.fire('Éxito', this.modo === 'crear' ? 'Paciente guardado correctamente' : 'Paciente actualizado correctamente', 'success');
@@ -373,9 +372,19 @@ export class PacienteComponent implements OnInit {
         console.error('Error:', error);
       }
     );
-  }  
+  }
 
   cancelar(): void {
-    this.onCancelar.emit();
+    Swal.fire({
+      title: '¿Deseas salir este usuario?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.onCancelar.emit();
+      }
+    });
   }
 }
