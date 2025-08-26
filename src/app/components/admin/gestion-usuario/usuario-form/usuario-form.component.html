@@ -41,9 +41,9 @@
           {{ getErrorMessage('password') }}
         </div>
       </div>
-
-      <label for="password" class="form-label note">Dejar la contraseña en blanco si no es necesario</label>
-
+      <label for="password" class="form-label note" *ngIf="modo !== 'crear'">
+        Dejar la contraseña en blanco si no es necesario
+      </label>
       <div class="text-center mt-4">
         <button type="button" class="btn btn-custom" style="margin-right: 5px;" (click)="guardar()">
           {{ modo === 'crear' ? 'Añadir' : 'Guardar' }}

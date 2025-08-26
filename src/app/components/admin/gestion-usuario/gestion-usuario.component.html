@@ -32,7 +32,8 @@
                   <button class="btn btn-custom btn-sm" style="margin-right: 5px;" (click)="editItem(usuario)">
                     <i class="fa-solid fa-pen-to-square"></i> Editar
                   </button>
-                  <button class="btn btn-custom btn-sm" (click)="eliminarUsuario(usuario.id)">
+                  <button class="btn btn-custom btn-sm" *ngIf="usuario.rolUser !== 'ADMINISTRADOR'"
+                    (click)="eliminarUsuario(usuario.id)">
                     <i class="fa-solid fa-trash"></i> Eliminar
                   </button>
                 </td>
