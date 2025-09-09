@@ -2,7 +2,8 @@
 
 :host {
   display: block;
-  min-height: 100vh; /* Asegura que cubra toda la altura de la ventana */
+  min-height: 100vh;
+  /* Asegura que cubra toda la altura de la ventana */
   background: rgba(82, 194, 52, 0.9);
   background: -webkit-linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
   background: linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
@@ -20,7 +21,8 @@
   margin-bottom: 20px;
 }
 
-.table th, .table td {
+.table th,
+.table td {
   border: 1px solid #bdbdbd;
   padding: 10px;
   text-align: center;
@@ -44,7 +46,8 @@
 .table-responsive {
   max-height: 400px;
   overflow-y: auto;
-  overflow-x: hidden; /* Opcional, para ocultar el desplazamiento horizontal */
+  overflow-x: hidden;
+  /* Opcional, para ocultar el desplazamiento horizontal */
 }
 
 /* Estilos para los botones de paginación */
@@ -54,4 +57,18 @@
 
 .pagination-container button {
   margin: 0 10px;
+}
+
+.add-button {
+  float: inline-end;
+  background-color: #52c234;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  background-color: #45a827;
 }

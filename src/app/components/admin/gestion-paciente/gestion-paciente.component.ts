@@ -66,24 +66,10 @@ export class GestionPacienteComponent implements OnInit {
     this.modoFormulario = 'editar';
     this.pacienteSeleccionada = { ...paciente };
     this.mostrarFormulario = true;
-  }  
+  }
 
-  guardarPaciente(paciente: Paciente): void {
-    const request = this.modoFormulario === 'crear' 
-      ? this.pacienteService.addPaciente(paciente) 
-      : this.pacienteService.editPaciente(paciente.id, paciente);
-
-    request.subscribe(
-      () => {
-        this.loadPacientes();
-        this.mostrarFormulario = false;
-        Swal.fire('Éxito', 'Paciente guardado correctamente', 'success');
-      },
-      (error) => {
-        console.error('Error al guardar el paciente:', error);
-        Swal.fire('Error', 'No se pudo guardar el paciente', 'error');
-      }
-    );
+  guardarPaciente(): void {
+    this.loadPacientes();
   }
 
   eliminarPaciente(id: number): void {

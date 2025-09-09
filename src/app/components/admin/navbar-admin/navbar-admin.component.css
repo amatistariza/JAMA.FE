@@ -7,7 +7,8 @@
 /* Logo */
 .navbar-brand img {
   max-height: 70px;
-  width: auto; /* Ajusta el ancho automáticamente para mantener la proporción */
+  width: auto;
+  /* Ajusta el ancho automáticamente para mantener la proporción */
 }
 
 /* Toggler de la barra de navegación en pantallas pequeñas */
@@ -21,7 +22,7 @@
 
 /* Estilo de los enlaces de navegación */
 .navbar-nav .nav-link {
-  position: relative;
+  position: left;
   color: #333;
   font-weight: 500;
   transition: color 0.3s ease, transform 0.3s ease;
@@ -29,7 +30,8 @@
 
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
-  color: #52c234; /* Cambio de color al pasar el mouse */
+  color: #52c234;
+  /* Cambio de color al pasar el mouse */
 }
 
 .navbar-nav .nav-link::after {
@@ -56,30 +58,31 @@
 }
 
 .nav-item .dropdown-menu {
-  display: none;  /* Inicialmente oculto */
+  display: none;
+  /* Inicialmente oculto */
   background-color: #f8f9fa;
   padding: 10px;
 }
 
 .nav-item .dropdown-menu.show {
-  display: block;  /* Mostrar cuando 'show' esté activo */
+  display: block;
+  /* Mostrar cuando 'show' esté activo */
 }
 
 /* Estilos generales para el menú de navegación */
 .navbar-nav {
   display: flex;
-  flex-direction: row; /* Los elementos están alineados en fila en pantallas grandes */
-  gap: 20px; /* Espacio entre los elementos */
-  justify-content: center; /* Centra los elementos en la barra */
-  width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+  flex-direction: row;
+  /* Los elementos están alineados en fila en pantallas grandes */
+  gap: 20px;
+  /* Espacio entre los elementos */
+  justify-content: left;
+  /* Centra los elementos en la barra */
+  width: 100%;
+  /* Asegura que el contenedor ocupe todo el ancho disponible */
+  padding-right: 30px;
 }
 
-.navbar-nav .nav-item {
-  margin-left: 0; /* Eliminar margen adicional que da problemas en móviles */
-  margin-right: 0; /* Eliminar margen derecho */
-}
-
-/* --- Responsive Design --- */
 
 /* Para pantallas pequeñas (hasta 992px) */
 @media (max-width: 992px) {
@@ -101,23 +104,33 @@
     border: none;
     box-shadow: none;
     padding: 0;
-    width: 100%; /* Hace que el dropdown ocupe todo el ancho */
+    width: 100%;
+    /* Hace que el dropdown ocupe todo el ancho */
   }
 
   /* Asegura que los enlaces se centren y se apilen en dispositivos pequeños */
   .navbar-nav {
-    flex-direction: column; /* Los elementos se apilan en vertical */
-    gap: 10px; /* Espacio entre los enlaces en modo columna */
-    align-items: center; /* Centra los elementos de la lista */
-    padding: 10px 0; /* Un pequeño espacio adicional en el contenedor */
-    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    flex-direction: column;
+    /* Los elementos se apilan en vertical */
+    gap: 10px;
+    /* Espacio entre los enlaces en modo columna */
+    align-items: center;
+    /* Centra los elementos de la lista */
+    padding: 10px 0;
+    /* Un pequeño espacio adicional en el contenedor */
+    width: 100%;
+    /* Asegura que ocupe todo el ancho disponible */
   }
 
   .navbar-nav .nav-link {
-    font-size: 16px; /* Tamaño de fuente ajustado para móviles */
-    text-align: center; /* Asegura que los textos de los enlaces se centren */
-    width: 100%; /* Hace que los enlaces ocupen todo el ancho disponible */
-    padding: 10px 0; /* Asegura que haya espacio suficiente para hacer clic */
+    font-size: 16px;
+    /* Tamaño de fuente ajustado para móviles */
+    text-align: center;
+    /* Asegura que los textos de los enlaces se centren */
+    width: 100%;
+    /* Hace que los enlaces ocupen todo el ancho disponible */
+    padding: 10px 0;
+    /* Asegura que haya espacio suficiente para hacer clic */
   }
 
   .navbar-toggler {
@@ -129,7 +142,7 @@
   }
 
   /* Hacer que el menú de hamburguesa sea más visible */
-   .navbar-toggler {
+  .navbar-toggler {
     background-color: transparent;
   }
 }
@@ -137,11 +150,103 @@
 /* Para pantallas aún más pequeñas (móviles, hasta 480px) */
 @media (max-width: 480px) {
   .navbar-nav .nav-link {
-    font-size: 14px; /* Reduce el tamaño de fuente para pantallas aún más pequeñas */
-    padding: 8px 0; /* Ajuste de padding para que no se vea desbordado */
+    font-size: 14px;
+    /* Reduce el tamaño de fuente para pantallas aún más pequeñas */
+    padding: 8px 0;
+    /* Ajuste de padding para que no se vea desbordado */
   }
 
-  .navbar-brand img {
-    max-height: 50px; /* Reduce el tamaño del logo para móviles pequeños */
+
+}
+
+.btn-logout {
+  background: linear-gradient(135deg, #ff4b2b, #ff416c);
+  /* rojo degradado */
+  color: white;
+  font-weight: bold;
+  padding: 15px 25px;
+  border: none;
+  border-radius: 50px;
+  /* redondeado estilo pill */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-logout i {
+  font-size: 18px;
+}
+
+.btn-logout:hover {
+  background: linear-gradient(135deg, #e63946, #d62828);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(230, 57, 70, 0.5);
+}
+
+.btn-logout:active {
+  transform: scale(0.95);
+}
+
+.navbar .fa-chevron-down {
+  transition: transform 0.2s ease;
+}
+.navbar .fa-chevron-down.rotate {
+  transform: rotate(180deg);
+}
+
+/* Arregla la pseudo-línea ::after (position: left es inválido) */
+.navbar-nav .nav-link {
+  position: relative; /* antes tenías position:left */
+}
+
+/* El li del dropdown debe ser relativo para que el menu se estire respecto a él */
+.navbar .nav-item.dropdown {
+  position: relative;
+}
+
+/* En desktop: el menú del dropdown debe medir lo mismo que su toggler */
+@media (min-width: 992px) {
+  .navbar .nav-item.dropdown > .dropdown-menu {
+    left: 0;
+    right: 0;               /* ocupa todo el ancho del padre */
+    width: 100%;
+    min-width: 0;           /* anula min-width por defecto de Bootstrap */
   }
+}
+
+/* Si usas el caret por defecto de Bootstrap, ocúltalo (porque ya pones tu ícono) */
+.navbar .dropdown-toggle::after {
+  display: none;
+}
+
+/* (Opcional) Alineación y toque visual del icono de flecha */
+.navbar .nav-item .fa-chevron-down {
+  margin-left: 6px;
+  transition: transform 0.2s ease;
+}
+.navbar .nav-item .fa-chevron-down.rotate {
+  transform: rotate(180deg);
+}
+/* Fondo verde suave al pasar el mouse por encima */
+.navbar-nav .nav-item:hover .nav-link,
+.navbar-nav .nav-link:hover {
+  background-color: #d4edda; /* verde claro tipo success */
+  border-radius: 6px;       /* opcional, esquinas redondeadas */
+  color: #155724 !important; /* texto verde oscuro */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+/* Cambiar color de los ítems del dropdown al pasar el mouse */
+.dropdown-menu .dropdown-item:hover {
+  background-color: #d4edda; /* verde clarito */
+  color: #155724 !important; /* verde oscuro para el texto */
+}
+.navbar, 
+.navbar .nav-link, 
+.navbar .dropdown-item {
+  font-size: px; /* Ajusta el tamaño según necesites (12px, 13px, 14px, etc.) */
+    white-space: nowrap;
 }

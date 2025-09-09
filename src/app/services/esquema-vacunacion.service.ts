@@ -4,6 +4,7 @@ import { Observable, forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { PacienteService } from './paciente.service';
+import { Vacuna } from '../models/vacuna';
 
 @Injectable({
   providedIn: 'root'
@@ -22,23 +23,24 @@ export class EsquemaVacunacionService {
       ...esquemaData,
       usuarioId: Number(esquemaData.usuarioId),
       pacienteId: Number(esquemaData.pacienteId),
+      VacunaId: Number(esquemaData.detalles[0].vacunaId),
       detalles: esquemaData.detalles.map((detalle: any) => ({
-        vacunaId: Number(detalle.vacunaId),
+        VacunaId: Number(detalle.vacunaId),
         jeringaId: Number(detalle.jeringaId),
         diluyenteId: detalle.diluyenteId ? Number(detalle.diluyenteId) : null,
-        sueroId: detalle.sueroId ? Number(detalle.sueroId) : null,
         dosis: Number(detalle.dosis),
         cantidadUtilizadaVacuna: Number(detalle.cantidadUtilizadaVacuna),
         cantidadUtilizadaJeringa: Number(detalle.cantidadUtilizadaJeringa),
-        cantidadUtilizadaSuero: Number(detalle.cantidadUtilizadaSuero),
         cantidadUtilizadaDiluyente: Number(detalle.cantidadUtilizadaDiluyente),
-        via: detalle.via,
-        sitioAplicacion: detalle.sitioAplicacion,
-        lote: detalle.lote
-      }))
+      })),
+      viaDeAdministracion: String(esquemaData.viaDeAdministracion),
+      sitioDeAplicacion: String(esquemaData.sitioDeAplicacion),
+      Lote: String(esquemaData.lote),
+      observaciones: String(esquemaData.observaciones),
+      motivoIngreso: String(esquemaData.motivoIngreso)
     };
 
-    return this.http.post(this.apiUrl, formattedData, { 
+    return this.http.post(this.apiUrl, formattedData, {
       headers: headers,
       responseType: 'text'
     });

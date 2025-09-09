@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { PacienteService } from '../../../../services/paciente.service';
 import { MadreService } from '../../../../services/madre.service';
 import { CuidadorService } from '../../../../services/cuidador.service';
+import { ValidationMessages } from '../../../shared/form-validation-messages';
+;
 
 @Component({
   selector: 'app-paciente',
@@ -35,6 +37,18 @@ export class PacienteComponent implements OnInit {
     private cuidadorService: CuidadorService) { }
 
   ngOnInit(): void {
+
+    this.pacienteForm = this.fb.group({
+      numeroIdentificacion: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(7),   // ✅ mínimo 7 dígitos
+          Validators.pattern(/^\d+$/) // ✅ solo números
+        ]
+      ]
+    });
+
     this.pacienteForm = this.fb.group({
       tipoIdentificacion: [''],
       numeroIdentificacion: ['', [Validators.required]],
@@ -50,7 +64,7 @@ export class PacienteComponent implements OnInit {
       edadGestacionalSemanas: [0],
       paisNacimiento: [''],
       estatusMigratorio: [''],
-      lugarAtencionParto: [''],
+      lugarAtencionParto: ['ISABEL'],
       regimenAfiliacion: [''],
       aseguradora: [''],
       pertenenciaEtnica: [''],
@@ -170,6 +184,19 @@ export class PacienteComponent implements OnInit {
         paciente: ''
       }
     };
+  }
+
+  get mayorDe18(): boolean {
+    const fecha = this.pacienteForm.get('fechaNacimiento')?.value;
+    if (!fecha) return false;
+    const nacimiento = new Date(fecha);
+    const hoy = new Date();
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+    const m = hoy.getMonth() - nacimiento.getMonth();
+    if (m < 0 || (m === 0 && hoy.getDate() < nacimiento.getDate())) {
+      edad--;
+    }
+    return edad >= 18;
   }
 
   cargarDatos() {
@@ -308,7 +335,8 @@ export class PacienteComponent implements OnInit {
     return `${yyyy}-${mm}-${dd}`; // Formato: YYYY-MM-DD
   }
 
-  guardar(): void {
+  validaciones(): any {
+
     // Asignar los IDs de madre y cuidador si están seleccionados
     if (this.madreSeleccionada) {
       this.paciente.madreId = this.madreSeleccionada.id;
@@ -355,24 +383,135 @@ export class PacienteComponent implements OnInit {
       fechaAtencion: new Date().toISOString(),
     };
 
-    console.log('JSON a enviar:', pacienteJson);
+    return pacienteJson;
+  }
 
-    // Solicitud al backend
-    const request$ = this.modo === 'crear'
-      ? this.pacienteService.addPaciente(pacienteJson)
-      : this.pacienteService.editPaciente(this.paciente.id, pacienteJson);
+  async exitePaciente(pacienteJson): Promise<boolean> {
+    try {
+      const paciente2 = await this.pacienteService.getPacienteByNumeroIdentificacion(pacienteJson.numeroIdentificacion).toPromise();
+      console.log('Verificando existencia del paciente con número de identificación:', paciente2);
+      if (paciente2) {
+        console.log('Paciente encontrado:', paciente2);
+        return true;
+      } else {
+        console.log('No se encontró ningún paciente con ese número de identificación.');
+        return false;
 
-    request$.subscribe(
+      }
+    } catch (error) {
+      console.error('Error al verificar la existencia del paciente:', error);
+      return true;
+
+    }
+  }
+
+  validarcampos(): boolean {
+    return (
+      this.pacienteForm.get('tipoIdentificacion')?.invalid ||
+      this.pacienteForm.get('numeroIdentificacion')?.invalid ||
+      this.pacienteForm.get('primerNombre')?.invalid ||
+      this.pacienteForm.get('primerApellido')?.invalid ||
+      this.pacienteForm.get('segundoApellido')?.invalid ||
+      this.pacienteForm.get('fechaNacimiento')?.invalid ||
+      this.pacienteForm.get('estatusMigratorio')?.invalid ||
+      this.pacienteForm.get('sexo')?.invalid ||
+      this.pacienteForm.get('orientacionSexual')?.invalid ||
+      this.pacienteForm.get('paisResidencia')?.invalid ||
+      this.pacienteForm.get('departamentoResidencia')?.invalid ||
+      this.pacienteForm.get('municipioResidencia')?.invalid ||
+      this.pacienteForm.get('direccion')?.invalid ||
+      this.pacienteForm.get('email')?.invalid ||
+      this.pacienteForm.get('telefonoFijo')?.invalid ||
+      this.pacienteForm.get('celular')?.invalid ||
+      this.pacienteForm.get('pertenenciaEtnica')?.invalid
+    );
+  }
+
+  esMenorQueSiete(): boolean {
+    const valor: string = this.pacienteForm.get('numeroIdentificacion')?.value;
+    return valor !== null && valor !== undefined && valor.toString().length < 7;
+  }
+
+  async guardar(): Promise<void> {
+    if (this.esMenorQueSiete()) {
+      Swal.fire('Error', 'El número de identificación es menor de 7 digitos', 'error');
+    } else {
+      if (this.validarcampos()) {
+        Swal.fire('Error', 'Por favor, completa todos los campos obligatorios.', 'error');
+      } else {
+        const pacienteJson = this.validaciones();
+        if (this.modo === 'crear') {
+          const existe = await this.exitePaciente(pacienteJson);
+          if (existe) {
+            Swal.fire('Error', 'Ya existe un paciente con este número de identificación', 'error');
+          } else {
+            this.guardarPaciente(pacienteJson);
+          }
+        } else {
+          this.editarPaciente(pacienteJson);
+        }
+      }
+    }
+
+  }
+
+  editarPaciente(pacienteJson: Paciente): void {
+    const request = this.pacienteService.editPaciente(this.paciente.id, pacienteJson);
+
+    request.subscribe(
       response => {
         Swal.fire('Éxito', this.modo === 'crear' ? 'Paciente guardado correctamente' : 'Paciente actualizado correctamente', 'success');
         this.onGuardar.emit(pacienteJson);
+        this.onCancelar.emit();
       },
       error => {
         Swal.fire('Error', 'Hubo un problema al guardar o actualizar el paciente', 'error');
         console.error('Error:', error);
       }
     );
+
   }
+
+
+  guardarPaciente(pacienteJson: Paciente): void {
+    const request = this.pacienteService.addPaciente(pacienteJson)
+    request.subscribe(
+      response => {
+        Swal.fire('Éxito', this.modo === 'crear' ? 'Paciente guardado correctamente' : 'Paciente actualizado correctamente', 'success');
+        this.onGuardar.emit(pacienteJson);
+        this.onCancelar.emit();
+      },
+      error => {
+        Swal.fire('Error', 'Hubo un problema al guardar o actualizar el paciente', 'error');
+        console.error('Error:', error);
+      }
+    );
+
+
+  }
+
+  getErrorMessage(fieldName: string): string {
+    const control = this.pacienteForm.get(fieldName);
+    if (control && control.errors) {
+      const firstError = Object.keys(control.errors)[0];
+      return ValidationMessages[firstError as keyof typeof ValidationMessages];
+    }
+    return '';
+  }
+
+  isFieldInvalid(fieldName: string): boolean {
+    const field = this.pacienteForm.get(fieldName);
+    return field ? (field.invalid && (field.dirty || field.touched)) : false;
+  }
+
+    ValidationMessages = {
+    required: 'El número de identificación es obligatorio',
+    minlength: 'Debe tener mínimo 7 dígitos',
+    pattern: 'Solo se permiten números'
+  };
+
+
+
 
   cancelar(): void {
     Swal.fire({

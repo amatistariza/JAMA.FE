@@ -5,7 +5,7 @@ import { EsquemaVacunacionService } from '../../../services/esquema-vacunacion.s
 import { InventarioVacunaService } from '../../../services/inventario-vacuna.service';
 import { InventarioJeringaService } from '../../../services/inventario-jeringa.service';
 import { InventarioDiluyenteService } from '../../../services/inventario-diluyente.service';
-import { InventarioSueroService } from '../../../services/inventario-suero.service';
+
 import { LoginService } from '../../../services/login.service';
 import { Paciente } from '../../../models/paciente';
 import Swal from 'sweetalert2';
@@ -27,7 +27,6 @@ export class RegistroVacunaComponent implements OnInit {
   vacunas: any[] = [];
   jeringas: any[] = [];
   diluyentes: any[] = [];
-  sueros: any[] = [];
   searchTerm: string = '';
   mensajeBusqueda: string = '';
   mensajeBusquedaClass: string = '';
@@ -56,7 +55,6 @@ export class RegistroVacunaComponent implements OnInit {
     private inventarioVacunaService: InventarioVacunaService,
     private inventarioJeringaService: InventarioJeringaService,
     private inventarioDiluyenteService: InventarioDiluyenteService,
-    private inventarioSueroService: InventarioSueroService,
     private router: Router,
     private loginService: LoginService,
     private pacienteService: PacienteService // Agregamos el servicio
@@ -67,11 +65,6 @@ export class RegistroVacunaComponent implements OnInit {
 
   ngOnInit() {
     this.cargarInventarios();
-    
-    // Suscribirse a cambios en registradoPAI
-    this.esquemaForm.get('registradoPAI')?.valueChanges.subscribe(value => {
-      this.onRegistradoPAIChange();
-    });
   }
 
   cargarInventarios() {
@@ -84,9 +77,6 @@ export class RegistroVacunaComponent implements OnInit {
     this.inventarioDiluyenteService.getDiluyentes().subscribe(
       data => this.diluyentes = data
     );
-    this.inventarioSueroService.getSueros().subscribe(
-      data => this.sueros = data
-    );
   }
 
   private initForm(): FormGroup {
@@ -94,34 +84,22 @@ export class RegistroVacunaComponent implements OnInit {
       tipoCarnet: ['', Validators.required],
       responsable: ['', Validators.required],
       registradoPAI: [false], // Asegurarnos que se inicializa como booleano
-      motivoNoIngreso: [''],
+      motivoIngreso: [''],
       observaciones: [''],
       pacienteId: ['', Validators.required],
+      viaDeAdministracion: ['Intramuscular', [Validators.required]], // Valor por defecto
+      sitioDeAplicacion: ['Brazo Derecho', [Validators.required]], // Valor por defecto
+      lote: [''],
       detalles: this.fb.array([this.createDetalleFormGroup()])
     });
-  }
-
-  // Agregar método para manejar cambios en registradoPAI
-  onRegistradoPAIChange(): void {
-    const registradoPAI = this.esquemaForm.get('registradoPAI');
-    const motivoNoIngreso = this.esquemaForm.get('motivoNoIngreso');
-
-    if (registradoPAI?.value) {
-      motivoNoIngreso?.disable();
-      motivoNoIngreso?.setValue('');
-    } else {
-      motivoNoIngreso?.enable();
-    }
   }
 
   createDetalleFormGroup(): FormGroup {
     return this.fb.group({
       vacunaId: ['', [Validators.required]],
       vacuna: [null],
+      registradoPAI: [false],
       cantidadUtilizadaVacuna: [1, [Validators.required, Validators.min(1)]],
-      sueroId: [''],
-      suero: [null],
-      cantidadUtilizadaSuero: [0],
       diluyenteId: [''],
       diluyente: [null],
       cantidadUtilizadaDiluyente: [0],
@@ -129,9 +107,6 @@ export class RegistroVacunaComponent implements OnInit {
       jeringa: [null],
       cantidadUtilizadaJeringa: [1, [Validators.required, Validators.min(1)]],
       dosis: ['', [Validators.required]],
-      via: ['Intramuscular', [Validators.required]], // Valor por defecto
-      sitioAplicacion: ['Brazo Derecho', [Validators.required]], // Valor por defecto
-      lote: ['']
     });
   }
 
@@ -162,25 +137,30 @@ export class RegistroVacunaComponent implements OnInit {
       const userId = this.loginService.getUserIdFromToken();
       const esquemaData = {
         ...this.esquemaForm.value,
-        fechaRegistro: new Date().toISOString(),
+        numeroDeDosis: 1,
         usuarioId: userId,
-        estado: 'ACTIVO'
+        estado: 'ACTIVO',
+
+
       };
+
+      console.log(esquemaData)
+
 
       this.esquemaService.crearEsquema(esquemaData).subscribe({
         next: (response) => {
           Swal.fire('Éxito', 'Esquema guardado correctamente', 'success')
-          .then(() => {
-            // Extraer el ID del esquema de la respuesta
-            const esquemaId = response;
-            // Redireccionar al detalle del esquema
-            const baseRoute = this.isEnfermera ? 'enfermera' : 'admin';
-            this.router.navigate([`/${baseRoute}/${userId}/esquema-detalles/${esquemaId}`]);
-          });
+            .then(() => {
+              const parsed = JSON.parse(response); // convertir string -> objeto
+              const esquemaId = parsed.esquemaId;
+              console.log('EsquemaId:', esquemaId);
+              const baseRoute = this.isEnfermera ? 'enfermera' : 'admin';
+              this.router.navigate([`/${baseRoute}/${userId}/esquema-detalles/${esquemaId}`]);
+            });
         },
         error: (error) => {
           console.error('Error al guardar:', error);
-          Swal.fire('Error', 'No se pudo guardar el esquema: ' + error.message, 'error');
+          Swal.fire('Error', 'No se pudo guardar el esquema: 1' + error.message, 'error');
         }
       });
     } else {
@@ -216,26 +196,20 @@ export class RegistroVacunaComponent implements OnInit {
   }
 
   onVacunaSelect(event: any, index: number) {
-    const vacuna = this.vacunas.find(v => v.id === +event.target.value);
+    const vacunaId = +event.target.value;
+    const vacuna = this.vacunas.find(v => v.id === vacunaId);
+    const detalleGroup = this.detalles.at(index) as FormGroup;
+
     if (vacuna) {
-      const detalleGroup = (this.detalles.at(index) as FormGroup);
-      detalleGroup.patchValue({
-        vacuna: vacuna,
-        lote: vacuna.lote
-      });
+      detalleGroup.patchValue({ vacuna }); // opcional
+      this.esquemaForm.patchValue({ lote: vacuna.lote ?? '' });  // 👈 root
+    } else {
+      this.esquemaForm.patchValue({ lote: '' });
     }
   }
 
-  onJeringaSelect(event: any, index: number) {
-    const jeringa = this.jeringas.find(j => j.id === +event.target.value);
-    if (jeringa) {
-      const detalleGroup = (this.detalles.at(index) as FormGroup);
-      detalleGroup.patchValue({
-        jeringa: jeringa,
-        lote: jeringa.lote
-      });
-    }
-  }
+
+
 
   onDiluyenteSelect(event: any, index: number) {
     const diluyente = this.diluyentes.find(d => d.id === +event.target.value);
@@ -248,16 +222,7 @@ export class RegistroVacunaComponent implements OnInit {
     }
   }
 
-  onSueroSelect(event: any, index: number) {
-    const suero = this.sueros.find(s => s.id === +event.target.value);
-    if (suero) {
-      const detalleGroup = (this.detalles.at(index) as FormGroup);
-      detalleGroup.patchValue({
-        suero: suero,
-        cantidadUtilizadaSuero: 1 // Valor por defecto
-      });
-    }
-  }
+
 
   buscarPaciente(): void {
     if (this.searchTerm.length >= 3) {

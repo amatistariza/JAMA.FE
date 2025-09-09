@@ -42,9 +42,6 @@ export class EsquemaDetallesComponent implements OnInit {
             detalles: data.detalles?.map(detalle => ({
               ...detalle,
               cantidadUtilizadaVacuna: detalle.cantidadUtilizadaVacuna,
-              via: detalle.via || 'Intramuscular',
-              sitioAplicacion: detalle.sitioAplicacion || 'Brazo Derecho',
-              lote: detalle.vacuna?.lote
             }))
           };
 
@@ -66,7 +63,6 @@ export class EsquemaDetallesComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.error('Error al cargar esquema:', error);
         Swal.fire('Error', 'No se pudo cargar el esquema', 'error');
         this.navegarAtras();
       }
@@ -82,4 +78,6 @@ export class EsquemaDetallesComponent implements OnInit {
   imprimir() {
     window.print();
   }
+
+
 }

@@ -22,7 +22,7 @@
           </div>
           <div class="col-md-6">
             <p class="mb-2"><strong>Registrado en PAI:</strong> {{esquema.registradoPAI ? 'Sí' : 'No'}}</p>
-            <p class="mb-2" *ngIf="!esquema.registradoPAI"><strong>Motivo no ingreso:</strong> {{esquema.motivoNoIngreso}}</p>
+            <p class="mb-2" ><strong>Motivo de ingreso:</strong> {{esquema.motivoIngreso}}</p>
           </div>
         </div>
 
@@ -42,16 +42,17 @@
                   <th>Dosis</th>
                   <th>Vía</th>
                   <th>Sitio</th>
-                  <th>Lote</th>
+                  <th>Fecha proxima dosis</th>
                 </tr>
               </thead>
               <tbody>
+                
                 <tr *ngFor="let detalle of esquema.detalles">
-                  <td>{{detalle.vacuna?.nombre}}</td>
+                  <td>{{esquema.vacuna.nombre}}</td>         
                   <td>{{detalle.cantidadUtilizadaVacuna}}</td>
-                  <td>{{detalle.via}}</td>
-                  <td>{{detalle.sitioAplicacion}}</td>
-                  <td>{{detalle.vacuna?.lote}}</td>
+                  <td>{{esquema.viaDeAdministracion}}</td>
+                  <td>{{esquema.sitioDeAplicacion}}</td>
+                  <td>{{esquema.fechaProximaDosis}}</td>
                 </tr>
               </tbody>
             </table>

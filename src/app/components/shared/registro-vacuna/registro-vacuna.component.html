@@ -13,23 +13,16 @@
       <form [formGroup]="esquemaForm" (ngSubmit)="guardarEsquema()">
         <div class="mb-3">
           <label for="searchPacienteInput" class="form-label required-field">Buscar Paciente</label>
-          <input 
-            id="searchPacienteInput"
-            type="text" 
-            class="form-control" 
-            placeholder="Número de identificación..."
-            [(ngModel)]="searchTerm"
-            [ngModelOptions]="{standalone: true}"
-            (keyup)="buscarPaciente()" />
-            
+          <input id="searchPacienteInput" type="text" class="form-control" placeholder="Número de identificación..."
+            [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}" (keyup)="buscarPaciente()" />
+
           <!-- Mensaje de búsqueda con estilo mejorado -->
           <div class="mt-2">
-            <div *ngIf="mensajeBusqueda" [ngClass]="mensajeBusquedaClass" class="d-flex align-items-center justify-content-between p-2 rounded">
+            <div *ngIf="mensajeBusqueda" [ngClass]="mensajeBusquedaClass"
+              class="d-flex align-items-center justify-content-between p-2 rounded">
               <span>{{ mensajeBusqueda }}</span>
-              <button *ngIf="!pacienteEncontrado && searchTerm.length >= 3" 
-                      class="btn btn-primary" 
-                      type="button"
-                      (click)="irARegistro()">
+              <button *ngIf="!pacienteEncontrado && searchTerm.length >= 3" class="btn btn-primary" type="button"
+                (click)="irARegistro()">
                 <i class="fas fa-user-plus"></i> Registrar
               </button>
             </div>
@@ -38,182 +31,149 @@
 
         <!-- Resto del formulario solo si hay paciente seleccionado -->
         <div *ngIf="pacienteSeleccionado">
-          <div class="mb-3">
-            <label for="tipoCarnetInput" class="form-label required-field">Tipo de Carnet</label>
-            <input 
-              id="tipoCarnetInput"
-              class="form-control" 
-              formControlName="tipoCarnet" 
-              [ngClass]="{'is-invalid': isFieldInvalid('tipoCarnet')}"
-            />
-            <div class="validation-error" *ngIf="isFieldInvalid('tipoCarnet')">
-              {{ getErrorMessage('tipoCarnet') }}
+          <div class="row g-3">
+            <div class="mb-3 col-md-6">
+              <label for="tipoCarnetInput" class="form-label required-field">Tipo de Carnet</label>
+              <input id="tipoCarnetInput" class="form-control" formControlName="tipoCarnet"
+                [ngClass]="{'is-invalid': isFieldInvalid('tipoCarnet')}" />
+              <div class="validation-error" *ngIf="isFieldInvalid('tipoCarnet')">
+                {{ getErrorMessage('tipoCarnet') }}
+              </div>
             </div>
-          </div>
 
-          <div class="mb-3">
-            <label for="responsableInput" class="form-label">Responsable*</label>
-            <input id="responsableInput" class="form-control" formControlName="responsable" required />
-          </div>
+            <div class="mb-3 col-md-6">
+              <label for="responsableInput" class="form-label">Responsable*</label>
+              <input id="responsableInput" class="form-control" formControlName="responsable" required
+                [ngClass]="{'is-invalid': isFieldInvalid('responsable')}" />
+              <div class="validation-error" *ngIf="isFieldInvalid('responsable')">
+                {{ getErrorMessage('responsable') }}
+              </div>
+            </div>
 
-          <div class="form-check mb-3">
-            <input type="checkbox" 
-                   class="form-check-input" 
-                   id="registradoPAIInput" 
-                   formControlName="registradoPAI" />
-            <label class="form-check-label" for="registradoPAIInput">
-              Registrado en PAI
-            </label>
-          </div>
+            <div class="form-check mb-3">
+              <input type="checkbox" class="form-check-input" id="registradoPAI" formControlName="registradoPAI" />
+              <label class="form-check-label" for="registradoPAI">
+                Registrado en PAI
+              </label>
+            </div>
 
-          <div class="mb-3" *ngIf="!esquemaForm.get('registradoPAI')?.value">
-            <label for="motivoNoIngresoInput" class="form-label">Motivo de No Ingreso</label>
-            <textarea id="motivoNoIngresoInput" 
-                     class="form-control" 
-                     formControlName="motivoNoIngreso">
+            <div class="mb-3">
+              <label for="motivoIngreso" class="form-label">Motivo de Ingreso</label>
+              <textarea id="motivoIngreso" class="form-control" formControlName="motivoIngreso">
             </textarea>
-          </div>
+            </div>
 
-          <div class="mb-3">
-            <label for="observaciones" class="form-label">Observaciones</label>
-            <textarea id="observaciones" class="form-control" formControlName="observaciones"></textarea>
-          </div>
+            <div class="mb-3">
+              <label for="observaciones" class="form-label">Observaciones</label>
+              <textarea id="observaciones" class="form-control" formControlName="observaciones"></textarea>
+            </div>
 
-          <div formArrayName="detalles">
-            <div *ngFor="let detalle of detalles.controls; let i=index" [formGroupName]="i">
-              <!-- Selección de Vacuna -->
-              <div class="mb-3">
-                <label [for]="'vacuna'+i" class="form-label">Vacuna*</label>
-                <select [id]="'vacuna'+i" class="form-control" formControlName="vacunaId" (change)="onVacunaSelect($event, i)" required>
-                  <option value="">Seleccione una vacuna</option>
-                  <option *ngFor="let vacuna of vacunas" [value]="vacuna.id">
-                    {{vacuna.nombre}} - Lote: {{vacuna.lote}} (Disponible: {{vacuna.dosisDisponibles}})
-                  </option>
-                </select>
-              </div>
+            <div formArrayName="detalles">
+              <div class="row g-3" *ngFor="let detalle of detalles.controls; let i=index" [formGroupName]="i">
 
-              <!-- Selección de Jeringa -->
-              <div class="mb-3">
-                <label [for]="'jeringa'+i" class="form-label">Jeringa*</label>
-                <select [id]="'jeringa'+i" class="form-control" formControlName="jeringaId" (change)="onJeringaSelect($event, i)" required>
-                  <option value="">Seleccione una jeringa</option>
-                  <option *ngFor="let jeringa of jeringas" [value]="jeringa.id">
-                    {{jeringa.tipo}} - {{jeringa.calibre}} (Disponible: {{jeringa.cantidad}})
-                  </option>
-                </select>
-              </div>
-
-              <!-- Selección de Diluyente -->
-              <div class="mb-3">
-                <label [for]="'diluyente'+i" class="form-label">Diluyente</label>
-                <select [id]="'diluyente'+i" class="form-control" formControlName="diluyenteId" (change)="onDiluyenteSelect($event, i)">
-                  <option value="">Seleccione un diluyente</option>
-                  <option *ngFor="let diluyente of diluyentes" [value]="diluyente.id">
-                    {{diluyente.nombre}} (Disponible: {{diluyente.cantidad}})
-                  </option>
-                </select>
-              </div>
-
-              <div class="mb-3" *ngIf="detalle.get('diluyenteId')?.value">
-                <label [for]="'cantidadDiluyente' + i" class="form-label">Cantidad de Diluyente Utilizada</label>
-                <input 
-                  [id]="'cantidadDiluyente' + i"
-                  type="number" 
-                  class="form-control" 
-                  formControlName="cantidadUtilizadaDiluyente"
-                  min="0">
-              </div>
-
-              <!-- Selección de Suero -->
-              <div class="mb-3">
-                <label [for]="'suero'+i" class="form-label">Suero</label>
-                <select [id]="'suero'+i" class="form-control" formControlName="sueroId" (change)="onSueroSelect($event, i)">
-                  <option value="">Seleccione un suero</option>
-                  <option *ngFor="let suero of sueros" [value]="suero.id">
-                    {{suero.nombre}} (Disponible: {{suero.cantidad}})
-                  </option>
-                </select>
-              </div>
-
-              <div class="mb-3" *ngIf="detalle.get('sueroId')?.value">
-                <label [for]="'cantidadSuero' + i" class="form-label">Cantidad de Suero Utilizada</label>
-                <input 
-                  [id]="'cantidadSuero' + i"
-                  type="number" 
-                  class="form-control" 
-                  formControlName="cantidadUtilizadaSuero"
-                  min="0">
-              </div>
-
-              <div class="mb-3">
-                <label [for]="'cantidadVacuna'+i" class="form-label">Cantidad de Dosis*</label>
-                <input 
-                  [id]="'cantidadVacuna'+i" 
-                  type="number" 
-                  class="form-control" 
-                  formControlName="cantidadUtilizadaVacuna"
-                  min="1"
-                />
-              </div>
-              <div class="mb-3">
-                <label [for]="'dosis'+i" class="form-label">Número de dosis*</label>
-                <select [id]="'dosis'+i" class="form-control" formControlName="dosis" required>
-                  <option value="">Seleccione la dosis</option>
-                  <option value="1">Primera dosis</option>
-                  <option value="2">Segunda dosis</option>
-                  <option value="3">Tercera dosis</option>
-                  <option value="4">Cuarta dosis</option>
-                  <option value="5">Quinta dosis</option>
-                  <option value="R">Refuerzo</option>
-                </select>
-                <div *ngIf="detalle.get('dosis')?.errors?.['required'] && detalle.get('dosis')?.touched" 
-                     class="text-danger">
-                  La dosis es requerida
+                <!-- Selección de Vacuna -->
+                <div class="mb-3 col-md-6">
+                  <label [for]="'vacuna'+i" class="form-label">Vacuna*</label>
+                  <select [id]="'vacuna'+i" class="form-control" formControlName="vacunaId"
+                    (change)="onVacunaSelect($event, i)" required>
+                    <option value="">Seleccione una vacuna</option>
+                    <option *ngFor="let vacuna of vacunas" [value]="vacuna.id">
+                      {{vacuna.nombre}} - Lote: {{vacuna.lote}} (Disponible: {{vacuna.dosisDisponibles}})
+                    </option>
+                  </select>
                 </div>
+
+                <!-- Selección de Jeringa -->
+                <div class="mb-3 col-md-6">
+                  <label [for]="'jeringa'+i" class="form-label">Jeringa*</label>
+                  <select [id]="'jeringa'+i" class="form-control" formControlName="jeringaId" required>
+                    <option value="">Seleccione una jeringa</option>
+                    <option *ngFor="let jeringa of jeringas" [value]="jeringa.id">
+                      {{jeringa.tipo}} - {{jeringa.calibre}} (Disponible: {{jeringa.cantidad}})
+                    </option>
+                  </select>
+                </div>
+
+                <!-- Selección de Diluyente -->
+                <div class="mb-3 col-md-6">
+                  <label [for]="'diluyente'+i" class="form-label">Diluyente</label>
+                  <select [id]="'diluyente'+i" class="form-control" formControlName="diluyenteId"
+                    (change)="onDiluyenteSelect($event, i)">
+                    <option value="">Seleccione un diluyente</option>
+                    <option *ngFor="let diluyente of diluyentes" [value]="diluyente.id">
+                      {{diluyente.nombre}} (Disponible: {{diluyente.cantidad}})
+                    </option>
+                  </select>
+                </div>
+
+                <div class="mb-3 col-md-6" *ngIf="detalle.get('diluyenteId')?.value">
+                  <label [for]="'cantidadDiluyente' + i" class="form-label">Cantidad de Diluyente Utilizada</label>
+                  <input [id]="'cantidadDiluyente' + i" type="number" class="form-control"
+                    formControlName="cantidadUtilizadaDiluyente" min="0">
+                </div>
+
+                <div class="mb-3 col-md-6">
+                  <label [for]="'dosis'+i" class="form-label">Número de dosis*</label>
+                  <select [id]="'dosis'+i" class="form-control" formControlName="dosis" required>
+                    <option value="">Seleccione la dosis</option>
+                    <option value="1">Primera dosis</option>
+                    <option value="2">Segunda dosis</option>
+                    <option value="3">Tercera dosis</option>
+                    <option value="4">Cuarta dosis</option>
+                    <option value="5">Quinta dosis</option>
+                    <option value="R">Refuerzo</option>
+                  </select>
+                  <div *ngIf="detalle.get('dosis')?.errors?.['required'] && detalle.get('dosis')?.touched"
+                    class="text-danger">
+                    La dosis es requerida
+                  </div>
+                </div>
+
               </div>
-              <div class="mb-3">
-                <label [for]="'via' + i" class="form-label">Vía de Administración*</label>
-                <select 
-                  [id]="'via' + i" 
-                  class="form-control"
-                  formControlName="via">
+            </div>
+
+            <div class="row g-">
+              <div class="mb-3 col-md-4">
+                <label for="viaDeAdministracion" class="form-label">Vía de Administración*</label>
+                <select id="viaDeAdministracion" class="form-control" formControlName="viaDeAdministracion">
                   <option value="">Seleccione una vía</option>
-                  <option *ngFor="let via of viasAplicacion" [value]="via">{{via}}</option>
+                  <option *ngFor="let via of viasAplicacion" [value]="via">{{ via }}</option>
                 </select>
-                <div class="invalid-feedback" *ngIf="detalle.get('via')?.invalid && detalle.get('via')?.touched">
+                <div class="invalid-feedback"
+                  *ngIf="esquemaForm.get('viaDeAdministracion')?.invalid && esquemaForm.get('viaDeAdministracion')?.touched">
                   La vía de administración es requerida
                 </div>
               </div>
 
-              <div class="mb-3">
-                <label [for]="'sitioAplicacion' + i" class="form-label">Sitio de Aplicación*</label>
-                <select 
-                  [id]="'sitioAplicacion' + i" 
-                  class="form-control"
-                  formControlName="sitioAplicacion">
+              <div class="mb-3 col-md-4">
+                <label for="sitioDeAplicacion" class="form-label">Sitio de Aplicación*</label>
+                <select id="sitioDeAplicacion" class="form-control" formControlName="sitioDeAplicacion">
                   <option value="">Seleccione un sitio</option>
-                  <option *ngFor="let sitio of sitiosAplicacion" [value]="sitio">{{sitio}}</option>
+                  <option *ngFor="let sitio of sitiosAplicacion" [value]="sitio">{{ sitio }}</option>
                 </select>
-                <div class="invalid-feedback" *ngIf="detalle.get('sitioAplicacion')?.invalid && detalle.get('sitioAplicacion')?.touched">
+                <div class="invalid-feedback"
+                  *ngIf="esquemaForm.get('sitioDeAplicacion')?.invalid && esquemaForm.get('sitioDeAplicacion')?.touched">
                   El sitio de aplicación es requerido
                 </div>
               </div>
-              <div class="mb-3">
-                <label [for]="'lote'+i">Lote*</label>
-                <input [id]="'lote'+i" type="text" class="form-control" formControlName="lote" required>
+
+              <div class="mb-3 col-md-4">
+                <label for="lote" class="form-label">Lote*</label>
+                <input id="lote" type="text" class="form-control" formControlName="lote" readonly tabindex="-1">
               </div>
             </div>
-          </div>
 
-          <div class="text-center mt-3">
-            <button type="submit" class="btn btn-primary" [disabled]="!pacienteSeleccionado">
-              Guardar Registro
-            </button>
-          </div>
 
-          <!-- Mostrar errores de validación -->
-          <div *ngIf="esquemaForm.touched && !esquemaForm.valid" class="alert alert-danger mt-3">
-            Por favor complete todos los campos requeridos.
+            <div class="text-center mt-3">
+              <button type="submit" class="btn btn-primary" [disabled]="!pacienteSeleccionado">
+                Guardar Registro
+              </button>
+            </div>
+
+            <!-- Mostrar errores de validación -->
+            <div *ngIf="esquemaForm.touched && !esquemaForm.valid" class="alert alert-danger mt-3">
+              Por favor complete todos los campos requeridos.
+            </div>
           </div>
         </div>
       </form>
