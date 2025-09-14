@@ -457,7 +457,6 @@ export class PacienteComponent implements OnInit {
 
   editarPaciente(pacienteJson: Paciente): void {
     const request = this.pacienteService.editPaciente(this.paciente.id, pacienteJson);
-
     request.subscribe(
       response => {
         Swal.fire('Éxito', this.modo === 'crear' ? 'Paciente guardado correctamente' : 'Paciente actualizado correctamente', 'success');
@@ -469,7 +468,6 @@ export class PacienteComponent implements OnInit {
         console.error('Error:', error);
       }
     );
-
   }
 
 

@@ -4,136 +4,211 @@
 <ng-template #adminNav>
   <app-navbar-admin></app-navbar-admin>
 </ng-template>
-
 <div class="container mt-4">
-  <div class="card">
+
+  <div class="card" id="registroVacunaSection" *ngIf="mostrarConsultaVacuna">
     <div class="card-body">
-      <h3 class="card-title">Registro de Vacunación</h3>
+      <div class="header">
+        <h2>Gestión Vacunación</h2>
+      </div>
 
-      <form [formGroup]="esquemaForm" (ngSubmit)="guardarEsquema()">
-        <div class="mb-3">
-          <label for="searchPacienteInput" class="form-label required-field">Buscar Paciente</label>
-          <input id="searchPacienteInput" type="text" class="form-control" placeholder="Número de identificación..."
-            [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}" (keyup)="buscarPaciente()" />
-
-          <!-- Mensaje de búsqueda con estilo mejorado -->
-          <div class="mt-2">
-            <div *ngIf="mensajeBusqueda" [ngClass]="mensajeBusquedaClass"
-              class="d-flex align-items-center justify-content-between p-2 rounded">
-              <span>{{ mensajeBusqueda }}</span>
-              <button *ngIf="!pacienteEncontrado && searchTerm.length >= 3" class="btn btn-primary" type="button"
-                (click)="irARegistro()">
-                <i class="fas fa-user-plus"></i> Registrar
-              </button>
-            </div>
-          </div>
+      <div>
+        <button class="add-button mb-4" (click)="addItem()">
+          <i class="fa-solid fa-plus"></i> Añadir
+        </button>
+        <div class="mb-4">
+          <input type="text" class="form-control" placeholder="Buscar por Número de Id del esquema..."
+            [(ngModel)]="filtro" (input)="filtrarPacientes()" />
         </div>
 
-        <!-- Resto del formulario solo si hay paciente seleccionado -->
-        <div *ngIf="pacienteSeleccionado">
-          <div class="row g-3">
-            <div class="mb-3 col-md-6">
-              <label for="tipoCarnetInput" class="form-label required-field">Tipo de Carnet</label>
-              <input id="tipoCarnetInput" class="form-control" formControlName="tipoCarnet"
-                [ngClass]="{'is-invalid': isFieldInvalid('tipoCarnet')}" />
-              <div class="validation-error" *ngIf="isFieldInvalid('tipoCarnet')">
-                {{ getErrorMessage('tipoCarnet') }}
+        <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Tipo de Identificacion</th>
+                <th>Numero de Identificacion</th>
+                <th>Tipo de carnet</th>
+                <th>Registrado en el PAI</th>
+                <th>Vacuna Aplicada</th>
+                <th>Fecha de Aplicación</th>
+                <th>Fecha proxima de vacuna</th>
+                <th>Responsable</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let esquema of esquemaFiltrados | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaActual }">
+                <td>{{ esquema.tipoIdentificacion }}</td>
+                <td>{{ esquema.numeroIdentificacion }}</td>
+                <td>{{ esquema.tipoCarnet }}</td>
+                <td>{{ esquema.registradoPAI ? 'Sí' : 'No' }}</td>
+                <td>{{ esquema.vacunaAplicada }}</td>
+                <td>
+                  {{ esquema.fechaAplicada ? (esquema.fechaAplicada | date:'dd/MM/yyyy') : 'Sin registro' }}
+                </td>
+                <td>
+                  {{ esquema.fechaProxima ? (esquema.fechaProxima | date:'dd/MM/yyyy') : 'Sin registro' }}
+                </td>
+                <td>{{ esquema.responsable }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Paginación -->
+        <div class="pagination-container" style="text-align: center;">
+          <button class="btn btn-custom" [disabled]="paginaActual === 1" (click)="cambiarPagina(paginaActual - 1)">
+            Atrás
+          </button>
+          <span class="mx-2">Página {{ paginaActual }}</span>
+          <button class="btn btn-custom" [disabled]="paginaActual * itemsPorPagina >= esquemaFiltrados.length"
+            (click)="cambiarPagina(paginaActual + 1)">
+            Siguiente
+          </button>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+  <div class="container mt-4" id="mostrarConsultaVacuna" *ngIf="mostrarRegistroVacuna">
+    <div class="card">
+      <div class="card-body">
+        <div class="header">
+          <h2>Registro de Vacunación</h2>
+        </div>
+        <button class="add-button mb-4" (click)="back()">
+          <i class="fa-solid fa-arrow-left"></i> Volver
+        </button>
+
+        <form [formGroup]="esquemaForm" (ngSubmit)="guardarEsquema()">
+          <div class="mb-3">
+            <label for="searchPacienteInput" class="form-label required-field">Para empezar, digita la cédula de un
+              paciente...</label>
+            <input id="searchPacienteInput" type="text" class="form-control" placeholder="Número de identificación..."
+              [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}" (keyup)="buscarPaciente()" />
+
+            <!-- Mensaje de búsqueda con estilo mejorado -->
+            <div class="mt-2">
+              <div *ngIf="mensajeBusqueda" [ngClass]="mensajeBusquedaClass"
+                class="d-flex align-items-center justify-content-between p-2 rounded">
+                <span>{{ mensajeBusqueda }}</span>
+                <button *ngIf="!pacienteEncontrado && searchTerm.length >= 3" class="btn btn-primary" type="button"
+                  (click)="irARegistro()">
+                  <i class="fas fa-user-plus"></i> Registrar
+                </button>
               </div>
             </div>
+          </div>
 
-            <div class="mb-3 col-md-6">
-              <label for="responsableInput" class="form-label">Responsable*</label>
-              <input id="responsableInput" class="form-control" formControlName="responsable" required
-                [ngClass]="{'is-invalid': isFieldInvalid('responsable')}" />
-              <div class="validation-error" *ngIf="isFieldInvalid('responsable')">
-                {{ getErrorMessage('responsable') }}
+          <!-- Resto del formulario solo si hay paciente seleccionado -->
+          <div *ngIf="pacienteSeleccionado">
+            <div class="row g-3">
+              <div class="mb-3 col-md-6">
+                <label for="tipoCarnetInput" class="form-label required-field">Tipo de Carnet</label>
+                <input id="tipoCarnetInput" class="form-control" formControlName="tipoCarnet"
+                  [ngClass]="{'is-invalid': isFieldInvalid('tipoCarnet')}" />
+                <div class="validation-error" *ngIf="isFieldInvalid('tipoCarnet')">
+                  {{ getErrorMessage('tipoCarnet') }}
+                </div>
               </div>
-            </div>
 
-            <div class="form-check mb-3">
-              <input type="checkbox" class="form-check-input" id="registradoPAI" formControlName="registradoPAI" />
-              <label class="form-check-label" for="registradoPAI">
-                Registrado en PAI
-              </label>
-            </div>
+              <div class="mb-3 col-md-6">
+                <label for="responsableInput" class="form-label">Responsable*</label>
+                <input id="responsableInput" class="form-control" formControlName="responsable" readonly
+                  [ngClass]="{'is-invalid': isFieldInvalid('responsable')}" />
+                <div class="validation-error" *ngIf="isFieldInvalid('responsable')">
+                  {{ getErrorMessage('responsable') }}
+                </div>
+              </div>
 
-            <div class="mb-3">
-              <label for="motivoIngreso" class="form-label">Motivo de Ingreso</label>
-              <textarea id="motivoIngreso" class="form-control" formControlName="motivoIngreso">
+              <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="registradoPAI" formControlName="registradoPAI" />
+                <label class="form-check-label" for="registradoPAI">
+                  Registrado en PAI
+                </label>
+              </div>
+
+              <div class="mb-3">
+                <label for="motivoIngreso" class="form-label">Motivo de Ingreso</label>
+                <textarea id="motivoIngreso" class="form-control" formControlName="motivoIngreso">
             </textarea>
-            </div>
-
-            <div class="mb-3">
-              <label for="observaciones" class="form-label">Observaciones</label>
-              <textarea id="observaciones" class="form-control" formControlName="observaciones"></textarea>
-            </div>
-
-            <div formArrayName="detalles">
-              <div class="row g-3" *ngFor="let detalle of detalles.controls; let i=index" [formGroupName]="i">
-
-                <!-- Selección de Vacuna -->
-                <div class="mb-3 col-md-6">
-                  <label [for]="'vacuna'+i" class="form-label">Vacuna*</label>
-                  <select [id]="'vacuna'+i" class="form-control" formControlName="vacunaId"
-                    (change)="onVacunaSelect($event, i)" required>
-                    <option value="">Seleccione una vacuna</option>
-                    <option *ngFor="let vacuna of vacunas" [value]="vacuna.id">
-                      {{vacuna.nombre}} - Lote: {{vacuna.lote}} (Disponible: {{vacuna.dosisDisponibles}})
-                    </option>
-                  </select>
-                </div>
-
-                <!-- Selección de Jeringa -->
-                <div class="mb-3 col-md-6">
-                  <label [for]="'jeringa'+i" class="form-label">Jeringa*</label>
-                  <select [id]="'jeringa'+i" class="form-control" formControlName="jeringaId" required>
-                    <option value="">Seleccione una jeringa</option>
-                    <option *ngFor="let jeringa of jeringas" [value]="jeringa.id">
-                      {{jeringa.tipo}} - {{jeringa.calibre}} (Disponible: {{jeringa.cantidad}})
-                    </option>
-                  </select>
-                </div>
-
-                <!-- Selección de Diluyente -->
-                <div class="mb-3 col-md-6">
-                  <label [for]="'diluyente'+i" class="form-label">Diluyente</label>
-                  <select [id]="'diluyente'+i" class="form-control" formControlName="diluyenteId"
-                    (change)="onDiluyenteSelect($event, i)">
-                    <option value="">Seleccione un diluyente</option>
-                    <option *ngFor="let diluyente of diluyentes" [value]="diluyente.id">
-                      {{diluyente.nombre}} (Disponible: {{diluyente.cantidad}})
-                    </option>
-                  </select>
-                </div>
-
-                <div class="mb-3 col-md-6" *ngIf="detalle.get('diluyenteId')?.value">
-                  <label [for]="'cantidadDiluyente' + i" class="form-label">Cantidad de Diluyente Utilizada</label>
-                  <input [id]="'cantidadDiluyente' + i" type="number" class="form-control"
-                    formControlName="cantidadUtilizadaDiluyente" min="0">
-                </div>
-
-                <div class="mb-3 col-md-6">
-                  <label [for]="'dosis'+i" class="form-label">Número de dosis*</label>
-                  <select [id]="'dosis'+i" class="form-control" formControlName="dosis" required>
-                    <option value="">Seleccione la dosis</option>
-                    <option value="1">Primera dosis</option>
-                    <option value="2">Segunda dosis</option>
-                    <option value="3">Tercera dosis</option>
-                    <option value="4">Cuarta dosis</option>
-                    <option value="5">Quinta dosis</option>
-                    <option value="R">Refuerzo</option>
-                  </select>
-                  <div *ngIf="detalle.get('dosis')?.errors?.['required'] && detalle.get('dosis')?.touched"
-                    class="text-danger">
-                    La dosis es requerida
-                  </div>
-                </div>
-
               </div>
-            </div>
 
-            <div class="row g-">
-              <div class="mb-3 col-md-4">
+              <div class="mb-3">
+                <label for="observaciones" class="form-label">Observaciones</label>
+                <textarea id="observaciones" class="form-control" formControlName="observaciones"></textarea>
+              </div>
+
+              <div formArrayName="detalles">
+                <div class="row g-3" *ngFor="let detalle of detalles.controls; let i=index" [formGroupName]="i">
+
+                  <!-- Selección de Vacuna -->
+                  <div class="mb-3 col-md-6">
+                    <label [for]="'vacuna'+i" class="form-label">Vacuna*</label>
+                    <select [id]="'vacuna'+i" class="form-control" formControlName="vacunaId"
+                      (change)="onVacunaSelect($event, i)" required>
+                      <option value="">Seleccione una vacuna</option>
+                      <option *ngFor="let vacuna of vacunas" [value]="vacuna.id">
+                        {{vacuna.nombre}} - Lote: {{vacuna.lote}} (Disponible: {{vacuna.dosisDisponibles}})
+                      </option>
+                    </select>
+                  </div>
+
+                  <!-- Selección de Jeringa -->
+                  <div class="mb-3 col-md-6">
+                    <label [for]="'jeringa'+i" class="form-label">Jeringa*</label>
+                    <select [id]="'jeringa'+i" class="form-control" formControlName="jeringaId" required>
+                      <option value="">Seleccione una jeringa</option>
+                      <option *ngFor="let jeringa of jeringas" [value]="jeringa.id">
+                        {{jeringa.tipo}} - {{jeringa.calibre}} (Disponible: {{jeringa.cantidad}})
+                      </option>
+                    </select>
+                  </div>
+
+                  <!-- Selección de Diluyente -->
+                  <div class="mb-3 col-md-6">
+                    <label [for]="'diluyente'+i" class="form-label">Diluyente</label>
+                    <select [id]="'diluyente'+i" class="form-control" formControlName="diluyenteId"
+                      (change)="onDiluyenteSelect($event, i)">
+                      <option value="">Seleccione un diluyente</option>
+                      <option *ngFor="let diluyente of diluyentes" [value]="diluyente.id">
+                        {{diluyente.nombre}} (Disponible: {{diluyente.cantidad}})
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="mb-3 col-md-6" *ngIf="detalle.get('diluyenteId')?.value">
+                    <label [for]="'cantidadDiluyente' + i" class="form-label">Cantidad de Diluyente Utilizada</label>
+                    <input [id]="'cantidadDiluyente' + i" type="number" class="form-control"
+                      formControlName="cantidadUtilizadaDiluyente" min="0">
+                  </div>
+
+
+                </div>
+              </div>
+
+              <div class="mb-3 col-md-6">
+                <label for="numerodosis" class="form-label">Numero de la dosis*</label>
+                <input id="numerodosis" class="form-control" formControlName="numerodosis" readonly
+                  [ngClass]="{'is-invalid': isFieldInvalid('numerodosis')}" />
+                <div class="validation-error" *ngIf="isFieldInvalid('numerodosis')">
+                  {{ getErrorMessage('numerodosis') }}
+                </div>
+              </div>
+
+              <div class="mb-3 col-md-6">
+                <label for="lote" class="form-label">Lote de Vacuna*</label>
+                <input id="lote" class="form-control" formControlName="lote" readonly
+                  [ngClass]="{'is-invalid': isFieldInvalid('lote')}" />
+                <div class="validation-error" *ngIf="isFieldInvalid('lote')">
+                  {{ getErrorMessage('lote') }}
+                </div>
+              </div>
+
+              <div class="mb-3 col-md-6">
                 <label for="viaDeAdministracion" class="form-label">Vía de Administración*</label>
                 <select id="viaDeAdministracion" class="form-control" formControlName="viaDeAdministracion">
                   <option value="">Seleccione una vía</option>
@@ -145,7 +220,7 @@
                 </div>
               </div>
 
-              <div class="mb-3 col-md-4">
+              <div class="mb-3 col-md-6">
                 <label for="sitioDeAplicacion" class="form-label">Sitio de Aplicación*</label>
                 <select id="sitioDeAplicacion" class="form-control" formControlName="sitioDeAplicacion">
                   <option value="">Seleccione un sitio</option>
@@ -157,26 +232,19 @@
                 </div>
               </div>
 
-              <div class="mb-3 col-md-4">
-                <label for="lote" class="form-label">Lote*</label>
-                <input id="lote" type="text" class="form-control" formControlName="lote" readonly tabindex="-1">
+              <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary" [disabled]="!pacienteSeleccionado">
+                  Guardar Registro
+                </button>
+              </div>
+
+              <!-- Mostrar errores de validación -->
+              <div *ngIf="esquemaForm.touched && !esquemaForm.valid" class="alert alert-danger mt-3">
+                Por favor complete todos los campos requeridos.
               </div>
             </div>
-
-
-            <div class="text-center mt-3">
-              <button type="submit" class="btn btn-primary" [disabled]="!pacienteSeleccionado">
-                Guardar Registro
-              </button>
-            </div>
-
-            <!-- Mostrar errores de validación -->
-            <div *ngIf="esquemaForm.touched && !esquemaForm.valid" class="alert alert-danger mt-3">
-              Por favor complete todos los campos requeridos.
-            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
-</div>

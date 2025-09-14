@@ -10,8 +10,8 @@ import { LoginService } from '../../../services/login.service';
 import { Paciente } from '../../../models/paciente';
 import Swal from 'sweetalert2';
 import { ValidationMessages } from '../form-validation-messages';
-import { Vacuna } from '../../../models/vacuna';
 import { PacienteService } from '../../../services/paciente.service';
+import { EsquemaVacunacion } from '../../../models/esquema-vacunacion';
 
 @Component({
   selector: 'app-registro-vacuna',
@@ -19,6 +19,13 @@ import { PacienteService } from '../../../services/paciente.service';
   styleUrls: ['./registro-vacuna.component.css']
 })
 export class RegistroVacunaComponent implements OnInit {
+  esquemas: EsquemaVacunacion[] = [];
+  esquemaFiltrados: EsquemaVacunacion[] = [];
+  itemsPorPagina: number = 5;
+  paginaActual: number = 1;
+  filtro: string = '';
+  mostrarConsultaVacuna: boolean = true;
+  mostrarRegistroVacuna: boolean = false;
   esquemaForm: FormGroup;
   isEnfermera: boolean = false;
   formMessage: string = '';
@@ -31,6 +38,7 @@ export class RegistroVacunaComponent implements OnInit {
   mensajeBusqueda: string = '';
   mensajeBusquedaClass: string = '';
   pacienteEncontrado: boolean = false;
+
   viasAplicacion: string[] = [
     'Intramuscular',
     'Subcutánea',
@@ -57,14 +65,25 @@ export class RegistroVacunaComponent implements OnInit {
     private inventarioDiluyenteService: InventarioDiluyenteService,
     private router: Router,
     private loginService: LoginService,
-    private pacienteService: PacienteService // Agregamos el servicio
+    private pacienteService: PacienteService
   ) {
     this.esquemaForm = this.initForm(); // Inicializar aquí el formulario
     this.isEnfermera = this.router.url.includes('/enfermera/');
   }
 
   ngOnInit() {
+    this.loadEsquemas();
     this.cargarInventarios();
+    this.setResponsable();
+  }
+
+  private setResponsable() {
+    const responsableInput = document.getElementById('responsableInput') as HTMLInputElement;
+    const nombreUsuario = this.loginService.getTokenDecoded().sub || '';
+    if (responsableInput) {
+      responsableInput.value = nombreUsuario;
+    }
+    this.esquemaForm.patchValue({ responsable: nombreUsuario });
   }
 
   cargarInventarios() {
@@ -90,7 +109,8 @@ export class RegistroVacunaComponent implements OnInit {
       viaDeAdministracion: ['Intramuscular', [Validators.required]], // Valor por defecto
       sitioDeAplicacion: ['Brazo Derecho', [Validators.required]], // Valor por defecto
       lote: [''],
-      detalles: this.fb.array([this.createDetalleFormGroup()])
+      detalles: this.fb.array([this.createDetalleFormGroup()]),
+      numerodosis: ['']
     });
   }
 
@@ -106,7 +126,6 @@ export class RegistroVacunaComponent implements OnInit {
       jeringaId: ['', [Validators.required]],
       jeringa: [null],
       cantidadUtilizadaJeringa: [1, [Validators.required, Validators.min(1)]],
-      dosis: ['', [Validators.required]],
     });
   }
 
@@ -164,9 +183,32 @@ export class RegistroVacunaComponent implements OnInit {
         }
       });
     } else {
+      console.log("============");
       this.markFormGroupTouched(this.esquemaForm);
+      this.mostrarCamposInvalidos(this.esquemaForm); // <-- Aquí muestra los campos inválidos
       Swal.fire('Error', 'Por favor complete todos los campos requeridos', 'error');
+
     }
+  }
+  private mostrarCamposInvalidos(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(key => {
+      const control = formGroup.get(key);
+      if (control instanceof FormGroup) {
+        this.mostrarCamposInvalidos(control);
+      } else if (control instanceof FormArray) {
+        (control as FormArray).controls.forEach((fg: any, idx: number) => {
+          if (fg instanceof FormGroup) {
+            this.mostrarCamposInvalidos(fg);
+          }
+        });
+      } else {
+        if (control && control.invalid) {
+          console.log(
+            `Campo inválido: ${key} | Valor leído: "${control.value}" | Errores: ${JSON.stringify(control.errors)}`
+          );
+        }
+      }
+    });
   }
 
   private markFormGroupTouched(formGroup: FormGroup) {
@@ -201,14 +243,33 @@ export class RegistroVacunaComponent implements OnInit {
     const detalleGroup = this.detalles.at(index) as FormGroup;
 
     if (vacuna) {
-      detalleGroup.patchValue({ vacuna }); // opcional
-      this.esquemaForm.patchValue({ lote: vacuna.lote ?? '' });  // 👈 root
+      detalleGroup.patchValue({ vacuna });
+      this.esquemaForm.patchValue({ lote: vacuna.lote ?? '' });
+      this.numeroDosisPorAplicar(vacunaId);
     } else {
       this.esquemaForm.patchValue({ lote: '' });
+      this.esquemaForm.patchValue({ numerodosis: '' });
     }
   }
 
-
+  numeroDosisPorAplicar(vacunaId: number): any {
+    let response = this.esquemaService.getNumeroDosisPorAplicar(this.pacienteSeleccionado.id, vacunaId);
+    response.subscribe(
+      response => {
+        if (response.aplica) {
+          const numeroDosis = response.numeroDosis;
+          this.esquemaForm.patchValue({ numerodosis: numeroDosis });
+        } else {
+          this.esquemaForm.patchValue({ numerodosis: '' });
+          Swal.fire('Atención', response.mensaje, 'info');
+        }
+      },
+      error => {
+        console.error('Error al obtener el número de dosis por aplicar:', error);
+        Swal.fire('Error', 'Ocurrió un problema al obtener el número de dosis por aplicar', 'error');
+      }
+    );
+  }
 
 
   onDiluyenteSelect(event: any, index: number) {
@@ -221,8 +282,6 @@ export class RegistroVacunaComponent implements OnInit {
       });
     }
   }
-
-
 
   buscarPaciente(): void {
     if (this.searchTerm.length >= 3) {
@@ -278,4 +337,39 @@ export class RegistroVacunaComponent implements OnInit {
       Swal.fire('Error', 'No se pudo obtener el ID del usuario', 'error');
     }
   }
+
+  addItem() {
+    this.mostrarRegistroVacuna = true;
+    this.mostrarConsultaVacuna = false;
+  }
+
+  back() {
+    this.mostrarRegistroVacuna = false;
+    this.mostrarConsultaVacuna = true;
+  }
+
+  cambiarPagina(pagina: number): void {
+    this.paginaActual = pagina;
+  }
+
+  loadEsquemas(): void {
+    this.esquemaService.getEsquemas().subscribe(
+      (esquemas) => {
+        this.esquemas = esquemas;
+        this.esquemaFiltrados = [...this.esquemas];
+      },
+      (error) => {
+        console.error('Error al cargar los esquemas:', error);
+        Swal.fire('Error', 'No se pudieron cargar los esquemas', 'error');
+      }
+    );
+  }
+
+  filtrarPacientes(): void {
+    this.esquemaFiltrados = this.esquemas.filter((esquema) =>
+      esquema.numeroIdentificacion.toString().includes(this.filtro)
+    );
+    this.paginaActual = 1;
+  }
+
 }

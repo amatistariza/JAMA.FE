@@ -15,6 +15,11 @@
           <a class="nav-link" [routerLink]="['/admin', userId, 'home']" routerLinkActive="active">Inicio</a>
         </li>
 
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin', userId, 'home']" routerLinkActive="active">Reportes</a>
+        </li>
+
+
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle d-flex align-items-center" (click)="toggleSubMenu('inventario')"
@@ -28,7 +33,8 @@
           <ul id="submenu-inventario" class="dropdown-menu" [ngClass]="{'show': isActiveSubMenu('inventario')}">
             <li><a class="dropdown-item" [routerLink]="['/admin', userId, 'gestionInventarioVacuna']">Vacunas</a></li>
             <li><a class="dropdown-item" [routerLink]="['/admin', userId, 'gestionInventarioJeringa']">Jeringas</a></li>
-            <li><a class="dropdown-item" [routerLink]="['/admin', userId, 'gestionInventarioDiluyente']">Diluyentes</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/admin', userId, 'gestionInventarioDiluyente']">Diluyentes</a>
+            </li>
           </ul>
         </li>
 

@@ -18,7 +18,8 @@
   margin-bottom: 20px;
 }
 
-.table th, .table td {
+.table th,
+.table td {
   border: 1px solid #bdbdbd;
   padding: 10px;
   text-align: center;
@@ -39,6 +40,7 @@
 
 /* Estilos para el botón de añadir */
 .add-button {
+  float: inline-end;
   background-color: #52c234;
   color: white;
   padding: 10px 20px;
@@ -69,50 +71,52 @@
 /* Responsive para pantallas pequeñas */
 @media (max-width: 768px) {
   .add-button {
-      width: 100%;
-      margin-top: 10px;
+    width: 100%;
+    margin-top: 10px;
   }
 
   .table-responsive {
-      max-height: 300px;
+    max-height: 300px;
   }
 
   .btn-custom {
-      width: 100%;
-      margin-bottom: 5px;
+    width: 100%;
+    margin-bottom: 5px;
   }
 
   .form-control {
-      width: 100%;
+    width: 100%;
   }
 
   .card-title {
-      font-size: 1.5rem;
-      text-align: center;
+    font-size: 1.5rem;
+    text-align: center;
   }
 
-  .table th, .table td {
-      padding: 8px;
-      font-size: 0.9rem;
+  .table th,
+  .table td {
+    padding: 8px;
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 480px) {
   .add-button {
-      font-size: 1rem;
+    font-size: 1rem;
   }
 
   .card-title {
-      font-size: 1.2rem;
+    font-size: 1.2rem;
   }
 
-  .table th, .table td {
-      padding: 6px;
-      font-size: 0.85rem;
+  .table th,
+  .table td {
+    padding: 6px;
+    font-size: 0.85rem;
   }
 
   .btn-custom {
-      font-size: 0.9rem;
+    font-size: 0.9rem;
   }
 }
 

@@ -1,5 +1,5 @@
 export interface EsquemaVacunacion {
-  id: number;
+  numeroIdentificacion: any;
   tipoCarnet: string;
   responsable: string;
   registradoPAI: boolean;

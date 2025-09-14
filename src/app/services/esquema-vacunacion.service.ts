@@ -69,4 +69,12 @@ export class EsquemaVacunacionService {
       })
     );
   }
+
+  getNumeroDosisPorAplicar(pacienteId:number, vacunaId: number): Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/validar?pacienteId=${pacienteId}&vacunaId=${vacunaId}`);
+  } 
+
+  getEsquemas(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
 }

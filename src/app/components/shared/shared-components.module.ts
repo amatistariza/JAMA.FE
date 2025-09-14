@@ -7,6 +7,7 @@ import { RegistroVacunaComponent } from './registro-vacuna/registro-vacuna.compo
 import { EsquemaDetallesComponent } from './esquema-detalles/esquema-detalles.component';
 import { AdminModule } from '../admin/admin.module';
 import { EnfermeraModule } from '../enfermera/enfermera.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { EnfermeraModule } from '../enfermera/enfermera.module';
     FormsModule,
     ReactiveFormsModule,
     AdminModule,
-    EnfermeraModule
+    EnfermeraModule,
+    NgxPaginationModule
   ],
   exports: [
     BuscarPacienteComponent,
