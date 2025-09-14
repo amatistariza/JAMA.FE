@@ -13,3 +13,8 @@ export interface DashboardResumen {
   aplicacionesSemana: number;
   bajoStock: BajoStock;
 }
+
+export interface DosisEstadistica {
+  vacuna: string;
+  dosis: number;
+}

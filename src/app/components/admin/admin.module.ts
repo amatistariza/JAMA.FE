@@ -5,11 +5,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarAdminComponent } from './navbar-admin/navbar-admin.component';
 import { AdminComponent } from './admin.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ReportesComponent } from './reportes/reportes.component';
 
 @NgModule({
   declarations: [
     NavbarAdminComponent,
-    AdminComponent
+    AdminComponent,
+    ReportesComponent
   ],
   imports: [
     CommonModule,

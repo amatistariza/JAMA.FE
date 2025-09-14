@@ -109,9 +109,10 @@
               <div class="mb-3 col-md-6">
                 <label for="tipoCarnetInput" class="form-label required-field">Tipo de Carnet</label>
                 <input id="tipoCarnetInput" class="form-control" formControlName="tipoCarnet"
-                  [ngClass]="{'is-invalid': isFieldInvalid('tipoCarnet')}" />
-                <div class="validation-error" *ngIf="isFieldInvalid('tipoCarnet')">
-                  {{ getErrorMessage('tipoCarnet') }}
+                  [class.is-invalid]="esquemaForm.get('tipoCarnet')?.invalid && esquemaForm.get('tipoCarnet')?.touched">
+                <div class="invalid-feedback"
+                  *ngIf="esquemaForm.get('tipoCarnet')?.invalid && esquemaForm.get('tipoCarnet')?.touched">
+                  El tipo de carnet es requerido
                 </div>
               </div>
 
@@ -214,10 +215,12 @@
                   <option value="">Seleccione una vía</option>
                   <option *ngFor="let via of viasAplicacion" [value]="via">{{ via }}</option>
                 </select>
+
                 <div class="invalid-feedback"
                   *ngIf="esquemaForm.get('viaDeAdministracion')?.invalid && esquemaForm.get('viaDeAdministracion')?.touched">
                   La vía de administración es requerida
                 </div>
+
               </div>
 
               <div class="mb-3 col-md-6">

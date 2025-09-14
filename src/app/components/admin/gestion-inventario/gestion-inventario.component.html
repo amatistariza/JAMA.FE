@@ -11,11 +11,7 @@
           <i class="fa-solid fa-plus"></i> Añadir
         </button>
         <div class="mb-4">
-          <input 
-            type="text" 
-            class="form-control" 
-            placeholder="Buscar por nombre de vacuna..." 
-            [(ngModel)]="filtro" 
+          <input type="text" class="form-control" placeholder="Buscar por nombre de vacuna..." [(ngModel)]="filtro"
             (input)="filtrarVacunas()" />
         </div>
 
@@ -28,32 +24,28 @@
                 <th>Laboratorio</th>
                 <th>Lote</th>
                 <th>Dosis</th>
+                <th>Número de Dosis</th>
+                <th>Intervalo (semanas)</th>
                 <th>Fecha</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
               <tr
-                *ngFor="let vacuna of vacunasFiltradas | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaActual }"
-              >
+                *ngFor="let vacuna of vacunasFiltradas | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaActual }">
                 <td>{{ vacuna.id }}</td>
                 <td>{{ vacuna.nombre }}</td>
                 <td>{{ vacuna.laboratorio }}</td>
                 <td>{{ vacuna.lote }}</td>
                 <td>{{ vacuna.dosisDisponibles }}</td>
+                <td>{{ vacuna.numeroDosis ?? '-' }}</td>
+                <td>{{ vacuna.intervaloSemanas ?? '-' }}</td>
                 <td>{{ vacuna.fechaRegistro | date: 'dd/MM/yyyy' }}</td>
                 <td>
-                  <button
-                    class="btn btn-custom btn-sm"
-                    style="margin-right: 5px;"
-                    (click)="editItem(vacuna)"
-                  >
+                  <button class="btn btn-custom btn-sm" style="margin-right: 5px;" (click)="editItem(vacuna)">
                     <i class="fa-solid fa-pen-to-square"></i> Editar
                   </button>
-                  <button
-                    class="btn btn-custom btn-sm"
-                    (click)="eliminarVacuna(vacuna.id)"
-                  >
+                  <button class="btn btn-custom btn-sm" (click)="eliminarVacuna(vacuna.id)">
                     <i class="fa-solid fa-trash"></i> Eliminar
                   </button>
                 </td>
@@ -64,19 +56,12 @@
 
         <!-- Paginación -->
         <div class="pagination-container" style="text-align: center;">
-          <button
-            class="btn btn-custom"
-            [disabled]="paginaActual === 1"
-            (click)="cambiarPagina(paginaActual - 1)"
-          >
+          <button class="btn btn-custom" [disabled]="paginaActual === 1" (click)="cambiarPagina(paginaActual - 1)">
             Atrás
           </button>
           <span class="mx-2">Página {{ paginaActual }}</span>
-          <button
-            class="btn btn-custom"
-            [disabled]="paginaActual * itemsPorPagina >= vacunasFiltradas.length"
-            (click)="cambiarPagina(paginaActual + 1)"
-          >
+          <button class="btn btn-custom" [disabled]="paginaActual * itemsPorPagina >= vacunasFiltradas.length"
+            (click)="cambiarPagina(paginaActual + 1)">
             Siguiente
           </button>
         </div>
@@ -85,7 +70,7 @@
       <form [formGroup]="vacunaForm" (ngSubmit)="guardarVacuna()" *ngIf="mostrarFormulario">
         <div class="mb-3">
           <label for="nombreVacuna" class="form-label">Nombre</label>
-          <input id="nombreVacuna" type="text" class="form-control" formControlName="nombre">
+          <input id="nombreVacuna" type="text" class="form-control" formControlName="nombre" [class.is-invalid]="vacunaForm.get('nombre')?.invalid && vacunaForm.get('nombre')?.touched">
           <div class="invalid-feedback" *ngIf="vacunaForm.get('nombre')?.invalid && vacunaForm.get('nombre')?.touched">
             El nombre es requerido
           </div>
@@ -93,15 +78,17 @@
 
         <div class="mb-3">
           <label for="laboratorioVacuna" class="form-label">Laboratorio</label>
-          <input id="laboratorioVacuna" type="text" class="form-control" formControlName="laboratorio">
-          <div class="invalid-feedback" *ngIf="vacunaForm.get('laboratorio')?.invalid && vacunaForm.get('laboratorio')?.touched">
+          <input id="laboratorioVacuna" type="text" class="form-control" formControlName="laboratorio" 
+          [class.is-invalid]="vacunaForm.get('laboratorio')?.invalid && vacunaForm.get('laboratorio')?.touched">
+          <div class="invalid-feedback"
+            *ngIf="vacunaForm.get('laboratorio')?.invalid && vacunaForm.get('laboratorio')?.touched">
             El laboratorio es requerido
           </div>
         </div>
 
         <div class="mb-3">
           <label for="loteVacuna" class="form-label">Lote</label>
-          <input id="loteVacuna" type="text" class="form-control" formControlName="lote">
+          <input id="loteVacuna" type="text" class="form-control" formControlName="lote" [class.is-invalid]="vacunaForm.get('lote')?.invalid && vacunaForm.get('lote')?.touched">
           <div class="invalid-feedback" *ngIf="vacunaForm.get('lote')?.invalid && vacunaForm.get('lote')?.touched">
             El lote es requerido
           </div>
@@ -109,19 +96,34 @@
 
         <div class="mb-3">
           <label for="dosisVacuna" class="form-label">Dosis Disponibles</label>
-          <input id="dosisVacuna" type="number" class="form-control" formControlName="dosisDisponibles">
-          <div class="invalid-feedback" *ngIf="vacunaForm.get('dosisDisponibles')?.invalid && vacunaForm.get('dosisDisponibles')?.touched">
+          <input id="dosisVacuna" type="number" class="form-control" formControlName="dosisDisponibles" [class.is-invalid]="vacunaForm.get('dosisDisponibles')?.invalid && vacunaForm.get('dosisDisponibles')?.touched">
+          <div class="invalid-feedback"
+            *ngIf="vacunaForm.get('dosisDisponibles')?.invalid && vacunaForm.get('dosisDisponibles')?.touched">
             Las dosis disponibles son requeridas y deben ser mayores o iguales a 0
           </div>
         </div>
 
+        <div class="mb-3">
+          <label for="numeroDosis" class="form-label">Número de Dosis</label>
+          <input id="numeroDosis" type="number" class="form-control" formControlName="numeroDosis" [class.is-invalid]="vacunaForm.get('numeroDosis')?.invalid && vacunaForm.get('numeroDosis')?.touched">
+          <div class="invalid-feedback"
+            *ngIf="vacunaForm.get('numeroDosis')?.invalid && vacunaForm.get('numeroDosis')?.touched">
+            El número de dosis es requerido y debe ser mayor o igual a 1
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="intervaloSemanas" class="form-label">Intervalo de Dosis en semanas (Ponga 0 si es dosis única)</label>
+          <input id="intervaloSemanas" type="number" class="form-control" formControlName="intervaloSemanas" [class.is-invalid]="vacunaForm.get('intervaloSemanas')?.invalid && vacunaForm.get('intervaloSemanas')?.touched">
+        </div>
+
         <div class="d-flex justify-content-end gap-2">
           <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
-          <button type="submit" class="btn btn-primary" [disabled]="vacunaForm.invalid">
+          <button type="submit" class="btn btn-primary">
             {{ modoFormulario === 'crear' ? 'Agregar' : 'Actualizar' }}
           </button>
         </div>
-        
+
       </form>
     </div>
   </div>

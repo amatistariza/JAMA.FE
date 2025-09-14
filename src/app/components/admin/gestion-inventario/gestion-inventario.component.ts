@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InventarioVacunaService } from '../../../services/inventario-vacuna.service';
 import { Vacuna } from '../../../models/vacuna';
 import Swal from 'sweetalert2';
@@ -27,6 +27,8 @@ export class GestionInventarioComponent implements OnInit {
       laboratorio: ['', Validators.required],
       lote: ['', Validators.required],
       dosisDisponibles: [0, [Validators.required, Validators.min(0)]],
+      numeroDosis: [1, [Validators.required, Validators.min(1)]],
+      intervaloSemanas: [0, [Validators.required, Validators.min(0)]],
       fechaRegistro: [new Date()]
     });
   }
@@ -75,6 +77,8 @@ export class GestionInventarioComponent implements OnInit {
       laboratorio: '',
       lote: '',
       dosisDisponibles: 0,
+      numeroDosis: 1,
+      intervaloSemanas: 0,
       fechaRegistro: new Date()
     });
     this.mostrarFormulario = true;
@@ -88,6 +92,8 @@ export class GestionInventarioComponent implements OnInit {
       laboratorio: vacuna.laboratorio,
       lote: vacuna.lote,
       dosisDisponibles: vacuna.dosisDisponibles,
+      numeroDosis: vacuna.numeroDosis ?? 1,
+      intervaloSemanas: vacuna.intervaloSemanas ?? 0,
       fechaRegistro: vacuna.fechaRegistro
     });
     this.mostrarFormulario = true;
@@ -171,4 +177,7 @@ export class GestionInventarioComponent implements OnInit {
   cancelar(): void {
     this.mostrarFormulario = false;
   }
+
+
+
 }

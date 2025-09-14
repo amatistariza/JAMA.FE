@@ -4,5 +4,7 @@ export class Vacuna  {
   laboratorio!: string;
   lote!: string;
   dosisDisponibles!: number;
+  numeroDosis?: number;
+  intervaloSemanas?: number;
   fechaRegistro!: Date;
 }

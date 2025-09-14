@@ -13,11 +13,11 @@
         <div class="card stats-card">
           <h4><i class="fas fa-chart-simple"></i> Inventario de Vacunas</h4>
           <div class="stats-grid">
-<div class="stat-item" style="cursor:pointer" (click)="navegarA('gestionInventarioVacuna')">
-  <i class="fas fa-vial-virus"></i>
-  <span>Total Vacunas Registradas</span>
-  <h3>{{totalVacunas || 0}}</h3>
-</div>
+            <div class="stat-item" style="cursor:pointer" (click)="navegarA('gestionInventarioVacuna')">
+              <i class="fas fa-vial-virus"></i>
+              <span>Total Vacunas Registradas</span>
+              <h3>{{totalVacunas || 0}}</h3>
+            </div>
             <div class="stat-item" style="cursor:pointer" (click)="navegarA('gestionInventarioJeringa')">
               <i class="fas fa-syringe"></i>
               <span>Total Jeringas Registradas</span>
@@ -29,8 +29,8 @@
               <h3>{{totalDiluyentes || 0}}</h3>
             </div>
 
-                      <div class="stat-item">
-              <i class="fas fa-vial"></i>
+            <div class="stat-item">
+              <i class="fas fa-calendar-alt"></i>
               <span>Vacunas Aplicadas en el mes</span>
               <h3>{{vacunasAplicadasMes || 0}}</h3>
             </div>

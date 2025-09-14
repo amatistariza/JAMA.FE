@@ -15,11 +15,13 @@ import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
 import { RegistroVacunaComponent } from './components/shared/registro-vacuna/registro-vacuna.component';
 import { EsquemaDetallesComponent } from './components/shared/esquema-detalles/esquema-detalles.component';
+import { ReportesComponent } from './components/admin/reportes/reportes.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  
+
   // Rutas de administrador
   {
     path: 'admin/:id',
@@ -35,7 +37,8 @@ const routes: Routes = [
       { path: 'gestionInventarioSuero', component: GestionInventarioSueroComponent },
       { path: 'gestionPaciente', component: GestionPacienteComponent },
       { path: 'registro-vacuna', component: RegistroVacunaComponent },
-      { path: 'esquema-detalles/:esquemaId', component: EsquemaDetallesComponent }
+      { path: 'esquema-detalles/:esquemaId', component: EsquemaDetallesComponent },
+      { path: 'reportes',component: ReportesComponent }
     ]
   },
 
