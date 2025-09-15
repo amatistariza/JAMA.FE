@@ -4,19 +4,32 @@
   <div class="main-container">
     <div class="row">
       <div class="column-left">
-        <div class="welcome-message">
-          <p>Bienvenido/a, <strong>{{ user?.nombreUsuario || 'Usuario no encontrado' }}</strong></p>
-          <small>Última conexión: <strong>{{ formattedLastLogin || 'No disponible' }}</strong></small>
-        </div>
-        
+
+
         <!-- Estadísticas de Vacunación -->
         <div class="card stats-card">
-          <h4><i class="fas fa-syringe"></i> Estado de Vacunación</h4>
+          <h4><i class="fas fa-chart-simple"></i> Inventario de Vacunas</h4>
           <div class="stats-grid">
+            <div class="stat-item" style="cursor:pointer" >
+              <i class="fas fa-vial-virus"></i>
+              <span>Total Vacunas Registradas</span>
+              <h3>{{totalVacunas || 0}}</h3>
+            </div>
+            <div class="stat-item" style="cursor:pointer" >
+              <i class="fas fa-syringe"></i>
+              <span>Total Jeringas Registradas</span>
+              <h3>{{totalJeringas || 0}}</h3>
+            </div>
+            <div class="stat-item" style="cursor:pointer" >
+              <i class="fas fa-vial"></i>
+              <span>Total Diluyentes Registrados</span>
+              <h3>{{totalDiluyentes || 0}}</h3>
+            </div>
+
             <div class="stat-item">
-              <i class="fas fa-vials"></i>
-              <span>Total Dosis Disponibles</span>
-              <h3>{{totalVacunasDisponibles}}</h3>
+              <i class="fas fa-calendar-alt"></i>
+              <span>Vacunas Aplicadas en el mes</span>
+              <h3>{{vacunasAplicadasMes || 0}}</h3>
             </div>
           </div>
         </div>
@@ -40,8 +53,11 @@
 
         <!-- Sistema Info -->
         <div class="card system-info-card">
+
           <h4><i class="fas fa-info-circle"></i> Información del Sistema</h4>
           <div class="system-info-content">
+            <p><i class="fas fa-user"></i> Bienvenido/a, <strong>{{ user?.nombreUsuario || 'Usuario no encontrado' }}</strong></p>
+            <p><i class="fas fa-plug"></i> Última conexión: <strong>{{ formattedLastLogin || 'No disponible' }}</strong></p>
             <p><i class="fas fa-code-branch"></i> Versión: 2.0.0</p>
             <p><i class="fas fa-calendar-check"></i> Última actualización: 03-03-2025</p>
             <p><i class="fas fa-shield-alt"></i> Estado: Activo</p>

@@ -2,26 +2,27 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NavbarAdminComponent } from './navbar-admin/navbar-admin.component';
+import { SharedComponentsModule } from '../shared/shared-components.module';
 import { AdminComponent } from './admin.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ReportesComponent } from './reportes/reportes.component';
 
 @NgModule({
   declarations: [
-    NavbarAdminComponent,
     AdminComponent,
-    ReportesComponent
+    ReportesComponent,
+    
   ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    SharedComponentsModule,
   ],
   exports: [
-    NavbarAdminComponent,
+    
     CommonModule,
     RouterModule,
     FormsModule,

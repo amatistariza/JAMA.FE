@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
-import { NavbarEnfermeraComponent } from './navbar-enfermera/navbar-enfermera.component';
+import { SharedComponentsModule } from '../shared/shared-components.module';
 import { AlertaEnfermeraComponent } from './alerta-enfermera/alerta-enfermera.component';
 import { EnfermeraComponent } from './enfermera.component';
 
 @NgModule({
   declarations: [
-    NavbarEnfermeraComponent,
     AlertaEnfermeraComponent,
     EnfermeraComponent
   ],
@@ -18,10 +17,10 @@ import { EnfermeraComponent } from './enfermera.component';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
-  ],
+    SharedModule,
+    SharedComponentsModule
+],
   exports: [
-    NavbarEnfermeraComponent,
     AlertaEnfermeraComponent,
     EnfermeraComponent,
     RouterModule

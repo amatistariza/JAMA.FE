@@ -20,25 +20,28 @@ export class EsquemaVacunacionService {
       .set('Accept', 'text/plain');
 
     const formattedData = {
-      ...esquemaData,
-      usuarioId: Number(esquemaData.usuarioId),
-      pacienteId: Number(esquemaData.pacienteId),
-      VacunaId: Number(esquemaData.detalles[0].vacunaId),
-      detalles: esquemaData.detalles.map((detalle: any) => ({
-        VacunaId: Number(detalle.vacunaId),
-        jeringaId: Number(detalle.jeringaId),
+      tipoCarnet: String(esquemaData.tipoCarnet || ''),
+      responsable: String(esquemaData.responsable || ''),
+      registradoPAI: Boolean(esquemaData.registradoPAI || false),
+      motivoIngreso: String(esquemaData.motivoIngreso || ''),
+      observaciones: String(esquemaData.observaciones || ''),
+      pacienteId: Number(esquemaData.pacienteId || 0),
+      vacunaId: esquemaData.detalles && esquemaData.detalles.length ? Number(esquemaData.detalles[0].vacunaId) : Number(esquemaData.vacunaId || 0),
+      numeroDeDosis: Number(esquemaData.numeroDeDosis || 0),
+      viaDeAdministracion: String(esquemaData.viaDeAdministracion || ''),
+      sitioDeAplicacion: String(esquemaData.sitioDeAplicacion || ''),
+      lote: String(esquemaData.lote || ''),
+      detalles: (esquemaData.detalles || []).map((detalle: any) => ({
+        vacunaId: Number(detalle.vacunaId || 0),
+        cantidadUtilizadaVacuna: Number(detalle.cantidadUtilizadaVacuna || 0),
         diluyenteId: detalle.diluyenteId ? Number(detalle.diluyenteId) : null,
-        dosis: Number(detalle.dosis),
-        cantidadUtilizadaVacuna: Number(detalle.cantidadUtilizadaVacuna),
-        cantidadUtilizadaJeringa: Number(detalle.cantidadUtilizadaJeringa),
-        cantidadUtilizadaDiluyente: Number(detalle.cantidadUtilizadaDiluyente),
-      })),
-      viaDeAdministracion: String(esquemaData.viaDeAdministracion),
-      sitioDeAplicacion: String(esquemaData.sitioDeAplicacion),
-      Lote: String(esquemaData.lote),
-      observaciones: String(esquemaData.observaciones),
-      motivoIngreso: String(esquemaData.motivoIngreso)
+        cantidadUtilizadaDiluyente: Number(detalle.cantidadUtilizadaDiluyente || 0),
+        jeringaId: Number(detalle.jeringaId || 0),
+        cantidadUtilizadaJeringa: Number(detalle.cantidadUtilizadaJeringa || 0)
+      }))
     };
+
+    console.log('Dosis:', esquemaData);
 
     return this.http.post(this.apiUrl, formattedData, {
       headers: headers,

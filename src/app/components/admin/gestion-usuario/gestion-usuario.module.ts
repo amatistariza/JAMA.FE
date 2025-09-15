@@ -4,6 +4,7 @@ import { AdminModule } from '../admin.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedComponentsModule } from '../../shared/shared-components.module';
 import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
 
 @NgModule({
@@ -15,6 +16,7 @@ import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
     CommonModule,
     ReactiveFormsModule,
     AdminModule,
+    SharedComponentsModule,
     NgxPaginationModule
   ],
   exports: [

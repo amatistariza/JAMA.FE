@@ -4,14 +4,14 @@
 <ng-template #adminNav>
   <app-navbar-admin></app-navbar-admin>
 </ng-template>
-<div class="container mt-4">
 
+
+<div class="container mt-4 mb-4">
   <div class="card" id="registroVacunaSection" *ngIf="mostrarConsultaVacuna">
     <div class="card-body">
       <div class="header">
         <h2>Gestión Vacunación</h2>
       </div>
-
       <div>
         <button class="add-button mb-4" (click)="addItem()">
           <i class="fa-solid fa-plus"></i> Añadir
@@ -73,7 +73,7 @@
     </div>
   </div>
 
-  <div class="container mt-4" id="mostrarConsultaVacuna" *ngIf="mostrarRegistroVacuna">
+  <div class="container mt-4 mb-4" id="mostrarConsultaVacuna" *ngIf="mostrarRegistroVacuna">
     <div class="card">
       <div class="card-body">
         <div class="header">
@@ -107,7 +107,7 @@
           <div *ngIf="pacienteSeleccionado">
             <div class="row g-3">
               <div class="mb-3 col-md-6">
-                <label for="tipoCarnetInput" class="form-label required-field">Tipo de Carnet</label>
+                <label for="tipoCarnetInput" class="form-label required-field">Tipo de Carnet*</label>
                 <input id="tipoCarnetInput" class="form-control" formControlName="tipoCarnet"
                   [class.is-invalid]="esquemaForm.get('tipoCarnet')?.invalid && esquemaForm.get('tipoCarnet')?.touched">
                 <div class="invalid-feedback"
@@ -251,3 +251,4 @@
       </div>
     </div>
   </div>
+</div>

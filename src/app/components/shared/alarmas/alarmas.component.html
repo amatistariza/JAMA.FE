@@ -1,0 +1,29 @@
+<div class="alarmas-dropdown dropdown me-4">
+  <button class="btn btn-link position-relative text-decoration-none" id="alarmasDropdown" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    <i class="fa-solid fa-bell fa-lg"></i>
+    <span *ngIf="total > 0" class="badge bg-danger rounded-pill alarm-badge">{{ total }}</span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="alarmasDropdown">
+    <li class="d-flex justify-content-between align-items-center mb-2">
+      <strong>Notificaciones <button class="btn btn-sm btn-outline-success btn-refresh" title="Refrescar"
+          (click)="refresh()">
+          <i class="fa fa-sync"></i>
+        </button></strong>
+
+      <div>
+        <button class="btn btn-sm btn-secondary me-2" (click)="goToGestionAlarmas()">Visualizar</button>
+      </div>
+    </li>
+    <li>
+      <hr class="dropdown-divider">
+    </li>
+    <li *ngIf="loading" class="px-3">Cargando...</li>
+    <li *ngIf="error" class="px-3 text-danger">{{ error }}</li>
+    <li *ngIf="!loading && alarmas.length === 0" class="px-3">No hay notificaciones</li>
+    <li *ngFor="let a of alarmas" class="px-3 py-2 alarm-item">
+      <div class="fw-bold">{{ a.nombre }}</div>
+      <div class="small text-muted">{{ a.pendiente }} — {{ a.fechaAplicacion | date:'dd/MM/yyyy' }}</div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,79 @@
+<ng-container *ngIf="isEnfermera; else adminNav">
+  <app-navbar-enfermera></app-navbar-enfermera>
+</ng-container>
+<ng-template #adminNav>
+  <app-navbar-admin></app-navbar-admin>
+</ng-template>
+
+<div class="container mt-4 mb-4">
+  <div class="card">
+    <div class="card-body">
+      <div class="header">
+        <h2>Gestión Alarmas</h2>
+      </div>
+
+      <div class="mb-3 d-flex justify-content-end">
+        <button class="btn btn-primary" (click)="actualizar()" [disabled]="loading">
+          <i class="fa-solid fa-sync"></i> Actualizar
+        </button>
+      </div>
+
+      <div class="mb-3">
+        <input type="text" class="form-control" placeholder="Buscar por número o nombre..." [(ngModel)]="filtro"
+          (input)="filtrar()" />
+      </div>
+
+      <div *ngIf="loading" class="alert alert-info">Cargando alarmas...</div>
+      <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+      <div class="table-responsive" >
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Tipo Identificación</th>
+              <th>Número Identificación</th>
+              <th>Nombre</th>
+              <th>Celular</th>
+              <th>Correo</th>
+              <th>Pendiente</th>
+              <th>Fecha de Aplicación</th>
+              <th>Ok</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let alarma of alarmasFiltradas | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaActual }">
+              <td>{{ alarma.tipoIdentificacion }}</td>
+              <td>{{ alarma.numeroIdentificacion }}</td>
+              <td>{{ alarma.nombre }}</td>
+              <td>{{ alarma.celular || '-' }}</td>
+              <td>{{ alarma.correo || '-' }}</td>
+              <td>{{ alarma.pendiente || '-' }}</td>
+              <td>{{ alarma.fechaAplicacion ? (alarma.fechaAplicacion | date:'dd/MM/yyyy') : 'Sin fecha' }}</td>
+              <td>
+                <button class="btn btn-custom btn-sm me-2 mb-2" (click)="gestionar(alarma)">
+                  <i class="fa-solid fa-pen-to-square"></i> Gestionar
+                </button>
+                <button class="btn btn-custom-delete btn-sm mb-2" (click)="eliminarAlarma(alarma.id)">
+                  <i class="fa-solid fa-trash"></i> Eliminar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination-container" style="text-align: center;">
+        <button class="btn btn-custom" [disabled]="paginaActual === 1" (click)="cambiarPagina(paginaActual - 1)">
+          Atrás
+        </button>
+        <span class="mx-2">Página {{ paginaActual }}</span>
+        <button class="btn btn-custom" [disabled]="paginaActual * itemsPorPagina >= alarmasFiltradas.length"
+          (click)="cambiarPagina(paginaActual + 1)">
+          Siguiente
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

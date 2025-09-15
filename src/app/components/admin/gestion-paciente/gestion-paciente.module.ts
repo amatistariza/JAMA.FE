@@ -10,6 +10,7 @@ import { TablaMadreComponent } from './paciente/tabla-madre/tabla-madre.componen
 import { MadreFormComponent } from './paciente/tabla-madre/madre-form/madre-form.component';
 import { TablaCuidadorComponent } from './paciente/tabla-cuidador/tabla-cuidador.component';
 import { CuidadorFormComponent } from './paciente/tabla-cuidador/cuidador-form/cuidador-form.component';
+import { SharedComponentsModule } from '../../shared/shared-components.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { CuidadorFormComponent } from './paciente/tabla-cuidador/cuidador-form/c
     NgxPaginationModule,
     AdminModule,
     EnfermeraModule
+    ,SharedComponentsModule
   ],
   exports: [
     GestionPacienteComponent,

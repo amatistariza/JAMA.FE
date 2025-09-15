@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-gestion-inventario-jeringa',
   templateUrl: './gestion-inventario-jeringa.component.html',
-  styleUrl: './gestion-inventario-jeringa.component.css'
+  styleUrls: ['./gestion-inventario-jeringa.component.css']
 })
 export class GestionInventarioJeringaComponent implements OnInit {
   jeringas: Jeringa[] = [];

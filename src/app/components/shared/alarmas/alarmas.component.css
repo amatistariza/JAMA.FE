@@ -1,0 +1,54 @@
+.alarm-badge {
+  position: absolute;
+  top: 0px;
+  right: -8px;
+  font-size: 0.7rem;
+}
+.alarm-item {
+  min-width: 260px;
+}
+.alarmas-dropdown .dropdown-menu {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+/* Make the bell icon slightly larger and ensure the button doesn't constrain it */
+.alarmas-dropdown .btn i.fa-bell {
+  font-size: 1.25rem; /* slightly bigger than fa-lg */
+  line-height: 1;
+}
+
+.alarmas-dropdown .btn {
+  padding: 0.25rem 0.35rem; /* keep button compact but allow larger icon */
+}
+
+.alarmas-dropdown .btn i.fa-bell {
+  font-size: 1.8rem; /* ejemplo: 2.5rem ≈ 40px (ajusta según prefieras) */
+  line-height: 1;
+}
+.alarm-badge {
+  top: -1px;   /* subir un poco según el nuevo tamaño */
+  right: -1px; /* mover hacia la derecha según el nuevo tamaño */
+  font-size: 0.75rem;
+  padding: 0.25rem 0.45rem;
+}
+
+
+
+.btn-refresh {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 6px;
+}
+
+.btn-refresh i {
+  font-size: 0.95rem;
+}
+
+.btn-refresh:hover {
+  color: #fff;
+}

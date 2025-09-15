@@ -16,6 +16,7 @@ import { RoleGuard } from './guards/role.guard';
 import { RegistroVacunaComponent } from './components/shared/registro-vacuna/registro-vacuna.component';
 import { EsquemaDetallesComponent } from './components/shared/esquema-detalles/esquema-detalles.component';
 import { ReportesComponent } from './components/admin/reportes/reportes.component';
+import { GestionAlarmasComponent } from './components/shared/gestion-alarmas/gestion-alarmas.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,7 @@ const routes: Routes = [
       { path: 'gestionInventarioSuero', component: GestionInventarioSueroComponent },
       { path: 'gestionPaciente', component: GestionPacienteComponent },
       { path: 'registro-vacuna', component: RegistroVacunaComponent },
+      { path: 'gestionAlarmas', component: GestionAlarmasComponent },
       { path: 'esquema-detalles/:esquemaId', component: EsquemaDetallesComponent },
       { path: 'reportes',component: ReportesComponent }
     ]
@@ -52,6 +54,7 @@ const routes: Routes = [
       { path: 'home', component: EnfermeraComponent },
       { path: 'gestionPaciente', component: GestionPacienteComponent },
       { path: 'registro-vacuna', component: RegistroVacunaComponent },
+      { path: 'gestionAlarmas', component: GestionAlarmasComponent },
       { path: 'alertas', component: AlertaEnfermeraComponent },
       { path: 'esquema-detalles/:esquemaId', component: EsquemaDetallesComponent }
     ]

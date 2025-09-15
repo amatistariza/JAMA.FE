@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
     <a class="navbar-brand" [routerLink]="['/enfermera', userId, 'home']">
-      <img src="assets/Logo.png" alt="Vacunacion logo" width="70">
+      <img src="assets/Logo.png" alt="Vacunacion logo">
     </a>
 
     <button class="navbar-toggler" type="button" (click)="toggleMenu('mainMenu')" aria-controls="navbarNav">
@@ -15,14 +15,17 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/enfermera', userId, 'gestionPaciente']" routerLinkActive="active">Gestionar Pacientes</a>
+          <a class="nav-link" [routerLink]="['/enfermera', userId, 'gestionPaciente']"
+            routerLinkActive="active">Gestionar Pacientes</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/enfermera', userId, 'registro-vacuna']" routerLinkActive="active">Registro Vacunas</a>
+          <a class="nav-link" [routerLink]="['/enfermera', userId, 'registro-vacuna']"
+            routerLinkActive="active">Registro Vacunas</a>
         </li>
       </ul>
 
+      <app-alarmas></app-alarmas>
       <button class="btn-logout" (click)="cerrarSesion()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
     </div>
   </div>

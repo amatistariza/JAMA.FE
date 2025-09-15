@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-gestion-inventario-diluyente',
   templateUrl: './gestion-inventario-diluyente.component.html',
-  styleUrl: './gestion-inventario-diluyente.component.css'
+  styleUrls: ['./gestion-inventario-diluyente.component.css']
 })
 export class GestionInventarioDiluyenteComponent implements OnInit {
   diluyentes: Diluyente[] = [];

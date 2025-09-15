@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { EsquemaVacunacionService } from '../../../services/esquema-vacunacion.service';
 import { InventarioVacunaService } from '../../../services/inventario-vacuna.service';
 import { InventarioJeringaService } from '../../../services/inventario-jeringa.service';
@@ -64,17 +64,61 @@ export class RegistroVacunaComponent implements OnInit {
     private inventarioJeringaService: InventarioJeringaService,
     private inventarioDiluyenteService: InventarioDiluyenteService,
     private router: Router,
+    private route: ActivatedRoute,
     private loginService: LoginService,
     private pacienteService: PacienteService
   ) {
     this.esquemaForm = this.initForm(); // Inicializar aquí el formulario
+    console.log('URL actual:', this.router.url);
     this.isEnfermera = this.router.url.includes('/enfermera/');
   }
 
   ngOnInit() {
+
     this.loadEsquemas();
     this.cargarInventarios();
     this.setResponsable();
+
+    // Revisar si viene una identificación por query param para prellenar búsqueda
+    this.route.queryParams.subscribe(params => {
+      const identificacion = params['identificacion'];
+      const vacunaName = params['vacunaName'];
+      if (identificacion) {
+        this.searchTerm = identificacion;
+        this.buscarPaciente();
+        // Mostrar formulario de registro
+        this.mostrarRegistroVacuna = true;
+        this.mostrarConsultaVacuna = false;
+      }
+
+      if (vacunaName) {
+        // Cuando carguen las vacunas, intentaremos preseleccionar
+        const trySelectVacuna = () => {
+          const vacuna = this.vacunas.find(v => (v.nombre || '').toString().toLowerCase() === vacunaName.toString().toLowerCase());
+          if (vacuna && this.detalles.length > 0) {
+            const detalleGroup = this.detalles.at(0) as FormGroup;
+            detalleGroup.patchValue({ vacunaId: vacuna.id, vacuna });
+            this.esquemaForm.patchValue({ lote: vacuna.lote ?? '' });
+            this.numeroDosisPorAplicar(vacuna.id);
+          }
+        };
+
+        // Si ya cargaron vacunas
+        if (this.vacunas && this.vacunas.length > 0) {
+          trySelectVacuna();
+        } else {
+          // si no, esperar a que se carguen usando un pequeño poll (o considerar un Subject)
+          const waitForVacunas = setInterval(() => {
+            if (this.vacunas && this.vacunas.length > 0) {
+              clearInterval(waitForVacunas);
+              trySelectVacuna();
+            }
+          }, 200);
+          // cancelar después de 5s
+          setTimeout(() => clearInterval(waitForVacunas), 5000);
+        }
+      }
+    });
   }
 
   private setResponsable() {
@@ -154,32 +198,72 @@ export class RegistroVacunaComponent implements OnInit {
   guardarEsquema(): void {
     if (this.esquemaForm.valid) {
       const userId = this.loginService.getUserIdFromToken();
-      const esquemaData = {
-        ...this.esquemaForm.value,
-        numeroDeDosis: 1,
-        usuarioId: userId,
-        estado: 'ACTIVO',
+      const form = this.esquemaForm.value;
 
+      const detallesPayload = (form.detalles || []).map((d: any) => ({
+        vacunaId: Number(d.vacunaId || 0),
+        cantidadUtilizadaVacuna: Number(d.cantidadUtilizadaVacuna || 0),
+        diluyenteId: d.diluyenteId ? Number(d.diluyenteId) : null,
+        cantidadUtilizadaDiluyente: Number(d.cantidadUtilizadaDiluyente || 0),
+        jeringaId: Number(d.jeringaId || 0),
+        cantidadUtilizadaJeringa: Number(d.cantidadUtilizadaJeringa || 0)
+      }));
 
+      const payload: any = {
+        tipoCarnet: String(form.tipoCarnet || ''),
+        responsable: String(form.responsable || ''),
+        registradoPAI: Boolean(form.registradoPAI || false),
+        motivoIngreso: String(form.motivoIngreso || ''),
+        observaciones: String(form.observaciones || ''),
+        pacienteId: Number(form.pacienteId || 0),
+        vacunaId: detallesPayload.length ? Number(detallesPayload[0].vacunaId) : Number(form.vacunaId || 0),
+        numeroDeDosis: Number(form.numerodosis || form.numeroDeDosis || 0),
+        viaDeAdministracion: String(form.viaDeAdministracion || ''),
+        sitioDeAplicacion: String(form.sitioDeAplicacion || ''),
+        lote: String(form.lote || ''),
+        detalles: detallesPayload,
+        usuarioId: Number(userId || 0),
+        estado: 'ACTIVO'
       };
 
-      console.log(esquemaData)
+      console.log('Payload enviado al servicio:', payload);
 
-
-      this.esquemaService.crearEsquema(esquemaData).subscribe({
+      this.esquemaService.crearEsquema(payload).subscribe({
         next: (response) => {
           Swal.fire('Éxito', 'Esquema guardado correctamente', 'success')
             .then(() => {
               const parsed = JSON.parse(response); // convertir string -> objeto
               const esquemaId = parsed.esquemaId;
-              console.log('EsquemaId:', esquemaId);
+              console.log('EsquemaId:', response);
               const baseRoute = this.isEnfermera ? 'enfermera' : 'admin';
               this.router.navigate([`/${baseRoute}/${userId}/esquema-detalles/${esquemaId}`]);
             });
         },
         error: (error) => {
-          console.error('Error al guardar:', error);
-          Swal.fire('Error', 'No se pudo guardar el esquema: 1' + error.message, 'error');
+          // Intentar extraer mensaje detallado del backend
+          let backendMessage = '';
+          try {
+            if (error && error.error) {
+              // Puede venir como string JSON o ya como objeto
+              if (typeof error.error === 'string') {
+                const parsedErr = JSON.parse(error.error);
+                backendMessage = parsedErr.mensaje || parsedErr.message || JSON.stringify(parsedErr);
+              } else if (typeof error.error === 'object') {
+                backendMessage = error.error.mensaje || error.error.message || JSON.stringify(error.error);
+              }
+            } else if (error && error.message) {
+              backendMessage = error.message;
+            }
+          } catch (e) {
+            backendMessage = 'Error al parsear la respuesta del servidor.';
+          }
+
+          const userMessage = backendMessage || 'No se pudo guardar el esquema.';
+          console.error('Error al guardar (detalle):', backendMessage, error);
+
+          // Mostrar con Swal y en el banner del formulario
+          Swal.fire('Error', userMessage, 'error');
+          this.showMessage(userMessage, 'error');
         }
       });
     } else {
@@ -256,6 +340,7 @@ export class RegistroVacunaComponent implements OnInit {
     let response = this.esquemaService.getNumeroDosisPorAplicar(this.pacienteSeleccionado.id, vacunaId);
     response.subscribe(
       response => {
+        console.log('Respuesta de dosis por aplicar:', response);
         if (response.aplica) {
           const numeroDosis = response.numeroDosis;
           this.esquemaForm.patchValue({ numerodosis: numeroDosis });

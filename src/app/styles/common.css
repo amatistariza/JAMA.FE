@@ -1,9 +1,15 @@
 :host {
   display: block;
   min-height: 100vh;
+  /* Asegura que cubra toda la altura de la ventana */
   background: rgba(82, 194, 52, 0.9);
   background: -webkit-linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
   background: linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  padding: 0;
+  /* no empuja el navbar */
   font-family: 'Poppins', sans-serif;
 }
 
@@ -14,13 +20,15 @@
   margin: 20px 0;
 }
 
-.btn-custom, .btn-primary {
+.btn-custom,
+.btn-primary {
   background-color: #52c234;
   border-color: #52c234;
   color: white;
 }
 
-.btn-custom:hover, .btn-primary:hover {
+.btn-custom:hover,
+.btn-primary:hover {
   background-color: #45a827;
   border-color: #45a827;
 }
@@ -35,4 +43,15 @@
 .form-control:focus {
   border-color: #52c234;
   box-shadow: 0 0 0 0.2rem rgba(82, 194, 52, 0.25);
+}
+
+.btn-custom-delete {
+  background-color: #e53935;
+  border-color: #e53935;
+  color: white;
+}
+
+.btn-custom-delete:hover {
+  background-color: #c62828;
+  border-color: #c62828;
 }

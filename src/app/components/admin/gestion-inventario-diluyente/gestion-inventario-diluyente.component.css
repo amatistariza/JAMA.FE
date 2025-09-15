@@ -1,11 +1,16 @@
 :host {
-    display: block;
-    min-height: 100vh; /* Asegura que cubra toda la altura de la ventana */
-    background: rgba(82, 194, 52, 0.9);
-    background: -webkit-linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
-    background: linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
-    font-family: 'Poppins', sans-serif;
-  }
+  display: block;
+  min-height: 100vh;
+  /* Asegura que cubra toda la altura de la ventana */
+  background: rgba(82, 194, 52, 0.9);
+  background: -webkit-linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
+  background: linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  padding: 0; /* no empuja el navbar */
+  font-family: 'Poppins', sans-serif;
+}
   
   .header {
     text-align: center;
@@ -50,8 +55,3 @@
       background-color: #45a827;
     }
 
-    .btn{
-      background-color: #52c234;
-      border-color: #52c234;
-      color: white;
-    }

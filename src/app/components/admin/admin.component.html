@@ -4,10 +4,6 @@
   <div class="main-container">
     <div class="row">
       <div class="column-left">
-        <div class="welcome-message">
-          <p>Bienvenido/a, <strong>{{ user?.nombreUsuario || 'Usuario no encontrado' }}</strong></p>
-          <small>Última conexión: <strong>{{ formattedLastLogin || 'No disponible' }}</strong></small>
-        </div>
 
         <!-- Estadísticas de Sistema -->
         <div class="card stats-card">
@@ -66,6 +62,8 @@
         <div class="card system-info-card">
           <h4><i class="fas fa-info-circle"></i> Información del Sistema</h4>
           <div class="system-info-content">
+            <p><i class="fas fa-user"></i> Bienvenido/a, <strong>{{ user?.nombreUsuario || 'Usuario no encontrado' }}</strong></p>
+            <p><i class="fas fa-plug"></i> Última conexión: <strong>{{ formattedLastLogin || 'No disponible' }}</strong></p>
             <p><i class="fas fa-code-branch"></i> Versión: 2.0.0</p>
             <p><i class="fas fa-calendar-check"></i> Última actualización: 03-03-2025</p>
             <p><i class="fas fa-shield-alt"></i> Estado: Activo</p>

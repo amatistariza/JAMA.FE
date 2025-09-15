@@ -12,10 +12,11 @@ export class NavbarEnfermeraComponent implements OnInit {
   activeSubMenu: string | null = null; // Submenú abierto
   userId: string | null = null;  // Variable para almacenar el ID del usuario
 
+
   constructor(
     private loginService: LoginService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.userId = this.loginService.getUserIdFromToken(); // Obtener el ID del usuario desde el token
@@ -45,4 +46,7 @@ export class NavbarEnfermeraComponent implements OnInit {
     this.loginService.removeLocalStorage();
     this.router.navigate(['/login']);
   }
+
+
+
 }
