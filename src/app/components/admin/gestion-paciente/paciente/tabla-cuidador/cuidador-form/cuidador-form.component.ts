@@ -37,7 +37,8 @@ export class CuidadorFormComponent implements OnInit {
       segundoNombre: [''],
       primerApellido: ['', [Validators.required, Validators.minLength(2)]],
       segundoApellido: [''],
-      parentesco: ['', [Validators.required]]
+      parentesco: ['', [Validators.required]],
+      correoelectronico: ['', [Validators.required, Validators.email]],
     });
   }
 
