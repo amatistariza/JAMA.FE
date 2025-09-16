@@ -50,4 +50,11 @@ export class ReportesComponent {
     imprimir() {
         window.print();
     }
+
+    get totalDosis(): number {
+        if (!this.estadisticasDosisFiltradas || this.estadisticasDosisFiltradas.length === 0) {
+            return 0;
+        }
+        return this.estadisticasDosisFiltradas.reduce((sum, item) => sum + (item?.dosis || 0), 0);
+    }
 }
