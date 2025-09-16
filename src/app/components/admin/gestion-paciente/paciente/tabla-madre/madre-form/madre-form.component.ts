@@ -43,6 +43,7 @@ export class MadreFormComponent implements OnInit {
       telefonoFijo: ['', [Validators.required]],
       celular: ['', [Validators.required]],
       regimenAfiliacion: ['', [Validators.required]],
+      pertenenciaEtnica: ['', [Validators.required]],
       desplazado: [false]
     });
   }
