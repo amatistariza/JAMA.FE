@@ -389,12 +389,9 @@ export class PacienteComponent implements OnInit {
   async exitePaciente(pacienteJson): Promise<boolean> {
     try {
       const paciente2 = await this.pacienteService.getPacienteByNumeroIdentificacion(pacienteJson.numeroIdentificacion).toPromise();
-      console.log('Verificando existencia del paciente con número de identificación:', paciente2);
       if (paciente2) {
-        console.log('Paciente encontrado:', paciente2);
         return true;
       } else {
-        console.log('No se encontró ningún paciente con ese número de identificación.');
         return false;
 
       }
@@ -464,7 +461,11 @@ export class PacienteComponent implements OnInit {
         this.onCancelar.emit();
       },
       error => {
-        Swal.fire('Error', 'Hubo un problema al guardar o actualizar el paciente', 'error');
+        if (error && error.error && error.error.errors) {
+          this.handleValidationErrors(error);
+        } else {
+          Swal.fire('Error', 'Hubo un problema al guardar o actualizar el paciente', 'error');
+        }
         console.error('Error:', error);
       }
     );
@@ -480,7 +481,11 @@ export class PacienteComponent implements OnInit {
         this.onCancelar.emit();
       },
       error => {
-        Swal.fire('Error', 'Hubo un problema al guardar o actualizar el paciente', 'error');
+        if (error && error.error && error.error.errors) {
+          this.handleValidationErrors(error);
+        } else {
+          Swal.fire('Error', 'Hubo un problema al guardar o actualizar el paciente', 'error');
+        }
         console.error('Error:', error);
       }
     );
@@ -491,10 +496,78 @@ export class PacienteComponent implements OnInit {
   getErrorMessage(fieldName: string): string {
     const control = this.pacienteForm.get(fieldName);
     if (control && control.errors) {
+      // Preferir mensaje del servidor si existe
+      if (control.errors['server']) {
+        return control.errors['server'];
+      }
       const firstError = Object.keys(control.errors)[0];
-      return ValidationMessages[firstError as keyof typeof ValidationMessages];
+      return ValidationMessages[firstError as keyof typeof ValidationMessages] || '';
     }
     return '';
+  }
+
+  // Maneja errores de validación devueltos por el servidor (400)
+  handleValidationErrors(errorResponse: any): void {
+    try {
+      const errorsObj = errorResponse.error && errorResponse.error.errors;
+      if (!errorsObj) {
+        Swal.fire('Error', 'Ocurrió un error desconocido en el servidor.', 'error');
+        return;
+      }
+
+      // Construir HTML con la lista de errores para mostrar en Swal
+      const messages: string[] = [];
+      Object.keys(errorsObj).forEach((key) => {
+        const msgs = errorsObj[key] as string[];
+        // Transformar nombre de campo del servidor a nombre de control (camelCase simple)
+        const controlName = key.charAt(0).toLowerCase() + key.slice(1);
+        // Intentar obtener un nombre legible en español para mostrar
+        const fieldDisplayMap: { [k: string]: string } = {
+          aseguradora: 'Aseguradora',
+          pertenenciaEtnica: 'Pertenencia étnica',
+          regimenAfiliacion: 'Régimen de afiliación',
+          lugarAtencionParto: 'Lugar de atención del parto'
+        };
+        const displayName = fieldDisplayMap[controlName] || key.replace(/([A-Z])/g, ' $1').trim();
+
+        // Traducir mensajes comunes del servidor al español
+        const translate = (msg: string) => {
+          // "The X field is required." -> "El campo X es obligatorio."
+          const requiredMatch = msg.match(/The\s+(.+)\s+field\s+is\s+required\.?/i);
+          if (requiredMatch) {
+            return `El campo ${displayName} es obligatorio.`;
+          }
+          // "The X field is invalid." -> "El campo X es inválido."
+          const invalidMatch = msg.match(/The\s+(.+)\s+field\s+is\s+invalid\.?/i);
+          if (invalidMatch) {
+            return `El campo ${displayName} es inválido.`;
+          }
+          // Por defecto, devolver el mensaje original
+          return msg;
+        };
+
+        const translated = msgs.map(m => translate(m));
+
+        // Marcar el control correspondiente con el error traducido si existe
+        const control = this.pacienteForm.get(controlName);
+        if (control) {
+          control.setErrors({ server: translated.join(' - ') });
+          control.markAsTouched();
+        }
+
+        messages.push(`<b>${displayName}</b>: ${translated.join(', ')}`);
+      });
+
+      const html = messages.join('<br>');
+      Swal.fire({
+        icon: 'error',
+        title: 'Errores de validación',
+        html: html,
+      });
+    } catch (e) {
+      console.error('Error parsing validation errors', e);
+      Swal.fire('Error', 'Ocurrió un error al procesar los errores del servidor.', 'error');
+    }
   }
 
   isFieldInvalid(fieldName: string): boolean {

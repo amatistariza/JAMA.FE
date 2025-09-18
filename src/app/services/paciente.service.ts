@@ -49,10 +49,8 @@ export class PacienteService {
 
   getPacienteByNumeroIdentificacion(numeroIdentificacion: string): Observable<Paciente> {
     const url = `${this.apiUrl}/BuscarPaciente/${numeroIdentificacion}`;
-    console.log('URL de búsqueda:', url); // Para depuración
     return this.http.get<Paciente>(url).pipe(
       catchError(error => {
-        console.log('Error en búsqueda:', error); // Para depuración
         if (error.status === 404) {
           return throwError(() => new Error('Paciente no encontrado'));
         }

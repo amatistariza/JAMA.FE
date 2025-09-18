@@ -95,9 +95,9 @@ export class TablaCuidadorComponent implements OnInit {
   }
 
   seleccionarCuidador(cuidador: Cuidador): void {
-    console.log('Cuidador seleccionado:', cuidador);
     this.onSeleccionarCuidador.emit(cuidador);
     this.onVolver.emit();
+    this.cuidadorSeleccionado = cuidador;
   }
 
   onFormGuardar(): void {

@@ -3,8 +3,14 @@
     border-color: #52c234;
     color: white;
 }
-  
+
 .btn-custom:hover {
     background-color: #45a827;
     border-color: #45a827;
+}
+
+.validation-error {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
 }

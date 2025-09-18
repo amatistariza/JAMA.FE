@@ -68,8 +68,7 @@ export class RegistroVacunaComponent implements OnInit {
     private loginService: LoginService,
     private pacienteService: PacienteService
   ) {
-    this.esquemaForm = this.initForm(); // Inicializar aquí el formulario
-    console.log('URL actual:', this.router.url);
+  this.esquemaForm = this.initForm(); // Inicializar aquí el formulario
     this.isEnfermera = this.router.url.includes('/enfermera/');
   }
 
@@ -226,7 +225,7 @@ export class RegistroVacunaComponent implements OnInit {
         estado: 'ACTIVO'
       };
 
-      console.log('Payload enviado al servicio:', payload);
+  // payload enviado al servicio (eliminar log de depuración en producción)
 
       this.esquemaService.crearEsquema(payload).subscribe({
         next: (response) => {
@@ -234,7 +233,7 @@ export class RegistroVacunaComponent implements OnInit {
             .then(() => {
               const parsed = JSON.parse(response); // convertir string -> objeto
               const esquemaId = parsed.esquemaId;
-              console.log('EsquemaId:', response);
+              // respuesta recibida del servicio (esquema creado)
               const baseRoute = this.isEnfermera ? 'enfermera' : 'admin';
               this.router.navigate([`/${baseRoute}/${userId}/esquema-detalles/${esquemaId}`]);
             });
@@ -267,7 +266,7 @@ export class RegistroVacunaComponent implements OnInit {
         }
       });
     } else {
-      console.log("============");
+  // separador de depuración eliminado
       this.markFormGroupTouched(this.esquemaForm);
       this.mostrarCamposInvalidos(this.esquemaForm); // <-- Aquí muestra los campos inválidos
       Swal.fire('Error', 'Por favor complete todos los campos requeridos', 'error');
@@ -275,6 +274,7 @@ export class RegistroVacunaComponent implements OnInit {
     }
   }
   private mostrarCamposInvalidos(formGroup: FormGroup) {
+    const messages: string[] = [];
     Object.keys(formGroup.controls).forEach(key => {
       const control = formGroup.get(key);
       if (control instanceof FormGroup) {
@@ -287,12 +287,19 @@ export class RegistroVacunaComponent implements OnInit {
         });
       } else {
         if (control && control.invalid) {
-          console.log(
-            `Campo inválido: ${key} | Valor leído: "${control.value}" | Errores: ${JSON.stringify(control.errors)}`
-          );
+          const val = control.value;
+          const errs = JSON.stringify(control.errors);
+          messages.push(`Campo inválido: ${key} | Valor: "${val}" | Errores: ${errs}`);
         }
       }
     });
+    if (messages.length > 0) {
+      Swal.fire({
+        title: 'Campos inválidos',
+        html: messages.join('<br/>'),
+        icon: 'error'
+      });
+    }
   }
 
   private markFormGroupTouched(formGroup: FormGroup) {
@@ -340,7 +347,7 @@ export class RegistroVacunaComponent implements OnInit {
     let response = this.esquemaService.getNumeroDosisPorAplicar(this.pacienteSeleccionado.id, vacunaId);
     response.subscribe(
       response => {
-        console.log('Respuesta de dosis por aplicar:', response);
+
         if (response.aplica) {
           const numeroDosis = response.numeroDosis;
           this.esquemaForm.patchValue({ numerodosis: numeroDosis });

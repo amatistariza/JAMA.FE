@@ -110,7 +110,6 @@ export class GestionInventarioDiluyenteComponent implements OnInit {
   loadDiluyentes(): void {
     this.diluyenteService.getDiluyentes().subscribe({
       next: (diluyentes) => {
-        console.log('Diluyentes cargados:', diluyentes); // Para debugging
         this.diluyentes = diluyentes;
         this.diluyentesFiltradas = [...this.diluyentes];
       },

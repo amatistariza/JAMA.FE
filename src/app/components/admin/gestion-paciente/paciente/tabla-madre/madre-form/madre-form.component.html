@@ -2,129 +2,123 @@
     <div class="card-body">
         <h3 class="card-title">{{ modo === 'crear' ? 'Añadir Madre' : 'Editar Madre' }}</h3>
         <form [formGroup]="madreForm">
-            <div class="form-outline mb-3">
-                <label for="tipoIdentificacion" class="form-label required-field">Tipo de identificación</label>
-                <select id="tipoIdentificacion" class="form-control" formControlName="tipoIdentificacion"
-                    [ngClass]="{'is-invalid': isFieldInvalid('tipoIdentificacion')}">
-                    <option value="" disabled>Selecciona el tipo de identificación</option>
-                    <option value="RC">RC - Registro Civil</option>
-                    <option value="TI">TI - Tarjeta de Identidad</option>
-                    <option value="CC">CC - Cédula de Ciudadania</option>
-                    <option value="CE">CE - Cédula Extranjera</option>
-                    <option value="PA">PA - Pasaporte</option>
-                </select>
-                <div class="validation-error" *ngIf="isFieldInvalid('tipoIdentificacion')">
-                    {{ getErrorMessage('tipoIdentificacion') }}
+            <div class="row g-3">
+                <div class="form-outline mb-3 col-md-6">
+                    <label for="tipoIdentificacion" class="form-label required-field">Tipo de identificación*</label>
+                    <select id="tipoIdentificacion" class="form-control" formControlName="tipoIdentificacion"
+                        [ngClass]="{'is-invalid': isFieldInvalid('tipoIdentificacion')}">
+                        <option value="" disabled>Selecciona el tipo de identificación</option>
+                        <option value="RC">RC - Registro Civil</option>
+                        <option value="TI">TI - Tarjeta de Identidad</option>
+                        <option value="CC">CC - Cédula de Ciudadania</option>
+                        <option value="CE">CE - Cédula Extranjera</option>
+                        <option value="PA">PA - Pasaporte</option>
+                    </select>
+                    <div class="validation-error" *ngIf="isFieldInvalid('tipoIdentificacion')">
+                        {{ getErrorMessage('tipoIdentificacion') }}
+                    </div>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label for="numeroIdentificacion" class="form-label required-field">Número de Identificación*</label>
+                    <input id="numeroIdentificacion" type="number" class="form-control"
+                        formControlName="numeroIdentificacion"
+                        [ngClass]="{'is-invalid': isFieldInvalid('numeroIdentificacion')}" />
+                    <div class="validation-error" *ngIf="isFieldInvalid('numeroIdentificacion')">
+                        {{ getErrorMessage('numeroIdentificacion') }}
+                    </div>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label for="primerNombre" class="form-label required-field">Primer Nombre*</label>
+                    <input id="primerNombre" class="form-control" formControlName="primerNombre"
+                        [ngClass]="{'is-invalid': isFieldInvalid('primerNombre')}" />
+                    <div class="validation-error" *ngIf="isFieldInvalid('primerNombre')">
+                        {{ getErrorMessage('primerNombre') }}
+                    </div>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label for="segundoNombre" class="form-label">Segundo Nombre*</label>
+                    <input id="segundoNombre" class="form-control" formControlName="segundoNombre" />
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label for="primerApellido" class="form-label required-field">Primer Apellido*</label>
+                    <input id="primerApellido" class="form-control" formControlName="primerApellido"
+                        [ngClass]="{'is-invalid': isFieldInvalid('primerApellido')}" />
+                    <div class="validation-error" *ngIf="isFieldInvalid('primerApellido')">
+                        {{ getErrorMessage('primerApellido') }}
+                    </div>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label for="segundoApellido" class="form-label">Segundo Apellido*</label>
+                    <input id="segundoApellido" class="form-control" formControlName="segundoApellido" />
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label for="correoElectronico" class="form-label required-field">Correo Electrónico*</label>
+                    <input id="correoElectronico" type="email" class="form-control" formControlName="correoElectronico"
+                        [ngClass]="{'is-invalid': isFieldInvalid('correoElectronico')}" />
+                    <div class="validation-error" *ngIf="isFieldInvalid('correoElectronico')">
+                        {{ getErrorMessage('correoElectronico') }}
+                    </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label for="telefonoFijo" class="form-label required-field">Teléfono Fijo*</label>
+                    <input id="telefonoFijo" type="number" class="form-control" formControlName="telefonoFijo"
+                        [ngClass]="{'is-invalid': isFieldInvalid('telefonoFijo')}" />
+                    <div class="validation-error" *ngIf="isFieldInvalid('telefonoFijo')">
+                        {{ getErrorMessage('telefonoFijo') }}
+                    </div>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label for="celular" class="form-label required-field">Celular*</label>
+                    <input id="celular" type="number" class="form-control" formControlName="celular"
+                        [ngClass]="{'is-invalid': isFieldInvalid('celular')}" />
+                    <div class="validation-error" *ngIf="isFieldInvalid('celular')">
+                        {{ getErrorMessage('celular') }}
+                    </div>
+                </div>
+
+                <div class="form-outline mb-3 col-md-6">
+                    <label for="regimenAfiliacion" class="form-label required-field">Régimen de Afiliación*</label>
+                    <select id="regimenAfiliacion" class="form-control" formControlName="regimenAfiliacion"
+                        [ngClass]="{'is-invalid': isFieldInvalid('regimenAfiliacion')}">
+                        <option value="" disabled>Selecciona el régimen</option>
+                        <option value="CONTRIBUTIVO">Régimen Contributivo</option>
+                        <option value="SUBSIDIADO">Régimen Subsidiado</option>
+                        <option value="EXCEPCION Y ESPECIAL E INPEC">Régimen de Excepción y especial e INPEC</option>
+                        <option value="OTRO">Otro</option>
+                    </select>
+                    <div class="validation-error" *ngIf="isFieldInvalid('regimenAfiliacion')">
+                        {{ getErrorMessage('regimenAfiliacion') }}
+                    </div>
+                </div>
+
+                <div class="form-outline mb-3 col-md-6">
+                    <label for="pertenenciaEtnica" class="form-label">Pertenencia Étnica*</label>
+                    <select id="pertenenciaEtnica" class="form-control " formControlName="pertenenciaEtnica" required>
+                        <option value="" disabled>Selecciona la pertenencia étnica</option>
+                        <option value="INDIGENA">Indígena</option>
+                        <option value="AFROCOLOMBIANO">Afrocolombiano</option>
+                        <option value="RAIZAL">Raizal</option>
+                        <option value="PALENQUERO">Palenquero</option>
+                        <option value="NINGUNO DE LOS ANTERIORES">NINGUNO DE LOS ANTERIORES</option>
+                    </select>
+                </div>
+
+                <div class="form-check mb-3 col-md-6">
+                    <input id="desplazado" type="checkbox" class="form-check-input" formControlName="desplazado" />
+                    <label for="desplazado" class="form-check-label">Desplazado</label>
                 </div>
             </div>
-
-            <div class="mb-3">
-                <label for="numeroIdentificacion" class="form-label required-field">Número de Identificación</label>
-                <input id="numeroIdentificacion" type="number" class="form-control"
-                    formControlName="numeroIdentificacion"
-                    [ngClass]="{'is-invalid': isFieldInvalid('numeroIdentificacion')}" />
-                <div class="validation-error" *ngIf="isFieldInvalid('numeroIdentificacion')">
-                    {{ getErrorMessage('numeroIdentificacion') }}
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="primerNombre" class="form-label required-field">Primer Nombre</label>
-                <input id="primerNombre" class="form-control" formControlName="primerNombre"
-                    [ngClass]="{'is-invalid': isFieldInvalid('primerNombre')}" />
-                <div class="validation-error" *ngIf="isFieldInvalid('primerNombre')">
-                    {{ getErrorMessage('primerNombre') }}
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="segundoNombre" class="form-label">Segundo Nombre</label>
-                <input id="segundoNombre" class="form-control" formControlName="segundoNombre" />
-            </div>
-
-            <div class="mb-3">
-                <label for="primerApellido" class="form-label required-field">Primer Apellido</label>
-                <input id="primerApellido" class="form-control" formControlName="primerApellido"
-                    [ngClass]="{'is-invalid': isFieldInvalid('primerApellido')}" />
-                <div class="validation-error" *ngIf="isFieldInvalid('primerApellido')">
-                    {{ getErrorMessage('primerApellido') }}
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="segundoApellido" class="form-label">Segundo Apellido</label>
-                <input id="segundoApellido" class="form-control" formControlName="segundoApellido" />
-            </div>
-
-            <div class="mb-3">
-                <label for="correoElectronico" class="form-label required-field">Correo Electrónico</label>
-                <input id="correoElectronico" type="email" class="form-control" formControlName="correoElectronico"
-                    [ngClass]="{'is-invalid': isFieldInvalid('correoElectronico')}" />
-                <div class="validation-error" *ngIf="isFieldInvalid('correoElectronico')">
-                    {{ getErrorMessage('correoElectronico') }}
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="indicativoTelefono" class="form-label required-field">Indicativo Teléfono</label>
-                <input id="indicativoTelefono" type="number" class="form-control" formControlName="indicativoTelefono"
-                    [ngClass]="{'is-invalid': isFieldInvalid('indicativoTelefono')}" />
-                <div class="validation-error" *ngIf="isFieldInvalid('indicativoTelefono')">
-                    {{ getErrorMessage('indicativoTelefono') }}
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="telefonoFijo" class="form-label required-field">Teléfono Fijo</label>
-                <input id="telefonoFijo" type="number" class="form-control" formControlName="telefonoFijo"
-                    [ngClass]="{'is-invalid': isFieldInvalid('telefonoFijo')}" />
-                <div class="validation-error" *ngIf="isFieldInvalid('telefonoFijo')">
-                    {{ getErrorMessage('telefonoFijo') }}
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="celular" class="form-label required-field">Celular</label>
-                <input id="celular" type="number" class="form-control" formControlName="celular"
-                    [ngClass]="{'is-invalid': isFieldInvalid('celular')}" />
-                <div class="validation-error" *ngIf="isFieldInvalid('celular')">
-                    {{ getErrorMessage('celular') }}
-                </div>
-            </div>
-
-            <div class="form-outline mb-3">
-                <label for="regimenAfiliacion" class="form-label required-field">Régimen de Afiliación</label>
-                <select id="regimenAfiliacion" class="form-control" formControlName="regimenAfiliacion"
-                    [ngClass]="{'is-invalid': isFieldInvalid('regimenAfiliacion')}">
-                    <option value="" disabled>Selecciona el régimen</option>
-                    <option value="CONTRIBUTIVO">Régimen Contributivo</option>
-                    <option value="SUBSIDIADO">Régimen Subsidiado</option>
-                    <option value="EXCEPCION Y ESPECIAL E INPEC">Régimen de Excepción y especial e INPEC</option>
-                    <option value="OTRO">Otro</option>
-                </select>
-                <div class="validation-error" *ngIf="isFieldInvalid('regimenAfiliacion')">
-                    {{ getErrorMessage('regimenAfiliacion') }}
-                </div>
-            </div>
-
-            <div class="form-outline mb-3">
-                <label for="pertenenciaEtnica" class="form-label">Pertenencia Étnica*</label>
-                <select id="pertenenciaEtnica" class="form-control " formControlName="pertenenciaEtnica" required>
-                    <option value="" disabled>Selecciona la pertenencia étnica</option>
-                    <option value="INDIGENA">Indígena</option>
-                    <option value="AFROCOLOMBIANO">Afrocolombiano</option>
-                    <option value="RAIZAL">Raizal</option>
-                    <option value="PALENQUERO">Palenquero</option>
-                    <option value="NINGUNO DE LOS ANTERIORES">NINGUNO DE LOS ANTERIORES</option>
-                </select>
-            </div>
-
-            <div class="form-check mb-3">
-                <input id="desplazado" type="checkbox" class="form-check-input" formControlName="desplazado" />
-                <label for="desplazado" class="form-check-label">Desplazado</label>
-            </div>
-
-            <div class="buttoms">
+            <div class="text-center mt-4">
                 <button type="button" class="btn btn-custom" style="margin-right: 5px;" [disabled]="!madreForm.valid"
                     (click)="guardar()">
                     {{ modo === 'crear' ? 'Añadir' : 'Guardar' }}
@@ -132,11 +126,12 @@
                 <button type="button" class="btn btn-secondary" (click)="cancelar()">
                     Cancelar
                 </button>
-            </div>
 
-            <div class="form-status" *ngIf="formMessage"
-                [ngClass]="{'success': formStatus === 'success', 'error': formStatus === 'error'}">
-                {{ formMessage }}
+
+                <div class="form-status" *ngIf="formMessage"
+                    [ngClass]="{'success': formStatus === 'success', 'error': formStatus === 'error'}">
+                    {{ formMessage }}
+                </div>
             </div>
         </form>
     </div>

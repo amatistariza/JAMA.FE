@@ -29,7 +29,7 @@ export class LoginService {
   setLocalStorage(token: string): void {
     localStorage.setItem('token', token); // Guardar el token
     localStorage.setItem('lastLogin', new Date().toISOString()); // Guardar la fecha de última conexión
-    console.log('Token guardado:', token); // Verifica que el token se haya guardado correctamente
+  
   }  
 
   getToken(): string | null {
@@ -43,14 +43,12 @@ export class LoginService {
 
   getUserIdFromToken(): string | null {
     const decodedToken = this.getTokenDecoded();
-    console.log('Token decodificado:', decodedToken); // Asegúrate de ver lo que contiene el token
     return decodedToken ? decodedToken.idUsuario : null; // Cambia 'idUsuario' por el campo correcto
   }
   
   getUserFromToken(): Usuario | null {
     const decodedToken = this.getTokenDecoded();
-    console.log('Token decodificado:', decodedToken); // Verifica que el token se haya decodificado correctamente
-    
+
     if (decodedToken) {
       return {
         id: decodedToken.idUsuario, // Asegúrate de que 'idUsuario' sea el campo correcto

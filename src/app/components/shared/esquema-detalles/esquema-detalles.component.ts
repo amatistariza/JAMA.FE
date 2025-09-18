@@ -32,10 +32,9 @@ export class EsquemaDetallesComponent implements OnInit {
   }
 
   loadEsquema(id: number) {
-    console.log('Cargando esquema:', id);
     this.esquemaService.getEsquemaById(id).subscribe({
       next: (data) => {
-        console.log('Data recibida:', data);
+
         if (data) {
           this.esquema = {
             ...data,
@@ -53,7 +52,6 @@ export class EsquemaDetallesComponent implements OnInit {
                   ...this.esquema,
                   paciente: paciente
                 };
-                console.log('Esquema completo:', this.esquema);
               },
               error: (error) => {
                 console.error('Error al cargar paciente:', error);

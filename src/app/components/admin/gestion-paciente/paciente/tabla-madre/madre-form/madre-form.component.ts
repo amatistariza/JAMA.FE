@@ -39,7 +39,7 @@ export class MadreFormComponent implements OnInit {
       primerApellido: ['', [Validators.required, Validators.minLength(2)]],
       segundoApellido: [''],
       correoElectronico: ['', [Validators.required, Validators.email]],
-      indicativoTelefono: ['', [Validators.required]],
+
       telefonoFijo: ['', [Validators.required]],
       celular: ['', [Validators.required]],
       regimenAfiliacion: ['', [Validators.required]],
@@ -77,6 +77,30 @@ export class MadreFormComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error:', error);
+          // Si el backend devuelve un mensaje simple
+          if (error && error.error && error.error.mensaje) {
+            Swal.fire('Error', error.error.mensaje, 'error');
+            return;
+          }
+
+          // Si el backend devuelve errores por campo (validation errors)
+          if (error && error.error && error.error.errors) {
+            const errorsObj = error.error.errors;
+            const messages: string[] = [];
+            Object.keys(errorsObj).forEach((key) => {
+              const msgs = errorsObj[key] as string[];
+              const controlName = key.charAt(0).toLowerCase() + key.slice(1);
+              const control = this.madreForm.get(controlName);
+              if (control) {
+                control.setErrors({ server: msgs.join(' - ') });
+                control.markAsTouched();
+              }
+              messages.push(`${controlName}: ${msgs.join(', ')}`);
+            });
+            Swal.fire({ icon: 'error', title: 'Errores', html: messages.join('<br>') });
+            return;
+          }
+
           Swal.fire('Error', `Error al ${this.modo === 'crear' ? 'crear' : 'actualizar'} la madre`, 'error');
         }
       });

@@ -91,7 +91,6 @@ export class GestionAlarmasComponent implements OnInit {
   }
 
   eliminarAlarma(alarmaId?: number): void {
-    console.log('Eliminar alarma con ID:', alarmaId);
     if (!alarmaId) {
       Swal.fire('Error', 'ID de la alarma no disponible', 'error');
       return;

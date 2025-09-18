@@ -63,14 +63,18 @@
           <div class="mb-3 col-md-4">
             <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento*</label>
             <input id="fechaNacimiento" type="date" class="form-control" formControlName="fechaNacimiento" required
-            [ngClass]="{'is-invalid': isFieldInvalid('fechaNacimiento')}" />
+              [ngClass]="{'is-invalid': isFieldInvalid('fechaNacimiento')}" />
             <div class="validation-error" *ngIf="isFieldInvalid('fechaNacimiento')">
               {{ getErrorMessage('fechaNacimiento') }}
-              </div>
+            </div>
           </div>
           <div class="mb-3 col-md-4">
-            <label for="paisNacimiento" class="form-label">País de Nacimiento</label>
-            <input id="paisNacimiento" class="form-control" formControlName="paisNacimiento" />
+            <label for="paisNacimiento" class="form-label">País de Nacimiento*</label>
+            <input id="paisNacimiento" class="form-control" formControlName="paisNacimiento" required
+              [ngClass]="{'is-invalid': isFieldInvalid('paisNacimiento')}">
+            <div class="validation-error" *ngIf="isFieldInvalid('paisNacimiento')">
+              {{ getErrorMessage('paisNacimiento') }}
+            </div>
           </div>
           <div class="mb-3 col-md-4">
             <label for="estatusMigratorio" class="form-label">Estatus Migratorio*</label>
@@ -91,27 +95,42 @@
           </div>
           <div class="form-outline mb-3 col-md-4">
             <label for="orientacionSexual" class="form-label">Orientación Sexual*</label>
-            <select id="orientacionSexual" class="form-control " formControlName="orientacionSexual"
-              required>
+            <select id="orientacionSexual" class="form-control " formControlName="orientacionSexual" required
+              [ngClass]="{'is-invalid': isFieldInvalid('orientacionSexual')}">
               <option value="" disabled>Selecciona la orientación sexual</option>
               <option value="HETEROSEXUAL">Heterosexual</option>
               <option value="HOMOSEXUAL">Homosexual</option>
               <option value="OTRO">Otro</option>
             </select>
+            <div class="validation-error" *ngIf="isFieldInvalid('orientacionSexual')">
+              {{ getErrorMessage('orientacionSexual') }}
+            </div>
           </div>
           <h4 class="mb-2">Información de Contacto</h4>
           <hr class="mt-0 mb-3 custom-green-hr">
           <div class="mb-3 col-md-4">
             <label for="paisResidencia" class="form-label">País de Residencia*</label>
-            <input id="paisResidencia" class="form-control" formControlName="paisResidencia" required />
+            <input id="paisResidencia" class="form-control" formControlName="paisResidencia" required
+              [ngClass]="{'is-invalid': isFieldInvalid('paisResidencia')}" />
+            <div class="validation-error" *ngIf="isFieldInvalid('paisResidencia')">
+              {{ getErrorMessage('paisResidencia') }}
+            </div>
           </div>
           <div class="mb-3 col-md-4">
             <label for="departamentoResidencia" class="form-label">Departamento de Residencia*</label>
-            <input id="departamentoResidencia" class="form-control" formControlName="departamentoResidencia" required />
+            <input id="departamentoResidencia" class="form-control" formControlName="departamentoResidencia" required
+              [ngClass]="{'is-invalid': isFieldInvalid('departamentoResidencia')}" />
+            <div class="validation-error" *ngIf="isFieldInvalid('departamentoResidencia')">
+              {{ getErrorMessage('departamentoResidencia') }}
+            </div>
           </div>
           <div class="mb-3 col-md-4">
             <label for="municipioResidencia" class="form-label">Municipio de Residencia*</label>
-            <input id="municipioResidencia" class="form-control" formControlName="municipioResidencia" required />
+            <input id="municipioResidencia" class="form-control" formControlName="municipioResidencia" required
+              [ngClass]="{'is-invalid': isFieldInvalid('municipioResidencia')}" />
+            <div class="validation-error" *ngIf="isFieldInvalid('municipioResidencia')">
+              {{ getErrorMessage('municipioResidencia') }}
+            </div>
           </div>
           <div class="mb-3 col-md-2">
             <label for="comunaLocalidad" class="form-label">Comuna</label>
@@ -119,28 +138,48 @@
           </div>
           <div class="mb-3 col-md-6">
             <label for="direccion" class="form-label">Dirección*</label>
-            <input id="direccion" class="form-control" formControlName="direccion" required />
+            <input id="direccion" class="form-control" formControlName="direccion" required
+              [ngClass]="{'is-invalid': isFieldInvalid('direccion')}" />
+            <div class="validation-error" *ngIf="isFieldInvalid('direccion')">
+              {{ getErrorMessage('direccion') }}
+            </div>
           </div>
           <div class="form-outline mb-3 col-md-4">
             <label for="area" class="form-label">Área*</label>
-            <select id="area" class="form-control" formControlName="area" required>
+            <select id="area" class="form-control" formControlName="area" required
+              [ngClass]="{'is-invalid': isFieldInvalid('area')}">
               <option value="" disabled>Selecciona el área</option>
               <option value="URBANA">URBANA</option>
               <option value="RURAL">RURAL</option>
             </select>
+            <div class="validation-error" *ngIf="isFieldInvalid('area')">
+              {{ getErrorMessage('area') }}
+            </div>
           </div>
           <div class="mb-3 col-md-6">
             <label for="email" class="form-label">Correo Electrónico*</label>
-            <input id="email" type="email" class="form-control" formControlName="email" />
+            <input id="email" type="email" class="form-control" formControlName="email" required
+              [ngClass]="{'is-invalid': isFieldInvalid('email')}" />
+            <div class="validation-error" *ngIf="isFieldInvalid('email')">
+              {{ getErrorMessage('email') }}
+            </div>
           </div>
           <div class="mb-3 col-md-6"></div>
           <div class="mb-3 col-md-6">
             <label for="celular" class="form-label">Celular*</label>
-            <input id="celular" type="number" class="form-control" formControlName="celular" />
+            <input id="celular" type="number" class="form-control" formControlName="celular" required
+              [ngClass]="{'is-invalid': isFieldInvalid('celular')}" />
+            <div class="validation-error" *ngIf="isFieldInvalid('celular')">
+              {{ getErrorMessage('celular') }}
+            </div>
           </div>
           <div class="mb-3 col-md-6">
             <label for="telefonoFijo" class="form-label">Teléfono Fijo*</label>
-            <input id="telefonoFijo" type="number" class="form-control" formControlName="telefonoFijo" />
+            <input id="telefonoFijo" type="number" class="form-control" formControlName="telefonoFijo" required
+              [ngClass]="{'is-invalid': isFieldInvalid('telefonoFijo')}" />
+            <div class="validation-error" *ngIf="isFieldInvalid('telefonoFijo')">
+              {{ getErrorMessage('telefonoFijo') }}
+            </div>
           </div>
           <div class="form-check mb-3">
             <input id="autorizaLlamadas" type="checkbox" class="form-check-input"
@@ -156,7 +195,6 @@
       </form>
     </div>
 
-    <!-- Sección 2: Información Adicional -->
     <div *ngIf="step === 2">
       <h4 class="mb-2">Información Adicional</h4>
       <hr class="mt-0 mb-3 custom-green-hr">
@@ -177,9 +215,8 @@
             <input id="aseguradora" class="form-control" formControlName="aseguradora" />
           </div>
           <div class="form-outline mb-3 col-md-6">
-            <label for="pertenenciaEtnica" class="form-label">Pertenencia Étnica*</label>
-            <select id="pertenenciaEtnica" class="form-control " formControlName="pertenenciaEtnica"
-              required>
+            <label for="pertenenciaEtnica" class="form-label">Pertenencia Étnica</label>
+            <select id="pertenenciaEtnica" class="form-control " formControlName="pertenenciaEtnica" required>
               <option value="" disabled>Selecciona la pertenencia étnica</option>
               <option value="INDIGENA">Indígena</option>
               <option value="AFROCOLOMBIANO">Afrocolombiano</option>
@@ -249,27 +286,33 @@
         <div *ngIf="!mostrarTablaMadre && !mostrarTablaCuidador">
           <h4>Cuidador o Madre</h4>
           <hr class="mt-0 mb-3 custom-green-hr">
+
           <div class="mb-3">
             <label for="madreSeleccionada" class="form-label">Madre Seleccionada</label>
             <input id="madreSeleccionada" class="form-control mb-3"
               [value]="madreSeleccionada ? madreSeleccionada.primerNombre + ' ' + (madreSeleccionada.segundoNombre || '') + ' ' + madreSeleccionada.primerApellido + ' ' + (madreSeleccionada.segundoApellido || '') : 'Ninguna seleccionada'"
               readonly />
-            <button class="btn btn-custom" (click)="mostrarTablaMadre = true" style="margin-right: 10px;">Seleccionar
-              Madre</button>
-            <button class="btn btn-custom" *ngIf="madreSeleccionada" (click)="quitarSeleccionMadre()">Quitar Selección
-              Madre</button>
+            <div class="text-center mt-2">
+              <button class="btn btn-custom" (click)="mostrarTablaMadre = true">Seleccionar Madre</button>
+              <button class="btn btn-custom" *ngIf="madreSeleccionada" (click)="quitarSeleccionMadre()">Quitar Selección
+                Madre</button>
+            </div>
           </div>
+
           <div class="mb-3">
             <label for="cuidadorSeleccionado" class="form-label">Cuidador Seleccionado</label>
             <input id="cuidadorSeleccionado" class="form-control mb-3"
               [value]="cuidadorSeleccionado ? cuidadorSeleccionado.primerNombre + ' ' + (cuidadorSeleccionado.segundoNombre || '') + ' ' + cuidadorSeleccionado.primerApellido + ' ' + (cuidadorSeleccionado.segundoApellido || '') : 'Ninguno seleccionado'"
               readonly />
-            <button class="btn btn-custom" (click)="mostrarTablaCuidador = true" style="margin-right: 10px;">Seleccionar
-              Cuidador</button>
-            <button class="btn btn-custom" *ngIf="cuidadorSeleccionado" (click)="quitarSeleccionCuidador()">Quitar
-              Selección Cuidador</button>
+            <div class="text-center mt-2">
+              <button class="btn btn-custom" (click)="mostrarTablaCuidador = true">Seleccionar Cuidador</button>
+              <button class="btn btn-custom" *ngIf="cuidadorSeleccionado" (click)="quitarSeleccionCuidador()">Quitar
+                Selección Cuidador</button>
+            </div>
           </div>
         </div>
+
+
 
         <div>
           <app-tabla-madre *ngIf="mostrarTablaMadre" [madres]="madres" (onSeleccionarMadre)="seleccionarMadre($event)"
@@ -372,11 +415,11 @@
   </div>
 
   <!-- Navegación entre secciones -->
-  <div class="row g-3">
+  <div class="row g-3" *ngIf="!(mostrarTablaMadre || mostrarTablaCuidador)">
     <!-- Botón "Anterior" -->
     <div class="col-md-8" *ngIf="step == 1"></div>
     <div class="col-md-1" *ngIf="step > 1"></div>
-    <button *ngIf="step > 1" class="btn btn-custompass col-md-2" (click)="previousStep()">
+    <button *ngIf="step > 1" class="btn btn-secondary col-md-2" (click)="previousStep()">
       Anterior
     </button>
 
@@ -388,10 +431,10 @@
   </div>
 
   <!-- Botones "Guardar" y "Cancelar" -->
-  <div class="text-center mt-4 mb-3">
+  <div class="text-center mt-4 mb-3" *ngIf="!(mostrarTablaMadre || mostrarTablaCuidador)">
+    <button type="button" class="btn btn-secondary me-4" (click)="cancelar()">Cancelar</button>
     <button type="button" class="btn btn-custom" style="margin-right: 5px;" (click)="guardar()">
-      {{ modo === 'crear' ? 'Añadir' : 'Guardar' }}
+      {{ modo === 'crear' ? 'Guardar' : 'Guardar' }}
     </button>
-    <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
   </div>
 </div>

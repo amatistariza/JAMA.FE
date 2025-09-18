@@ -41,7 +41,7 @@ export class EsquemaVacunacionService {
       }))
     };
 
-    console.log('Dosis:', esquemaData);
+
 
     return this.http.post(this.apiUrl, formattedData, {
       headers: headers,

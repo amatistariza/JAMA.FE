@@ -56,7 +56,6 @@ export class TablaMadreComponent implements OnInit {
   }
 
   seleccionarMadre(madre: Madre): void {
-    console.log('Madre seleccionada:', madre);
     this.onSeleccionarMadre.emit(madre);
     this.onVolver.emit();
   }

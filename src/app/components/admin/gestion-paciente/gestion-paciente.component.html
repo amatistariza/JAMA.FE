@@ -27,7 +27,7 @@
               <tr>
                 <th>ID</th>
                 <th>Tipo de Identificación</th>
-                <th>Número de Identificacion</th>
+                <th>Número de Identificación</th>
                 <th>Primer Nombre</th>
                 <th>Primer Apellido</th>
                 <th>Fecha de Nacimiento</th>
@@ -60,7 +60,7 @@
 
         <!-- Paginación -->
         <div class="pagination-container" style="text-align: center;">
-          <button class="btn btn-custom" [disabled]="paginaActual === 1" (click)="cambiarPagina(paginaActual - 1)">
+          <button class="btn btn-secondary" [disabled]="paginaActual === 1" (click)="cambiarPagina(paginaActual - 1)">
             Atrás
           </button>
           <span class="mx-2">Página {{ paginaActual }}</span>

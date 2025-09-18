@@ -3,19 +3,11 @@
     <button class="btn btn-custom mb-3" style="float: inline-end;" (click)="addCuidador()">
       <i class="fa-solid fa-plus"></i> Añadir
     </button>
-    <button class="btn btn-custom mb-3" (click)="onVolver.emit()">
-      Volver al Formulario
-    </button>
   </div>
 
   <div class="mb-3">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Buscar por Número de Identificación..."
-      [(ngModel)]="filtro"
-      (input)="filtrarCuidadores()"
-    />
+    <input type="text" class="form-control" placeholder="Buscar por Número de Identificación..." [(ngModel)]="filtro"
+      (input)="filtrarCuidadores()" />
   </div>
   <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
     <table class="table table-striped">
@@ -33,7 +25,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let cuidador of cuidadoresFiltradas | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaActual }">
+        <tr
+          *ngFor="let cuidador of cuidadoresFiltradas | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaActual }">
           <td>{{ cuidador.id }}</td>
           <td>{{ cuidador.tipoIdentificacion }}</td>
           <td>{{ cuidador.numeroIdentificacion }}</td>
@@ -43,13 +36,13 @@
           <td>{{ cuidador.segundoApellido }}</td>
           <td>{{ cuidador.parentesco }}</td>
           <td>
-            <button class="btn btn-custom btn-sm" style="margin-bottom: 5px;" (click)="seleccionarCuidador(cuidador)">
+            <button class="btn btn-custom-blue btn-sm me-2 mb-2" (click)="seleccionarCuidador(cuidador)">
               <i class="fa-solid fa-check"></i> Seleccionar
             </button>
-            <button class="btn btn-custom btn-sm" style="margin-bottom: 5px;" (click)="editCuidador(cuidador)">
+            <button class="btn btn-custom btn-sm me-2 mb-2" (click)="editCuidador(cuidador)">
               <i class="fa-solid fa-pen-to-square"></i> Editar
             </button>
-            <button class="btn btn-custom btn-sm" (click)="eliminarCuidador(cuidador.id)">
+            <button class="btn btn-danger btn-sm me-2 mb-2" (click)="eliminarCuidador(cuidador.id)">
               <i class="fa-solid fa-trash"></i> Eliminar
             </button>
           </td>
@@ -58,26 +51,23 @@
     </table>
   </div>
   <div class="pagination-container" style="text-align: center;">
-    <button
-      class="btn btn-custom"
-      [disabled]="paginaActual === 1"
-      (click)="cambiarPagina(paginaActual - 1)">
+    <button class="btn btn-secondary mb-3" (click)="onVolver.emit()">
+      Volver al Formulario
+    </button>
+  </div>
+
+  <div class="pagination-container" style="text-align: center;">
+    <button class="btn btn-secondary" [disabled]="paginaActual === 1" (click)="cambiarPagina(paginaActual - 1)">
       Atrás
     </button>
     <span class="mx-2">Página {{ paginaActual }}</span>
-    <button
-      class="btn btn-custom"
-      [disabled]="paginaActual * itemsPorPagina >= cuidadoresFiltradas.length"
+    <button class="btn btn-custom" [disabled]="paginaActual * itemsPorPagina >= cuidadoresFiltradas.length"
       (click)="cambiarPagina(paginaActual + 1)">
       Siguiente
     </button>
   </div>
 </div>
 
-<app-cuidador-form
-  *ngIf="mostrarFormulario"
-  [modo]="modoFormulario"
-  [cuidador]="cuidadorSeleccionado"
-  (onGuardar)="onFormGuardar()"
-  (onCancelar)="onFormCancelar()">
+<app-cuidador-form *ngIf="mostrarFormulario" [modo]="modoFormulario" [cuidador]="cuidadorSeleccionado"
+  (onGuardar)="onFormGuardar()" (onCancelar)="onFormCancelar()">
 </app-cuidador-form>

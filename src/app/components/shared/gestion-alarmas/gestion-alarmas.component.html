@@ -30,8 +30,8 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Tipo Identificación</th>
-              <th>Número Identificación</th>
+              <th>Tipo de Identificación</th>
+              <th>Número de Identificación</th>
               <th>Nombre</th>
               <th>Celular</th>
               <th>Correo</th>
@@ -64,7 +64,7 @@
       </div>
 
       <div class="pagination-container" style="text-align: center;">
-        <button class="btn btn-custom" [disabled]="paginaActual === 1" (click)="cambiarPagina(paginaActual - 1)">
+        <button class="btn btn-secondary" [disabled]="paginaActual === 1" (click)="cambiarPagina(paginaActual - 1)">
           Atrás
         </button>
         <span class="mx-2">Página {{ paginaActual }}</span>

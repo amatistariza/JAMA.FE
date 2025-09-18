@@ -25,13 +25,13 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>Tipo de Identificacion</th>
-                <th>Numero de Identificacion</th>
+                <th>Tipo de Identificación</th>
+                <th>Numero de Identificación</th>
                 <th>Tipo de carnet</th>
                 <th>Registrado en el PAI</th>
                 <th>Vacuna Aplicada</th>
                 <th>Fecha de Aplicación</th>
-                <th>Fecha proxima de vacuna</th>
+                <th>Fecha próxima de vacuna</th>
                 <th>Responsable</th>
               </tr>
             </thead>
@@ -57,7 +57,7 @@
 
         <!-- Paginación -->
         <div class="pagination-container" style="text-align: center;">
-          <button class="btn btn-custom" [disabled]="paginaActual === 1" (click)="cambiarPagina(paginaActual - 1)">
+          <button class="btn btn-secondary" [disabled]="paginaActual === 1" (click)="cambiarPagina(paginaActual - 1)">
             Atrás
           </button>
           <span class="mx-2">Página {{ paginaActual }}</span>
