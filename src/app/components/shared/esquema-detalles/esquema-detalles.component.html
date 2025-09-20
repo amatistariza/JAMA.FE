@@ -22,14 +22,17 @@
           </div>
           <div class="col-md-4">
             <p class="mb-2"><strong>Registrado en PAI:</strong> {{esquema.registradoPAI ? 'Sí' : 'No'}}</p>
-            <p class="mb-2" ><strong>Motivo de ingreso:</strong> {{esquema.motivoIngreso}}</p>
+            <p class="mb-2"><strong>Motivo de ingreso:</strong> {{esquema.motivoIngreso}}</p>
           </div>
         </div>
 
         <div class="paciente-info mb-4">
           <h4 class="border-bottom pb-2">Información del Paciente</h4>
-          <p class="mb-2"><strong>Nombre:</strong> {{esquema.paciente?.primerNombre}} {{esquema.paciente?.segundoNombre}} {{esquema.paciente?.primerApellido}} {{esquema.paciente?.segundoApellido}}</p>
-          <p class="mb-2"><strong>Identificación:</strong> {{esquema.paciente?.tipoIdentificacion}} - {{esquema.paciente?.numeroIdentificacion}}</p>
+          <p class="mb-2"><strong>Nombre:</strong> {{esquema.paciente?.primerNombre}}
+            {{esquema.paciente?.segundoNombre}} {{esquema.paciente?.primerApellido}}
+            {{esquema.paciente?.segundoApellido}}</p>
+          <p class="mb-2"><strong>Identificación:</strong> {{esquema.paciente?.tipoIdentificacion}} -
+            {{esquema.paciente?.numeroIdentificacion}}</p>
         </div>
 
         <div class="detalles-section">
@@ -46,14 +49,15 @@
                 </tr>
               </thead>
               <tbody>
-                
+
                 <tr *ngFor="let detalle of esquema.detalles">
-                  <td>{{esquema.vacuna.nombre}}</td>         
+                  <td>{{esquema.vacuna.nombre}}</td>
                   <td>{{esquema.numeroDeDosis}}</td>
                   <td>{{esquema.viaDeAdministracion}}</td>
                   <td>{{esquema.sitioDeAplicacion}}</td>
                   <td>
-                    <span *ngIf="detalle.fechaProximaDosis; else finalizado">{{ detalle.fechaProximaDosis | date:'dd/MM/yyyy' }}</span>
+                    <span *ngIf="esquema.fechaProximaDosis; else finalizado">{{ esquema.fechaProximaDosis |
+                      date:'dd/MM/yyyy' }}</span>
                     <ng-template #finalizado>Esquema finalizado</ng-template>
                   </td>
                 </tr>
