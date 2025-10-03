@@ -1,0 +1,383 @@
+/* Styles copied from reportes-edad; adjust as needed for detallados */
+.host {
+	display: block;
+	min-height: 100vh;
+	/* Asegura que cubra toda la altura de la ventana */
+	background: rgba(82, 194, 52, 0.9);
+	background: -webkit-linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
+	background: linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	box-sizing: border-box;
+	padding: 0; /* no empuja el navbar */
+	font-family: 'Poppins', sans-serif;
+}
+
+.header {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+	border: 1px solid #bdbdbd;
+	padding: 10px;
+	text-align: center;
+}
+
+/* Botones personalizados */
+
+.btn-custom {
+	background-color: #52c234;
+	border-color: #52c234;
+	color: white;
+}
+
+.btn-custom:hover {
+	background-color: #45a827;
+	border-color: #45a827;
+}
+
+/* Estilos para el botón de añadir */
+
+.add-button {
+	float: inline-end;
+	background-color: #52c234;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.add-button:hover {
+	background-color: #45a827;
+}
+
+/* Estilos para los contenedores de la tabla */
+.table-responsive {
+	max-height: 400px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.pagination-container {
+	margin-top: 20px;
+}
+
+.pagination-container button {
+	margin: 0 10px;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+	.add-button {
+		width: 100%;
+		margin-top: 10px;
+	}
+
+	.table-responsive {
+		max-height: 300px;
+	}
+
+	.btn-custom {
+		width: 100%;
+		margin-bottom: 5px;
+	}
+
+	.form-control {
+		width: 100%;
+	}
+
+	.card-title {
+		font-size: 1.5rem;
+		text-align: center;
+	}
+
+	.table th,
+	.table td {
+		padding: 8px;
+		font-size: 0.9rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.add-button {
+		font-size: 1rem;
+	}
+
+	.card-title {
+		font-size: 1.2rem;
+	}
+
+	.table th,
+	.table td {
+		padding: 6px;
+		font-size: 0.85rem;
+	}
+
+	.btn-custom {
+		font-size: 0.9rem;
+	}
+}
+
+.card-body {
+	padding: 15px;
+}
+
+/* Aplica el fondo al cuerpo de la página completa */
+:host {
+	display: block;
+	min-height: 100vh;
+	/* Asegura que cubra toda la altura de la ventana */
+	background: rgba(82, 194, 52, 0.9);
+	background: -webkit-linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
+	background: linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	box-sizing: border-box;
+	padding: 0; /* no empuja el navbar */
+	font-family: 'Poppins', sans-serif;
+}
+
+
+
+.main-container {
+	margin-top: 40px;
+	display: flex;
+	justify-content: center;
+	padding: 20px;
+	width: 100%;
+}
+
+/* Estilo de la fila */
+.row {
+	display: flex;
+	sjustify-content: space-between;
+	width: 100%;
+	max-width: 1200px;
+	flex-wrap: wrap; /* Permite que los elementos se acomoden en múltiples líneas si es necesario */
+}
+
+.esquema-container {
+	margin-bottom: 20px;
+}
+
+/* Corregido: ahora apuntamos a print-header en lugar de header */
+.print-header {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+/* Corregido: ahora apuntamos directamente a la clase logo */
+.logo {
+	max-width: 120px;
+	margin-bottom: 15px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.info-section {
+	margin: 15px 0;
+}
+
+.paciente-info,
+.detalles-section,
+.observaciones {
+	margin-top: 15px;
+	padding: 12px;
+	border-radius: 8px;
+	background-color: rgba(255, 255, 255, 0.05);
+}
+
+.table {
+	width: 100%;
+	margin-top: 10px;
+}
+
+.table th {
+	background-color: #52c234;
+	color: white;
+	font-weight: normal;
+}
+
+.table th,
+.table td {
+	padding: 8px;
+	text-align: center;
+	border: 1px solid #dee2e6;
+}
+
+.btn-custom {
+	background-color: #52c234;
+	border-color: #52c234;
+	color: white;
+}
+
+.btn-custom:hover {
+	background-color: #45a827;
+	border-color: #45a827;
+}
+
+/* Estilos específicos para impresión - estos son los más importantes */
+@media print {
+	/* Ocultar elementos no necesarios */
+	.no-print,
+	.navbar,
+	app-navbar-admin,
+	app-navbar-enfermera {
+		display: none !important;
+	}
+
+	/* Resetear fondo y colores */
+	:host,
+	body,
+	html {
+		background: white !important;
+		background-image: none !important;
+		color: black !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	/* Ajustes de contenedor principal */
+	.container,
+	.container-fluid {
+		width: 100% !important;
+		max-width: none !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	/* Eliminar bordes y sombras */
+	.card,
+	.card-body {
+		border: none !important;
+		box-shadow: none !important;
+		margin: 0 !important;
+		padding: 5px !important;
+		background-color: black !important;
+	}
+
+	/* CORREGIDO: Ahora apuntamos correctamente a print-header y logo */
+	.print-header {
+		text-align: center !important;
+		margin-bottom: 5px !important;
+	}
+
+	/* CORREGIDO: Apuntamos directamente a la clase logo */
+	.logo,
+	img.logo,
+	.print-header img {
+		width: 80px !important;
+		height: auto !important;
+		display: block !important;
+		margin: 0 auto !important;
+	}
+
+	/* Reducir espacios entre secciones */
+	.esquema-container {
+		margin-bottom: 5px !important;
+	}
+
+	.info-section {
+		margin: 5px 0 !important;
+	}
+
+	.paciente-info,
+	.detalles-section,
+	.observaciones {
+		margin-top: 5px !important;
+		padding: 5px !important;
+		page-break-inside: avoid !important;
+	}
+
+	/* Optimizar tablas */
+	.table {
+		width: 100% !important;
+		border-collapse: collapse !important;
+		margin: 5px 0 !important;
+		font-size: 9pt !important;
+	}
+
+	.table th {
+		background-color: #f0f0f0 !important;
+		color: black !important;
+		font-weight: bold !important;
+		padding: 3px !important;
+		font-size: 9pt !important;
+	}
+
+	.table td {
+		padding: 3px !important;
+		font-size: 9pt !important;
+	}
+
+	.table th,
+	.table td {
+		border: 1px solid #000 !important;
+		text-align: left !important;
+	}
+
+	/* Reducir tamaños de texto */
+	body,
+	p,
+	div,
+	span {
+		font-size: 9pt !important;
+		line-height: 1.1 !important;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin: 5px 0 !important;
+		padding: 0 !important;
+	}
+
+	h1 {
+		font-size: 14pt !important;
+	}
+	h2 {
+		font-size: 12pt !important;
+	}
+	h3 {
+		font-size: 11pt !important;
+	}
+	h4,
+	h5,
+	h6 {
+		font-size: 10pt !important;
+	}
+
+	/* Configuración de página */
+	@page {
+		margin: 0.3cm !important;
+		size: auto !important;
+	}
+
+	/* Asegurar que todo quepa en una página */
+	html,
+	body {
+		height: auto !important;
+		overflow: visible !important;
+	}
+
+	/* Eliminar URL del pie de página */
+	@page {
+		size: auto;
+		margin: 0mm;
+	}
+	@page :footer { display: none; }
+	@page :header { display: none; }
+}

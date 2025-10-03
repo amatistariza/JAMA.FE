@@ -5,5 +5,6 @@ export const ValidationMessages = {
   maxlength: 'La longitud máxima es ',
   min: 'El valor mínimo es ',
   max: 'El valor máximo es ',
-  pattern: 'El formato no es válido'
+  pattern: 'El formato no es válido',
+  noSpaces: 'El nombre de usuario no puede contener espacios'
 };

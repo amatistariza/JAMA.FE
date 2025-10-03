@@ -16,6 +16,7 @@ import { RoleGuard } from './guards/role.guard';
 import { RegistroVacunaComponent } from './components/shared/registro-vacuna/registro-vacuna.component';
 import { EsquemaDetallesComponent } from './components/shared/esquema-detalles/esquema-detalles.component';
 import { ReportesComponent } from './components/admin/reportes/reportes.component';
+import { ReportesDetalladosComponent } from './components/admin/reportes-detallados/reportes-detallados.component';
 import { GestionAlarmasComponent } from './components/shared/gestion-alarmas/gestion-alarmas.component';
 
 
@@ -41,6 +42,7 @@ const routes: Routes = [
       { path: 'gestionAlarmas', component: GestionAlarmasComponent },
       { path: 'esquema-detalles/:esquemaId', component: EsquemaDetallesComponent },
       { path: 'reportes',component: ReportesComponent }
+  ,{ path: 'reportes-detallados', component: ReportesDetalladosComponent }
     ]
   },
 

@@ -4,6 +4,7 @@ import { Madre } from '../../../../models/madre';
 import { Cuidador } from '../../../../models/cuidador';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 import { PacienteService } from '../../../../services/paciente.service';
 import { MadreService } from '../../../../services/madre.service';
 import { CuidadorService } from '../../../../services/cuidador.service';
@@ -25,6 +26,8 @@ export class PacienteComponent implements OnInit {
   step: number = 1;
   mostrarTablaMadre = false;
   mostrarTablaCuidador = false;
+  // Indicador para mostrar validaciones sólo después de que el usuario presione "Guardar"
+  attemptedSave: boolean = false;
 
   madreSeleccionada: Madre | null = null;
   cuidadorSeleccionado: Cuidador | null = null;
@@ -64,7 +67,7 @@ export class PacienteComponent implements OnInit {
       edadGestacionalSemanas: [0],
       paisNacimiento: [''],
       estatusMigratorio: [''],
-      lugarAtencionParto: ['ISABEL'],
+      lugarAtencionParto: ['-'],
       regimenAfiliacion: [''],
       aseguradora: [''],
       pertenenciaEtnica: [''],
@@ -434,6 +437,12 @@ export class PacienteComponent implements OnInit {
       Swal.fire('Error', 'El número de identificación es menor de 7 digitos', 'error');
     } else {
       if (this.validarcampos()) {
+        // El usuario intentó guardar: activa la visualización de validaciones
+        this.attemptedSave = true;
+        // Marcar todos los controles como touched/dirty para que se muestren las validaciones
+        this.markAllControlsAsTouchedAndDirty();
+        // Enfocar y desplazar al primer control inválido para mejorar la UX
+        this.focusFirstInvalidControl();
         Swal.fire('Error', 'Por favor, completa todos los campos obligatorios.', 'error');
       } else {
         const pacienteJson = this.validaciones();
@@ -457,6 +466,8 @@ export class PacienteComponent implements OnInit {
     request.subscribe(
       response => {
         Swal.fire('Éxito', this.modo === 'crear' ? 'Paciente guardado correctamente' : 'Paciente actualizado correctamente', 'success');
+        // Limpiar indicador de intento de guardado
+        this.attemptedSave = false;
         this.onGuardar.emit(pacienteJson);
         this.onCancelar.emit();
       },
@@ -477,6 +488,8 @@ export class PacienteComponent implements OnInit {
     request.subscribe(
       response => {
         Swal.fire('Éxito', this.modo === 'crear' ? 'Paciente guardado correctamente' : 'Paciente actualizado correctamente', 'success');
+        // Limpiar indicador de intento de guardado
+        this.attemptedSave = false;
         this.onGuardar.emit(pacienteJson);
         this.onCancelar.emit();
       },
@@ -553,6 +566,8 @@ export class PacienteComponent implements OnInit {
         if (control) {
           control.setErrors({ server: translated.join(' - ') });
           control.markAsTouched();
+          // Asegurarnos de que las validaciones se muestren cuando el servidor devuelva errores
+          this.attemptedSave = true;
         }
 
         messages.push(`<b>${displayName}</b>: ${translated.join(', ')}`);
@@ -572,7 +587,59 @@ export class PacienteComponent implements OnInit {
 
   isFieldInvalid(fieldName: string): boolean {
     const field = this.pacienteForm.get(fieldName);
-    return field ? (field.invalid && (field.dirty || field.touched)) : false;
+    if (!field) return false;
+    // Mostrar error sólo si el control es inválido y el usuario ya lo tocó (dirty/touched)
+    // o si se intentó guardar el formulario (attemptedSave)
+    return field.invalid && (this.attemptedSave || field.dirty || field.touched);
+  }
+
+  /**
+   * Marca recursivamente todos los controles del formulario como touched y dirty.
+   * Esto hace que las validaciones visuales (basadas en touched/dirty) se activen
+   * cuando el usuario intenta guardar sin completar campos obligatorios.
+   */
+  markAllControlsAsTouchedAndDirty(): void {
+    if (!this.pacienteForm) return;
+    // markAllAsTouched cubre la mayoría de casos
+    this.pacienteForm.markAllAsTouched();
+    // Además marcamos como dirty recursivamente para asegurar que isFieldInvalid funcione
+    const markDirty = (control: AbstractControl) => {
+      try {
+        control.markAsDirty({ onlySelf: true });
+      } catch (e) {
+        // some controls may not implement markAsDirty in older Angular versions
+      }
+      const anyControl: any = control as any;
+      if (anyControl.controls) {
+        Object.keys(anyControl.controls).forEach((key: string) => markDirty(anyControl.controls[key]));
+      }
+    };
+    markDirty(this.pacienteForm);
+  }
+
+  /**
+   * Encuentra el primer elemento del DOM con la clase 'is-invalid' y le da foco y scroll.
+   */
+  focusFirstInvalidControl(): void {
+    try {
+      // Esperar un tick para que Angular actualice clases y mensajes
+      setTimeout(() => {
+        const first = document.querySelector('.is-invalid') as HTMLElement | null;
+        if (first && typeof first.focus === 'function') {
+          first.focus();
+          first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          // fallback: buscar cualquier control con ng-invalid
+          const alt = document.querySelector('.ng-invalid') as HTMLElement | null;
+          if (alt && typeof alt.focus === 'function') {
+            alt.focus();
+            alt.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }
+      }, 50);
+    } catch (e) {
+      console.error('Error enfocando control inválido:', e);
+    }
   }
 
     ValidationMessages = {

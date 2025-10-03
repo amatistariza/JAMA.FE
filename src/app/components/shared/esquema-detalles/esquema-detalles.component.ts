@@ -32,6 +32,7 @@ export class EsquemaDetallesComponent implements OnInit {
   }
 
   loadEsquema(id: number) {
+    console.log('EsquemaDetalles: solicitando esquema id=', id);
     this.esquemaService.getEsquemaById(id).subscribe({
       next: (data) => {
 
@@ -61,7 +62,26 @@ export class EsquemaDetallesComponent implements OnInit {
         }
       },
       error: (error) => {
-        Swal.fire('Error', 'No se pudo cargar el esquema', 'error');
+        console.error('Error cargando esquema id=', id, error);
+        // Intentar extraer mensaje más útil del backend
+        let backendMsg = '';
+        try {
+          if (error && error.error) {
+            if (typeof error.error === 'string') {
+              backendMsg = error.error;
+            } else if (typeof error.error === 'object') {
+              backendMsg = error.error.message || JSON.stringify(error.error);
+            }
+          } else if (error && error.message) {
+            backendMsg = error.message;
+          } else {
+            backendMsg = JSON.stringify(error);
+          }
+        } catch (e) {
+          backendMsg = 'Error desconocido al parsear respuesta del servidor';
+        }
+
+        Swal.fire('Error', 'No se pudo cargar el esquema. ' + backendMsg, 'error');
         this.navegarAtras();
       }
     });

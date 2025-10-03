@@ -33,6 +33,7 @@
                 <th>Fecha de Aplicación</th>
                 <th>Fecha próxima de vacuna</th>
                 <th>Responsable</th>
+                <th>Ver esquema</th>
               </tr>
             </thead>
             <tbody>
@@ -50,6 +51,11 @@
                   {{ esquema.fechaProxima ? (esquema.fechaProxima | date:'dd/MM/yyyy') : 'Sin registro' }}
                 </td>
                 <td>{{ esquema.responsable }}</td>
+                <td>
+                  <button class="btn btn-custom btn-sm" (click)="verEsquema(esquema.esquemaId)">
+                    <i class="fa-solid fa-eye"></i> Ver
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>

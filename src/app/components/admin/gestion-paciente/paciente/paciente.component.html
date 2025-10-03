@@ -78,20 +78,28 @@
           </div>
           <div class="mb-3 col-md-4">
             <label for="estatusMigratorio" class="form-label">Estatus Migratorio*</label>
-            <select id="estatusMigratorio" class="form-control" formControlName="estatusMigratorio" required>
+            <select id="estatusMigratorio" class="form-control" formControlName="estatusMigratorio" required
+              [ngClass]="{'is-invalid': isFieldInvalid('estatusMigratorio')}">
               <option value="" disabled>Selecciona el estado</option>
               <option value="NO APLICA">No Aplica</option>
               <option value="RESIDENTE">Residente</option>
               <option value="LEGAL">Legal</option>
             </select>
+            <div class="validation-error" *ngIf="isFieldInvalid('estatusMigratorio')">
+              {{ getErrorMessage('estatusMigratorio') }}
+            </div>
           </div>
           <div class="form-outline mb-3 col-md-4">
             <label for="sexo" class="form-label">Sexo*</label>
-            <select id="sexo" class="form-control " formControlName="sexo" required>
+            <select id="sexo" class="form-control " formControlName="sexo" required
+              [ngClass]="{'is-invalid': isFieldInvalid('sexo')}">
               <option value="" disabled>Selecciona el sexo</option>
               <option value="HOMBRE">Hombre</option>
               <option value="MUJER">Mujer</option>
             </select>
+            <div class="validation-error" *ngIf="isFieldInvalid('sexo')">
+              {{ getErrorMessage('sexo') }}
+            </div>
           </div>
           <div class="form-outline mb-3 col-md-4">
             <label for="orientacionSexual" class="form-label">Orientación Sexual*</label>
@@ -200,7 +208,6 @@
       <hr class="mt-0 mb-3 custom-green-hr">
       <form [formGroup]="pacienteForm">
         <div class="row g-3">
-
           <div class="form-outline mb-3 col-md-6">
             <label for="regimenAfiliacion" class="form-label">Regimen de Afiliacion</label>
             <select id="regimenAfiliacion" class="form-control" formControlName="regimenAfiliacion">

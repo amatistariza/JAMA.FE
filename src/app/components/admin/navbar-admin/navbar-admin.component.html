@@ -15,8 +15,20 @@
           <a class="nav-link" [routerLink]="['/admin', userId, 'home']" routerLinkActive="active">Inicio</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/admin', userId, 'reportes']" routerLinkActive="active">Reportes</a>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle d-flex align-items-center" (click)="toggleSubMenu('reportes')"
+            role="button" [attr.aria-expanded]="isActiveSubMenu('reportes')"
+            [attr.aria-controls]="'submenu-reportes'">
+            Reportes
+            <i class="fas fa-chevron-down ms-1" [class.rotate]="isActiveSubMenu('reportes')"></i>
+            <!-- Si usas FA6: <i class="fa-solid fa-chevron-down ms-1" ...></i> -->
+          </a>
+
+          <ul id="submenu-reportes" class="dropdown-menu" [ngClass]="{'show': isActiveSubMenu('reportes')}">
+            <li><a class="dropdown-item" [routerLink]="['/admin', userId, 'reportes']">Reporte Vacunación</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/admin', userId, 'reportes-detallados']">Reporte Vacunación Detallado</a></li>
+          </ul>
         </li>
 
         <li class="nav-item dropdown">

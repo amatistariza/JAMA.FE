@@ -11,6 +11,13 @@
                 </div>
 
                 <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                    <div class="mb-3">
+                        <label for="mesSelect" class="form-label">Filtrar por mes</label>
+                        <select id="mesSelect" class="form-control" (change)="onMesChange($event.target.value)">
+                            <option value="">Todos</option>
+                            <option *ngFor="let m of mesesDisponibles" [value]="m.value">{{ m.label }}</option>
+                        </select>
+                    </div>
                     <table class="table table-striped">
                         <thead>
                             <tr>

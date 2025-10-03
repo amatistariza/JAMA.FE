@@ -13,6 +13,8 @@ import Swal from 'sweetalert2';
 export class ReportesComponent {
     estadisticasDosis: DosisEstadistica[] = [];
     estadisticasDosisFiltradas: DosisEstadistica[] = [];
+    mesesDisponibles: { value: string, label: string }[] = [];
+    mesSeleccionado: string = '';
     itemsPorPagina: number = 5;
     paginaActual: number = 1;
     filtro: string = '';
@@ -24,13 +26,16 @@ export class ReportesComponent {
     }
 
     ngOnInit() {
+        this.loadAvailableMonths();
         this.loadEstadisticasDosis();
     }
     addItem() {
 
     }
-    loadEstadisticasDosis(): void {
-        this.estadisticaService.getEstadisticasDosis().subscribe(
+    loadEstadisticasDosis(month?: string): void {
+        // Si hay mes seleccionado, usar endpoint que acepta month
+        const obs = month ? this.estadisticaService.getEstadisticasDosisForMonth(month) : this.estadisticaService.getEstadisticasDosis();
+        obs.subscribe(
             (data) => {
                 this.estadisticasDosis = data;
                 this.estadisticasDosisFiltradas = [...this.estadisticasDosis];
@@ -42,6 +47,31 @@ export class ReportesComponent {
         );
     }
 
+    loadAvailableMonths(): void {
+        this.estadisticaService.getAvailableMonths().subscribe(
+            (data) => {
+                // data puede ser un array de strings 'YYYY-MM' o de objetos { year, month }
+                this.mesesDisponibles = (data || []).map((m: any) => {
+                    if (typeof m === 'string') {
+                        const [year, month] = m.split('-');
+                        const label = `${year} - ${this.getMonthName(parseInt(month, 10))}`;
+                        return { value: m, label };
+                    }
+                    if (m && m.year != null && m.month != null) {
+                        const monthNum = m.month.toString().padStart(2, '0');
+                        const value = `${m.year}-${monthNum}`;
+                        const label = `${m.year} - ${this.getMonthName(m.month)}`;
+                        return { value, label };
+                    }
+                    return null;
+                }).filter((x: any) => x != null);
+            },
+            (error) => {
+                console.error('Error al cargar meses disponibles:', error);
+            }
+        );
+    }
+
     filtrarPacientes() { }
     cambiarPagina(pagina: number): void {
         this.paginaActual = pagina;
@@ -49,6 +79,17 @@ export class ReportesComponent {
 
     imprimir() {
         window.print();
+    }
+
+    onMesChange(value: string) {
+        this.mesSeleccionado = value;
+        this.loadEstadisticasDosis(value || undefined);
+    }
+
+    private getMonthName(monthNumber: number): string {
+        const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        const idx = Math.max(0, Math.min(11, monthNumber - 1));
+        return months[idx] || '';
     }
 
     get totalDosis(): number {

@@ -68,7 +68,7 @@ export class RegistroVacunaComponent implements OnInit {
     private loginService: LoginService,
     private pacienteService: PacienteService
   ) {
-  this.esquemaForm = this.initForm(); // Inicializar aquí el formulario
+    this.esquemaForm = this.initForm(); // Inicializar aquí el formulario
     this.isEnfermera = this.router.url.includes('/enfermera/');
   }
 
@@ -225,7 +225,7 @@ export class RegistroVacunaComponent implements OnInit {
         estado: 'ACTIVO'
       };
 
-  // payload enviado al servicio (eliminar log de depuración en producción)
+      // payload enviado al servicio (eliminar log de depuración en producción)
 
       this.esquemaService.crearEsquema(payload).subscribe({
         next: (response) => {
@@ -266,7 +266,7 @@ export class RegistroVacunaComponent implements OnInit {
         }
       });
     } else {
-  // separador de depuración eliminado
+      // separador de depuración eliminado
       this.markFormGroupTouched(this.esquemaForm);
       this.mostrarCamposInvalidos(this.esquemaForm); // <-- Aquí muestra los campos inválidos
       Swal.fire('Error', 'Por favor complete todos los campos requeridos', 'error');
@@ -462,6 +462,36 @@ export class RegistroVacunaComponent implements OnInit {
       esquema.numeroIdentificacion.toString().includes(this.filtro)
     );
     this.paginaActual = 1;
+  }
+
+  /**
+   * Navegar a la vista de detalles del esquema.
+   * Usa el rol detectado (enfermera/admin) y el userId extraído del token.
+   * Si no se encuentra el userId, usa 3 como fallback (según requerimiento).
+   */
+  verEsquema(esquemaId: number): void {
+    try {
+      const baseRoute = this.isEnfermera ? 'enfermera' : 'admin';
+      const userId = this.loginService.getUserIdFromToken();
+      const esquemaIdNum = Number(esquemaId);
+
+      if (!esquemaIdNum || isNaN(esquemaIdNum)) {
+        console.error('esquemaId inválido:', esquemaId);
+        Swal.fire('Error', 'ID de esquema inválido.', 'error');
+        return;
+      }
+
+      // Usar la misma forma que se usa tras crear el esquema (template string con la ruta completa)
+      this.router.navigate([`/${baseRoute}/${userId}/esquema-detalles/${esquemaIdNum}`]).then(success => {
+        if (!success) {
+          console.error('Navegación fallida a esquema-detalles', { baseRoute, userId, esquemaId: esquemaIdNum });
+          Swal.fire('Error', 'No se pudo navegar a los detalles del esquema.', 'error');
+        }
+      });
+    } catch (e) {
+      console.error('Error in verEsquema navigation', e);
+      Swal.fire('Error', 'Ocurrió un problema al intentar abrir el esquema.', 'error');
+    }
   }
 
 }

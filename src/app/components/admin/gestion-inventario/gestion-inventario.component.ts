@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
 import { InventarioVacunaService } from '../../../services/inventario-vacuna.service';
 import { Vacuna } from '../../../models/vacuna';
 import Swal from 'sweetalert2';
@@ -30,7 +30,56 @@ export class GestionInventarioComponent implements OnInit {
       numeroDosis: [1, [Validators.required, Validators.min(1)]],
       intervaloSemanas: [0, [Validators.required, Validators.min(0)]],
       fechaRegistro: [new Date()]
-    });
+    }, { validators: this.dosisIntervaloValidator.bind(this) });
+  }
+
+  /** Validador cross-field para validar la relación entre numeroDosis e intervaloSemanas */
+  dosisIntervaloValidator(group: AbstractControl): ValidationErrors | null {
+    const numeroCtrl = group.get('numeroDosis');
+    const intervaloCtrl = group.get('intervaloSemanas');
+    if (!numeroCtrl || !intervaloCtrl) return null;
+
+    const n = Number(numeroCtrl.value);
+    const i = Number(intervaloCtrl.value);
+
+    // Limpiar errores personalizados previos en el control de intervalo
+    const prevErrors = intervaloCtrl.errors ? { ...intervaloCtrl.errors } : null;
+    if (prevErrors) {
+      // eliminar claves personalizadas si existen
+      delete prevErrors['mustBeZeroWhenOne'];
+      delete prevErrors['mustBePositiveWhenMultiple'];
+    }
+
+    // Reglas:
+    // - Si numeroDosis === 1 => intervaloSemanas debe ser 0
+    // - Si numeroDosis > 1 => intervaloSemanas debe ser > 0
+    if (n === 1) {
+      if (i !== 0) {
+        const newErrs = prevErrors || {};
+        newErrs['mustBeZeroWhenOne'] = true;
+        intervaloCtrl.setErrors(newErrs);
+        return { dosisIntervalo: true };
+      }
+    } else if (n > 1) {
+      if (!(i > 0)) {
+        const newErrs = prevErrors || {};
+        newErrs['mustBePositiveWhenMultiple'] = true;
+        intervaloCtrl.setErrors(newErrs);
+        return { dosisIntervalo: true };
+      }
+    }
+
+    // No hay errores personalizados: restaurar errores anteriores si no quedan otros
+    if (prevErrors) {
+      const remainingKeys = Object.keys(prevErrors).filter(k => prevErrors[k] !== undefined);
+      if (remainingKeys.length === 0) {
+        intervaloCtrl.setErrors(null);
+      } else {
+        intervaloCtrl.setErrors(prevErrors);
+      }
+    }
+
+    return null;
   }
 
   // Paginación

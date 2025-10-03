@@ -210,11 +210,16 @@
 
 /* En desktop: el menú del dropdown debe medir lo mismo que su toggler */
 @media (min-width: 992px) {
+  /* Mostrar el dropdown como absolute y con ancho automático (no ocupar todo el navbar) */
   .navbar .nav-item.dropdown > .dropdown-menu {
+    position: absolute;
+    top: 100%;
     left: 0;
-    right: 0;               /* ocupa todo el ancho del padre */
-    width: 100%;
-    min-width: 0;           /* anula min-width por defecto de Bootstrap */
+    right: auto;
+    width: auto;            /* no forzar 100% para que no cree una franja grande */
+    min-width: 180px;      /* ancho mínimo razonable */
+    z-index: 2000;         /* encima de otros elementos */
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
   }
 }
 
@@ -234,9 +239,11 @@
 /* Fondo verde suave al pasar el mouse por encima */
 .navbar-nav .nav-item:hover .nav-link,
 .navbar-nav .nav-link:hover {
+  display: inline-block; /* evitar que el fondo se estire */
+  padding: 6px 10px;
   background-color: #d4edda; /* verde claro tipo success */
-  border-radius: 6px;       /* opcional, esquinas redondeadas */
-  color: #155724 !important; /* texto verde oscuro */
+  border-radius: 6px;
+  color: #155724 !important;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 /* Cambiar color de los ítems del dropdown al pasar el mouse */

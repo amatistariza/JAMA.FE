@@ -106,16 +106,23 @@
         <div class="mb-3">
           <label for="numeroDosis" class="form-label">Número de Dosis</label>
           <input id="numeroDosis" type="number" class="form-control" formControlName="numeroDosis" [class.is-invalid]="vacunaForm.get('numeroDosis')?.invalid && vacunaForm.get('numeroDosis')?.touched">
-          <div class="invalid-feedback"
-            *ngIf="vacunaForm.get('numeroDosis')?.invalid && vacunaForm.get('numeroDosis')?.touched">
-            El número de dosis es requerido y debe ser mayor o igual a 1
-          </div>
+            <div class="invalid-feedback"
+              *ngIf="vacunaForm.get('numeroDosis')?.invalid && vacunaForm.get('numeroDosis')?.touched">
+              El número de dosis es requerido y debe ser mayor o igual a 1
+            </div>
         </div>
 
         <div class="mb-3">
           <label for="intervaloSemanas" class="form-label">Intervalo de Dosis en semanas (Ponga 0 si es dosis única)</label>
           <input id="intervaloSemanas" type="number" class="form-control" formControlName="intervaloSemanas" [class.is-invalid]="vacunaForm.get('intervaloSemanas')?.invalid && vacunaForm.get('intervaloSemanas')?.touched">
-        </div>
+            <div class="invalid-feedback" *ngIf="vacunaForm.get('intervaloSemanas')?.errors && vacunaForm.get('intervaloSemanas')?.touched">
+              <span *ngIf="vacunaForm.get('intervaloSemanas')?.errors?.min">El intervalo debe ser >= 0</span>
+            </div>
+            <div class="invalid-feedback" *ngIf="vacunaForm.errors?.dosisIntervalo && (vacunaForm.get('intervaloSemanas')?.touched || vacunaForm.get('numeroDosis')?.touched)">
+              <span *ngIf="vacunaForm.get('intervaloSemanas')?.errors?.mustBeZeroWhenOne">Si el número de dosis es 1, el intervalo debe ser 0</span>
+              <span *ngIf="vacunaForm.get('intervaloSemanas')?.errors?.mustBePositiveWhenMultiple">Si el número de dosis es mayor a 1, el intervalo debe ser mayor a 0</span>
+            </div>
+          </div>
 
         <div class="d-flex justify-content-end gap-2">
           <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>

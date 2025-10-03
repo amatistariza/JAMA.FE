@@ -1,0 +1,54 @@
+version: '3.8'
+services:
+  frontend:
+    image: amatistaariza/jama-frontend:latest
+    container_name: jama-frontend_local
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - jama
+
+  backend:
+    build: .
+    image: amatistaariza/jama-backend:latest
+    container_name: jama-backend_local
+    depends_on:
+      - sqlserver
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Conexion=Server=sqlserver,1433;Database=VacunasBD;User Id=sa;Password=Amatista123!;TrustServerCertificate=True;
+      - SKIP_DB_SEED=false
+      - ASPNETCORE_URLS=http://+:5000
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    networks:
+      - jama
+  
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: jama-sqlserver_local
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Amatista123!
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    restart: unless-stopped
+    networks:
+      - jama
+  
+networks:
+  jama:
+    driver: bridge
+
+volumes:
+  sqlserver-data:
+    driver: local
+
+
+

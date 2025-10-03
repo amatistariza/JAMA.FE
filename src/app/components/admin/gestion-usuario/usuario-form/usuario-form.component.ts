@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Usuario } from '../../../../models/usuario';
 import Swal from 'sweetalert2';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ValidationMessages } from '../../../shared/form-validation-messages';
 import { GestionUsuarioService } from '../../../../services/gestion-usuario.service';
 
@@ -24,7 +24,7 @@ export class UsuarioFormComponent implements OnInit {
   constructor(private fb: FormBuilder, private usuarioService: GestionUsuarioService) {
     this.usuarioForm = this.fb.group({
       id: [0],
-      nombreUsuario: ['', [Validators.required, Validators.minLength(4)]],
+      nombreUsuario: ['', [Validators.required, Validators.minLength(4), this.noSpacesValidator]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       rolUser: ['', Validators.required],
     });
@@ -37,7 +37,7 @@ export class UsuarioFormComponent implements OnInit {
   private initForm(): void {
     this.usuarioForm = this.fb.group({
       id:[0],
-      nombreUsuario: ['', [Validators.required, Validators.minLength(4)]],
+      nombreUsuario: ['', [Validators.required, Validators.minLength(4), this.noSpacesValidator]],
       password: ['', this.modo === 'crear' ? [Validators.required, Validators.minLength(6)] : []],
       rolUser: ['', Validators.required],
     });
@@ -54,7 +54,22 @@ export class UsuarioFormComponent implements OnInit {
   getErrorMessage(fieldName: string): string {
     const control = this.usuarioForm.get(fieldName);
     if (control && control.errors) {
-      const firstError = Object.keys(control.errors)[0];
+      const errors = control.errors;
+      const firstError = Object.keys(errors)[0];
+      // Handle validators that include additional info (lengths, min/max values)
+      if (firstError === 'minlength' && errors['minlength'] && errors['minlength'].requiredLength != null) {
+        return ValidationMessages.minlength + errors['minlength'].requiredLength + ' caracteres';
+      }
+      if (firstError === 'maxlength' && errors['maxlength'] && errors['maxlength'].requiredLength != null) {
+        return ValidationMessages.maxlength + errors['maxlength'].requiredLength + ' caracteres';
+      }
+      if (firstError === 'min' && errors['min'] && errors['min'].min != null) {
+        return ValidationMessages.min + errors['min'].min;
+      }
+      if (firstError === 'max' && errors['max'] && errors['max'].max != null) {
+        return ValidationMessages.max + errors['max'].max;
+      }
+      // default: return the mapped message (including custom keys like noSpaces)
       return ValidationMessages[firstError as keyof typeof ValidationMessages];
     }
     return '';
@@ -111,6 +126,15 @@ export class UsuarioFormComponent implements OnInit {
 
   togglePasswordVisibility(): void {
     this.passwordVisible = !this.passwordVisible;
+  }
+
+  // Validator that ensures the control value does not contain whitespace characters
+  private noSpacesValidator = (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value as string;
+    if (value && /\s/.test(value)) {
+      return { noSpaces: true };
+    }
+    return null;
   }
 
 }

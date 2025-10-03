@@ -35,7 +35,7 @@
         <label for="password" class="form-label">Contraseña</label>
         <input id="password" class="form-control pe-5" formControlName="password"
           [type]="passwordVisible ? 'text' : 'password'" [ngClass]="{'is-invalid': isFieldInvalid('password')}" />
-        <i class="fa" [ngClass]="passwordVisible ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePasswordVisibility()"
+        <i class="fa" 
           style="position: absolute; top: 50%; right: 15px; transform: translateY(50%); cursor: pointer; color: #6c757d;"></i>
         <div class="validation-error" *ngIf="isFieldInvalid('password')">
           {{ getErrorMessage('password') }}
