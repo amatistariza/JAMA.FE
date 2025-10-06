@@ -5,7 +5,7 @@
         <div class="card-body">
             <div class="print-header">
                 <img src="assets/Logo.png" alt="Logo" class="logo">
-                <h2 class="text-center mb-4">Reporte de Datos Unificados2</h2>
+                <h2 class="text-center mb-4">Reporte de Datos Unificados</h2>
             </div>
 
             <div class="table-responsive" style="max-height: 100%; overflow-y: auto;">
@@ -31,16 +31,12 @@
                             [class.total-row]="dato.esTotal"
                             [style.backgroundColor]="dato.colorFondo">
                             <td><strong>{{ dato.categoria }}</strong></td>
-                            <ng-container *ngIf="!dato.esSeccion && !dato.esTotal">
+                            <ng-container *ngIf="!dato.esSeccion">
                                 <td *ngFor="let v of dato.valores">{{ v }}</td>
                                 <td><strong>{{ dato.total }}</strong></td>
                             </ng-container>
                             <ng-container *ngIf="dato.esSeccion">
                                 <td [attr.colspan]="columnasVacunas.length + 1"></td>
-                            </ng-container>
-                            <ng-container *ngIf="dato.esTotal">
-                                <td [attr.colspan]="columnasVacunas.length"></td>
-                                <td><strong>{{ dato.total }}</strong></td>
                             </ng-container>
                         </tr>
                     </tbody>

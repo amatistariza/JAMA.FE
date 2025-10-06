@@ -22,13 +22,47 @@
 	width: 100%;
 	border-collapse: collapse;
 	margin-bottom: 20px;
+	font-size: 0.75rem;
+	table-layout: auto;
 }
 
 .table th,
 .table td {
 	border: 1px solid #bdbdbd;
-	padding: 10px;
+	padding: 4px 3px;
 	text-align: center;
+	white-space: nowrap;
+	font-size: 0.7rem;
+	max-width: 120px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* Columnas más estrechas para Si/No */
+.table td:nth-child(7),
+.table td:nth-child(8),
+.table td:nth-child(9),
+.table td:nth-child(10),
+.table th:nth-child(7),
+.table th:nth-child(8),
+.table th:nth-child(9),
+.table th:nth-child(10) {
+	max-width: 60px;
+	min-width: 50px;
+}
+
+/* Columna Número de Dosis más estrecha */
+.table td:nth-child(2),
+.table th:nth-child(2) {
+	max-width: 50px;
+	min-width: 40px;
+}
+
+/* Columna Edad más estrecha */
+.table td:nth-child(3),
+.table th:nth-child(3) {
+	max-width: 50px;
+	min-width: 40px;
 }
 
 /* Botones personalizados */
@@ -62,9 +96,10 @@
 
 /* Estilos para los contenedores de la tabla */
 .table-responsive {
-	max-height: 400px;
+	max-height: 600px;
 	overflow-y: auto;
-	overflow-x: hidden;
+	overflow-x: auto;
+	width: 100%;
 }
 
 .pagination-container {

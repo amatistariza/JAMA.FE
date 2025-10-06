@@ -149,8 +149,8 @@ export class RegistroVacunaComponent implements OnInit {
       motivoIngreso: [''],
       observaciones: [''],
       pacienteId: ['', Validators.required],
-      viaDeAdministracion: ['Intramuscular', [Validators.required]], // Valor por defecto
-      sitioDeAplicacion: ['Brazo Derecho', [Validators.required]], // Valor por defecto
+      viaDeAdministracion: ['', [Validators.required]], // Valor vacío por defecto
+      sitioDeAplicacion: ['', [Validators.required]], // Valor vacío por defecto
       lote: [''],
       detalles: this.fb.array([this.createDetalleFormGroup()]),
       numerodosis: ['']
@@ -194,7 +194,59 @@ export class RegistroVacunaComponent implements OnInit {
     return '';
   }
 
+  getMissingFields(): string[] {
+    const missingFields: string[] = [];
+    const fieldLabels: { [key: string]: string } = {
+      'tipoCarnet': 'Tipo de Carnet',
+      'responsable': 'Responsable',
+      'numerodosis': 'Número de la dosis',
+      'lote': 'Lote de Vacuna',
+      'viaDeAdministracion': 'Vía de Administración',
+      'sitioDeAplicacion': 'Sitio de Aplicación'
+    };
+
+    // Verificar campos principales
+    Object.keys(fieldLabels).forEach(fieldName => {
+      const control = this.esquemaForm.get(fieldName);
+      if (control && control.invalid) {
+        missingFields.push(fieldLabels[fieldName]);
+      }
+    });
+
+    // Verificar detalles (vacuna, jeringa)
+    const detalles = this.esquemaForm.get('detalles') as FormArray;
+    if (detalles) {
+      detalles.controls.forEach((detalle, index) => {
+        if (detalle.get('vacunaId')?.invalid) {
+          missingFields.push(`Vacuna (detalle ${index + 1})`);
+        }
+        if (detalle.get('jeringaId')?.invalid) {
+          missingFields.push(`Jeringa (detalle ${index + 1})`);
+        }
+      });
+    }
+
+    return missingFields;
+  }
+
+  getMissingFieldsMessage(): string {
+    const missing = this.getMissingFields();
+    if (missing.length === 0) return '';
+    return 'Campos faltantes: ' + missing.join(', ');
+  }
+
   guardarEsquema(): void {
+    // Marcar todos los campos como touched para mostrar errores
+    this.esquemaForm.markAllAsTouched();
+    
+    // Marcar también los campos del FormArray
+    const detalles = this.esquemaForm.get('detalles') as FormArray;
+    if (detalles) {
+      detalles.controls.forEach(control => {
+        control.markAllAsTouched();
+      });
+    }
+
     if (this.esquemaForm.valid) {
       const userId = this.loginService.getUserIdFromToken();
       const form = this.esquemaForm.value;

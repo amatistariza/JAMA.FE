@@ -22,16 +22,16 @@
                     <thead>
                         <tr>
                             <th>Vacuna</th>
-                            <th>Número de la Dosis</th>
+                            <th>N° Dosis</th>
                             <th>Edad</th>
-                            <th>Régimen Afiliación</th>
-                            <th>Pertenencia Étnica</th>
+                            <th>Régimen</th>
+                            <th>Etnia</th>
                             <th>Sexo</th>
-                            <th>Desplazado</th>
-                            <th>Discapacitado</th>
-                            <th>Víctima Conflicto</th>
-                            <th>Estudia Actualmente</th>
-                            <th>Fecha Aplicación</th>
+                            <th>Desplaz.</th>
+                            <th>Discap.</th>
+                            <th>Víctima</th>
+                            <th>Estudia</th>
+                            <th>Fecha Aplic.</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,7 +39,7 @@
                             *ngFor="let f of filasDetalladas | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaActual }">
                             <td>{{ f.vacuna || '' }}</td>
                             <td>{{ f.numeroDosis || '' }}</td>
-                            <td>{{ f.edad || '' }}</td>
+                            <td>{{ (f.edad !== null && f.edad !== undefined) ? (f.edad + (f.unidadEdad ? ' ' + f.unidadEdad : '')) : '' }}</td>
                             <td>{{ f.regimenAfiliacion || '' }}</td>
                             <td>{{ mostrarEtnia(f.pertenenciaEtnica) }}</td>
                             <td>{{ f.sexo || '' }}</td>
@@ -72,46 +72,75 @@
                     </tbody>
                 </table>
 
-                <h5 class="mt-4">Totales por sexo y régimen de afiliación</h5>
+                <h5 class="mt-4">Totales por vacuna y régimen de afiliación</h5>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Sexo</th>
+                            <th>Vacuna</th>
                             <th>Régimen Afiliación</th>
                             <th>Cantidad Aplicada</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let t of totalesPorSexoYRegimen">
-                            <td>{{ t.sexo }}</td>
+                        <tr *ngFor="let t of totalesPorVacunaYRegimen">
+                            <td>{{ t.vacuna }}</td>
                             <td>{{ t.regimenAfiliacion }}</td>
                             <td>{{ t.cantidad }}</td>
                         </tr>
                         <tr>
                             <td colspan="2"><strong>Total</strong></td>
-                            <td><strong>{{ getTotalSexoRegimen() }}</strong></td>
+                            <td><strong>{{ getTotalVacunaRegimen() }}</strong></td>
                         </tr>
                     </tbody>
                 </table>
 
-                <h5 class="mt-4">Totales por sexo y pertenencia étnica</h5>
+                <h5 class="mt-4">Totales por vacuna y pertenencia étnica</h5>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Sexo</th>
+                            <th>Vacuna</th>
                             <th>Pertenencia Étnica</th>
                             <th>Cantidad Aplicada</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let t of totalesPorSexoYEtnia">
-                            <td>{{ t.sexo }}</td>
+                        <tr *ngFor="let t of totalesPorVacunaYEtnia">
+                            <td>{{ t.vacuna }}</td>
                             <td>{{ mostrarEtnia(t.pertenenciaEtnica) }}</td>
                             <td>{{ t.cantidad }}</td>
                         </tr>
                         <tr>
                             <td colspan="2"><strong>Total</strong></td>
-                            <td><strong>{{ getTotalSexoEtnia() }}</strong></td>
+                            <td><strong>{{ getTotalVacunaEtnia() }}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h5 class="mt-4">Totales por vacuna y condición social</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Vacuna</th>
+                            <th>Desplazado</th>
+                            <th>Discapacitado</th>
+                            <th>Victima del Conflicto Armado</th>
+                            <th>Estudia Actualmente</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let t of totalesPorVacunaYCondicion">
+                            <td>{{ t.vacuna }}</td>
+                            <td>{{ t.desplazado }}</td>
+                            <td>{{ t.discapacitado }}</td>
+                            <td>{{ t.victimaConflicto }}</td>
+                            <td>{{ t.estudia }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total</strong></td>
+                            <td><strong>{{ getTotalDesplazados() }}</strong></td>
+                            <td><strong>{{ getTotalDiscapacitados() }}</strong></td>
+                            <td><strong>{{ getTotalVictimas() }}</strong></td>
+                            <td><strong>{{ getTotalEstudia() }}</strong></td>
                         </tr>
                     </tbody>
                 </table>

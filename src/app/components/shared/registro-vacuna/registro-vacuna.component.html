@@ -115,10 +115,9 @@
               <div class="mb-3 col-md-6">
                 <label for="tipoCarnetInput" class="form-label required-field">Tipo de Carnet*</label>
                 <input id="tipoCarnetInput" class="form-control" formControlName="tipoCarnet"
-                  [class.is-invalid]="esquemaForm.get('tipoCarnet')?.invalid && esquemaForm.get('tipoCarnet')?.touched">
-                <div class="invalid-feedback"
-                  *ngIf="esquemaForm.get('tipoCarnet')?.invalid && esquemaForm.get('tipoCarnet')?.touched">
-                  El tipo de carnet es requerido
+                  [ngClass]="{'is-invalid': isFieldInvalid('tipoCarnet')}">
+                <div class="invalid-feedback" *ngIf="isFieldInvalid('tipoCarnet')">
+                  {{ getErrorMessage('tipoCarnet') }}
                 </div>
               </div>
 
@@ -126,7 +125,7 @@
                 <label for="responsableInput" class="form-label">Responsable*</label>
                 <input id="responsableInput" class="form-control" formControlName="responsable" readonly
                   [ngClass]="{'is-invalid': isFieldInvalid('responsable')}" />
-                <div class="validation-error" *ngIf="isFieldInvalid('responsable')">
+                <div class="invalid-feedback" *ngIf="isFieldInvalid('responsable')">
                   {{ getErrorMessage('responsable') }}
                 </div>
               </div>
@@ -156,23 +155,31 @@
                   <div class="mb-3 col-md-6">
                     <label [for]="'vacuna'+i" class="form-label">Vacuna*</label>
                     <select [id]="'vacuna'+i" class="form-control" formControlName="vacunaId"
-                      (change)="onVacunaSelect($event, i)" required>
+                      (change)="onVacunaSelect($event, i)" required 
+                      [ngClass]="{'is-invalid': detalle.get('vacunaId')?.invalid && detalle.get('vacunaId')?.touched}">
                       <option value="">Seleccione una vacuna</option>
                       <option *ngFor="let vacuna of vacunas" [value]="vacuna.id">
                         {{vacuna.nombre}} - Lote: {{vacuna.lote}} (Disponible: {{vacuna.dosisDisponibles}})
                       </option>
                     </select>
+                    <div class="invalid-feedback" *ngIf="detalle.get('vacunaId')?.invalid && detalle.get('vacunaId')?.touched">
+                      La vacuna es requerida
+                    </div>
                   </div>
 
                   <!-- Selección de Jeringa -->
                   <div class="mb-3 col-md-6">
                     <label [for]="'jeringa'+i" class="form-label">Jeringa*</label>
-                    <select [id]="'jeringa'+i" class="form-control" formControlName="jeringaId" required>
+                    <select [id]="'jeringa'+i" class="form-control" formControlName="jeringaId" required
+                      [ngClass]="{'is-invalid': detalle.get('jeringaId')?.invalid && detalle.get('jeringaId')?.touched}">
                       <option value="">Seleccione una jeringa</option>
                       <option *ngFor="let jeringa of jeringas" [value]="jeringa.id">
                         {{jeringa.tipo}} - {{jeringa.calibre}} (Disponible: {{jeringa.cantidad}})
                       </option>
                     </select>
+                    <div class="invalid-feedback" *ngIf="detalle.get('jeringaId')?.invalid && detalle.get('jeringaId')?.touched">
+                      La jeringa es requerida
+                    </div>
                   </div>
 
                   <!-- Selección de Diluyente -->
@@ -201,7 +208,7 @@
                 <label for="numerodosis" class="form-label">Numero de la dosis*</label>
                 <input id="numerodosis" class="form-control" formControlName="numerodosis" readonly
                   [ngClass]="{'is-invalid': isFieldInvalid('numerodosis')}" />
-                <div class="validation-error" *ngIf="isFieldInvalid('numerodosis')">
+                <div class="invalid-feedback" *ngIf="isFieldInvalid('numerodosis')">
                   {{ getErrorMessage('numerodosis') }}
                 </div>
               </div>
@@ -210,34 +217,32 @@
                 <label for="lote" class="form-label">Lote de Vacuna*</label>
                 <input id="lote" class="form-control" formControlName="lote" readonly
                   [ngClass]="{'is-invalid': isFieldInvalid('lote')}" />
-                <div class="validation-error" *ngIf="isFieldInvalid('lote')">
+                <div class="invalid-feedback" *ngIf="isFieldInvalid('lote')">
                   {{ getErrorMessage('lote') }}
                 </div>
               </div>
 
               <div class="mb-3 col-md-6">
                 <label for="viaDeAdministracion" class="form-label">Vía de Administración*</label>
-                <select id="viaDeAdministracion" class="form-control" formControlName="viaDeAdministracion">
+                <select id="viaDeAdministracion" class="form-control" formControlName="viaDeAdministracion"
+                  [ngClass]="{'is-invalid': isFieldInvalid('viaDeAdministracion')}">
                   <option value="">Seleccione una vía</option>
                   <option *ngFor="let via of viasAplicacion" [value]="via">{{ via }}</option>
                 </select>
-
-                <div class="invalid-feedback"
-                  *ngIf="esquemaForm.get('viaDeAdministracion')?.invalid && esquemaForm.get('viaDeAdministracion')?.touched">
-                  La vía de administración es requerida
+                <div class="invalid-feedback" *ngIf="isFieldInvalid('viaDeAdministracion')">
+                  {{ getErrorMessage('viaDeAdministracion') }}
                 </div>
-
               </div>
 
               <div class="mb-3 col-md-6">
                 <label for="sitioDeAplicacion" class="form-label">Sitio de Aplicación*</label>
-                <select id="sitioDeAplicacion" class="form-control" formControlName="sitioDeAplicacion">
+                <select id="sitioDeAplicacion" class="form-control" formControlName="sitioDeAplicacion"
+                  [ngClass]="{'is-invalid': isFieldInvalid('sitioDeAplicacion')}">
                   <option value="">Seleccione un sitio</option>
                   <option *ngFor="let sitio of sitiosAplicacion" [value]="sitio">{{ sitio }}</option>
                 </select>
-                <div class="invalid-feedback"
-                  *ngIf="esquemaForm.get('sitioDeAplicacion')?.invalid && esquemaForm.get('sitioDeAplicacion')?.touched">
-                  El sitio de aplicación es requerido
+                <div class="invalid-feedback" *ngIf="isFieldInvalid('sitioDeAplicacion')">
+                  {{ getErrorMessage('sitioDeAplicacion') }}
                 </div>
               </div>
 
@@ -249,7 +254,9 @@
 
               <!-- Mostrar errores de validación -->
               <div *ngIf="esquemaForm.touched && !esquemaForm.valid" class="alert alert-danger mt-3">
-                Por favor complete todos los campos requeridos.
+                <strong>Por favor complete todos los campos requeridos.</strong>
+                <br>
+                <span *ngIf="getMissingFieldsMessage()">{{ getMissingFieldsMessage() }}</span>
               </div>
             </div>
           </div>
