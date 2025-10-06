@@ -1,12 +1,13 @@
 <div class="card">
   <div class="card-body">
-    <h3 class="card-title">{{ modo === 'crear' ? 'Añadir Paciente' : 'Editar Paciente' }}</h3>
+  <h3 class="card-title">{{ modo === 'crear' ? 'Añadir Paciente' : 'Editar Paciente' }}</h3>
+  <!-- Indicador de página visible para el usuario -->
+  <p class="small text-muted mb-3">Página {{ step }} de 7</p>
 
     <!-- Sección 1: Información Personal -->
     <div *ngIf="step === 1">
       <h4 class="mb-2">Información Personal</h4>
       <hr class="mt-0 mb-3 custom-green-hr">
-
       <form [formGroup]="pacienteForm">
         <div class="row g-3">
           <div class="mb-3 col-md-6">
@@ -94,8 +95,8 @@
             <select id="sexo" class="form-control " formControlName="sexo" required
               [ngClass]="{'is-invalid': isFieldInvalid('sexo')}">
               <option value="" disabled>Selecciona el sexo</option>
-              <option value="HOMBRE">Hombre</option>
-              <option value="MUJER">Mujer</option>
+              <option value="MASCULINO">Masculino</option>
+              <option value="FEMENINO">Femenino</option>
             </select>
             <div class="validation-error" *ngIf="isFieldInvalid('sexo')">
               {{ getErrorMessage('sexo') }}
@@ -114,8 +115,16 @@
               {{ getErrorMessage('orientacionSexual') }}
             </div>
           </div>
-          <h4 class="mb-2">Información de Contacto</h4>
-          <hr class="mt-0 mb-3 custom-green-hr">
+        </div>
+      </form>
+    </div>
+
+    <!-- Sección 2: Información de Contacto (nuevo step) -->
+    <div *ngIf="step === 2">
+      <h4 class="mb-2">Información de Contacto</h4>
+      <hr class="mt-0 mb-3 custom-green-hr">
+      <form [formGroup]="pacienteForm">
+        <div class="row g-3">
           <div class="mb-3 col-md-4">
             <label for="paisResidencia" class="form-label">País de Residencia*</label>
             <input id="paisResidencia" class="form-control" formControlName="paisResidencia" required
@@ -203,35 +212,50 @@
       </form>
     </div>
 
-    <div *ngIf="step === 2">
+    <div *ngIf="step === 3">
       <h4 class="mb-2">Información Adicional</h4>
       <hr class="mt-0 mb-3 custom-green-hr">
       <form [formGroup]="pacienteForm">
         <div class="row g-3">
-          <div class="form-outline mb-3 col-md-6">
-            <label for="regimenAfiliacion" class="form-label">Regimen de Afiliacion</label>
-            <select id="regimenAfiliacion" class="form-control" formControlName="regimenAfiliacion">
-              <option value="CONTRIBUTIVO">Régimen Contributivo</option>
-              <option value="SUBSIDIADO">Régimen Subsidiado</option>
-              <option value="EXCEPCION Y ESPECIAL E INPEC">Régimen de Excepción y especial e INPEC</option>
-              <option value="OTRO">otros</option>
-            </select>
-          </div>
-          <div class="mb-3 col-md-6">
-            <label for="aseguradora" class="form-label">Aseguradora</label>
-            <input id="aseguradora" class="form-control" formControlName="aseguradora" />
-          </div>
-          <div class="form-outline mb-3 col-md-6">
-            <label for="pertenenciaEtnica" class="form-label">Pertenencia Étnica</label>
-            <select id="pertenenciaEtnica" class="form-control " formControlName="pertenenciaEtnica" required>
-              <option value="" disabled>Selecciona la pertenencia étnica</option>
-              <option value="INDIGENA">Indígena</option>
-              <option value="AFROCOLOMBIANO">Afrocolombiano</option>
-              <option value="RAIZAL">Raizal</option>
-              <option value="PALENQUERO">Palenquero</option>
-              <option value="NINGUNO DE LOS ANTERIORES">NINGUNO DE LOS ANTERIORES</option>
-            </select>
-          </div>
+            <div class="form-outline mb-3 col-md-6">
+              <label for="regimenAfiliacion" class="form-label">Regimen de Afiliacion*</label>
+              <select id="regimenAfiliacion" class="form-control" formControlName="regimenAfiliacion" required
+                [ngClass]="{'is-invalid': isFieldInvalid('regimenAfiliacion')}">
+                <option value="" disabled>Selecciona el régimen</option>
+                <option value="CONTRIBUTIVO">CONTRIBUTIVO</option>
+                <option value="SUBSIDIADO">SUBSIDIADO</option>
+                <option value="POBRE NO ASEGURADO">POBRE NO ASEGURADO</option>
+                <option value="REGIMEN ESPECIAL">REGIMEN ESPECIAL</option>
+                <option value="OTRO">OTRO</option>
+              </select>
+              <div class="validation-error" *ngIf="isFieldInvalid('regimenAfiliacion')">
+                {{ getErrorMessage('regimenAfiliacion') }}
+              </div>
+            </div>
+            <div class="mb-3 col-md-6">
+              <label for="aseguradora" class="form-label">Aseguradora*</label>
+              <input id="aseguradora" class="form-control" formControlName="aseguradora" required
+                [ngClass]="{'is-invalid': isFieldInvalid('aseguradora')}" />
+              <div class="validation-error" *ngIf="isFieldInvalid('aseguradora')">
+                {{ getErrorMessage('aseguradora') }}
+              </div>
+            </div>
+            <div class="form-outline mb-3 col-md-6">
+              <label for="pertenenciaEtnica" class="form-label">Pertenencia Étnica*</label>
+              <select id="pertenenciaEtnica" class="form-control" formControlName="pertenenciaEtnica" required
+                [ngClass]="{'is-invalid': isFieldInvalid('pertenenciaEtnica')}">
+                <option value="" disabled>Selecciona la pertenencia étnica</option>
+                <option value="INDIGENA">INDIGENA</option>
+                <option value="ROM(GITANO)">ROM (GITANO)</option>
+                <option value="RAIZAL">RAIZAL</option>
+                <option value="NEGRO,PALENQUERO,MULATO,AFROCOLOMBIANO">NEGRO,PALENQUERO,MULATO,AFROCOLOMBIANO</option>
+                <option value="NINGUNO">NINGUNO</option>
+              </select>
+              <div class="validation-error" *ngIf="isFieldInvalid('pertenenciaEtnica')">
+                {{ getErrorMessage('pertenenciaEtnica') }}
+              </div>
+            </div>
+
           <h4 class="mb-2">Condición Social (Seleccione 1 o más opciones)</h4>
           <hr class="mt-0 mb-3 custom-green-hr">
           <div class="col-md-12">
@@ -259,7 +283,7 @@
     </div>
 
     <!-- Sección 3: Antecedentes -->
-    <div *ngIf="step === 3">
+    <div *ngIf="step === 4">
       <h4>Antecedentes</h4>
       <hr class="mt-0 mb-3 custom-green-hr">
       <form [formGroup]="pacienteForm">
@@ -283,7 +307,7 @@
     </div>
 
     <!-- Sección 4: Cuidador o Madre -->
-    <div *ngIf="step === 4">
+    <div *ngIf="step === 5">
       <ng-container *ngIf="mayorDe18; else seleccionarCuidadorMadre">
         <div class="alert alert-info mt-3">
           Esta sección solo está disponible para pacientes menores de edad.
@@ -301,7 +325,8 @@
               readonly />
             <div class="text-center mt-2">
               <button class="btn btn-custom" (click)="mostrarTablaMadre = true">Seleccionar Madre</button>
-              <button class="btn btn-custom" *ngIf="madreSeleccionada" (click)="quitarSeleccionMadre()">Quitar Selección
+              <button class="btn btn-custom" *ngIf="madreSeleccionada" (click)="quitarSeleccionMadre()">Quitar
+                Selección
                 Madre</button>
             </div>
           </div>
@@ -349,7 +374,7 @@
     </div>
 
     <!-- Sección 5: Información Usuaria -->
-    <div *ngIf="step === 5">
+    <div *ngIf="step === 6">
       <ng-container *ngIf="pacienteForm.get('sexo')?.value === 'MUJER'; else soloMujeres">
         <h4>Condición Usuaria</h4>
         <hr class="mt-0 mb-3 custom-green-hr">
@@ -392,7 +417,7 @@
     </div>
 
     <!-- Sección 6: Antecedentes Médicos -->
-    <div *ngIf="step === 6">
+    <div *ngIf="step === 7">
       <h4>Antecedentes Médicos</h4>
       <hr class="mt-0 mb-3 custom-green-hr">
       <form [formGroup]="pacienteForm">
@@ -421,21 +446,20 @@
     </div>
   </div>
 
-  <!-- Navegación entre secciones -->
-  <div class="row g-3" *ngIf="!(mostrarTablaMadre || mostrarTablaCuidador)">
-    <!-- Botón "Anterior" -->
-    <div class="col-md-8" *ngIf="step == 1"></div>
-    <div class="col-md-1" *ngIf="step > 1"></div>
-    <button *ngIf="step > 1" class="btn btn-secondary col-md-2" (click)="previousStep()">
-      Anterior
-    </button>
+    <!-- Navegación compacta y centrada -->
+    <div class="d-flex justify-content-center align-items-center my-3" *ngIf="!(mostrarTablaMadre || mostrarTablaCuidador)">
+      <button *ngIf="step > 1" class="btn btn-secondary nav-btn me-3" (click)="previousStep()" style="min-width:120px">
+        Anterior
+      </button>
 
-    <div class="col-md-6" *ngIf="step > 1"></div>
-    <!-- Botón "Siguiente" -->
-    <button *ngIf="step < 6" class="btn btn-custompass col-md-2" (click)="nextStep()">
-      Siguiente
-    </button>
-  </div>
+      <div class="mx-2 text-center">
+        <span class="fw-semibold">Página {{ step }} de {{ totalSteps || 7 }}</span>
+      </div>
+
+      <button *ngIf="step < (totalSteps || 7)" class="btn btn-custompass nav-btn ms-3" (click)="nextStep()" style="min-width:120px">
+        Siguiente
+      </button>
+    </div>
 
   <!-- Botones "Guardar" y "Cancelar" -->
   <div class="text-center mt-4 mb-3" *ngIf="!(mostrarTablaMadre || mostrarTablaCuidador)">

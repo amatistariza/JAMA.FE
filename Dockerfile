@@ -19,6 +19,10 @@ ARG APP_NAME=jama
 ## a 'browser' folder (client assets) inside dist/<app>. Copy that folder's
 ## contents so index.html is served from nginx root.
 COPY --from=build /app/dist/${APP_NAME}/browser/ /usr/share/nginx/html/
+# Rename index.csr.html to index.html for Angular SSR compatibility
+RUN if [ -f /usr/share/nginx/html/index.csr.html ]; then \
+        mv /usr/share/nginx/html/index.csr.html /usr/share/nginx/html/index.html; \
+    fi
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

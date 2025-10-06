@@ -10,8 +10,8 @@
                     <h2 class="text-center mb-4">Reporte de Vacunación</h2>
                 </div>
 
-                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
-                    <div class="mb-3">
+                <div class="table-responsive" style="max-height: 100%; overflow-y: auto;">
+                    <div class="mb-3 no-print">
                         <label for="mesSelect" class="form-label">Filtrar por mes</label>
                         <select id="mesSelect" class="form-control" (change)="onMesChange($event.target.value)">
                             <option value="">Todos</option>
@@ -28,8 +28,8 @@
                         <tbody>
                             <tr
                                 *ngFor="let estadisticasDosis of estadisticasDosisFiltradas | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaActual }">
-                                <td>{{ estadisticasDosis.vacuna }}</td>
-                                <td>{{ estadisticasDosis.dosis }}</td>
+                                <td>{{ estadisticasDosis.vacuna || '' }}</td>
+                                <td>{{ estadisticasDosis.dosis || 0 }}</td>
                             </tr>
                             <tr>
                                 <td><strong>Total de vacunas aplicadas</strong></td>

@@ -1,10 +1,10 @@
 /* Aplica el fondo al cuerpo de la página completa */
+/* Let the global page background (defined in common.css) handle the gradient.
+   Keep the admin host transparent to avoid overlapping fixed backgrounds. */
 :host {
   display: block;
-  min-height: 100vh; /* Asegura que cubra toda la altura de la ventana */
-  background: rgba(82, 194, 52, 0.9);
-  background: -webkit-linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
-  background: linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
+  min-height: 100vh;
+  background: transparent; /* transparent so the root gradient shows through */
   font-family: 'Poppins', sans-serif;
 }
 

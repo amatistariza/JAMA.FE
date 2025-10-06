@@ -5,7 +5,7 @@
   background: rgba(82, 194, 52, 0.9);
   background: -webkit-linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
   background: linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
-  background-attachment: fixed;
+  /* background-attachment removed to avoid multiple fixed backgrounds */
   background-repeat: no-repeat;
   box-sizing: border-box;
   padding: 0; /* no empuja el navbar */
@@ -137,7 +137,7 @@
   background: rgba(82, 194, 52, 0.9);
   background: -webkit-linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
   background: linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
-  background-attachment: fixed;
+  /* removed background-attachment */
   background-repeat: no-repeat;
   box-sizing: border-box;
   padding: 0; /* no empuja el navbar */
@@ -249,7 +249,14 @@
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
-    padding: 0 !important;
+    padding: 10px !important;
+  }
+
+  /* Ajustes para la tabla responsive */
+  .table-responsive {
+    max-height: none !important;
+    overflow: visible !important;
+    overflow-y: visible !important;
   }
 
   /* Eliminar bordes y sombras */
@@ -259,12 +266,13 @@
     box-shadow: none !important;
     margin: 0 !important;
     padding: 5px !important;
+    background-color: white !important;
   }
 
   /* CORREGIDO: Ahora apuntamos correctamente a print-header y logo */
   .print-header {
     text-align: center !important;
-    margin-bottom: 5px !important;
+    margin-bottom: 10px !important;
   }
 
   /* CORREGIDO: Apuntamos directamente a la clase logo */
@@ -274,24 +282,7 @@
     width: 80px !important;
     height: auto !important;
     display: block !important;
-    margin: 0 auto !important;
-  }
-
-  /* Reducir espacios entre secciones */
-  .esquema-container {
-    margin-bottom: 5px !important;
-  }
-
-  .info-section {
-    margin: 5px 0 !important;
-  }
-
-  .paciente-info,
-  .detalles-section,
-  .observaciones {
-    margin-top: 5px !important;
-    padding: 5px !important;
-    page-break-inside: avoid !important;
+    margin: 0 auto 10px auto !important;
   }
 
   /* Optimizar tablas */
@@ -299,26 +290,24 @@
     width: 100% !important;
     border-collapse: collapse !important;
     margin: 5px 0 !important;
-    font-size: 9pt !important;
+    font-size: 10pt !important;
+    page-break-inside: auto !important;
   }
 
   .table th {
     background-color: #f0f0f0 !important;
     color: black !important;
     font-weight: bold !important;
-    padding: 3px !important;
-    font-size: 9pt !important;
-  }
-
-  .table td {
-    padding: 3px !important;
-    font-size: 9pt !important;
-  }
-
-  .table th,
-  .table td {
+    padding: 5px !important;
+    font-size: 10pt !important;
     border: 1px solid #000 !important;
-    text-align: left !important;
+  }
+
+  .table td {
+    padding: 5px !important;
+    font-size: 10pt !important;
+    border: 1px solid #000 !important;
+    text-align: center !important;
   }
 
   /* Reducir tamaños de texto */
@@ -326,8 +315,8 @@
   p,
   div,
   span {
-    font-size: 9pt !important;
-    line-height: 1.1 !important;
+    font-size: 10pt !important;
+    line-height: 1.2 !important;
   }
 
   h1,
@@ -341,24 +330,24 @@
   }
 
   h1 {
-    font-size: 14pt !important;
+    font-size: 16pt !important;
   }
   h2 {
-    font-size: 12pt !important;
+    font-size: 14pt !important;
   }
   h3 {
-    font-size: 11pt !important;
+    font-size: 12pt !important;
   }
   h4,
   h5,
   h6 {
-    font-size: 10pt !important;
+    font-size: 11pt !important;
   }
 
   /* Configuración de página */
   @page {
-    margin: 0.3cm !important;
-    size: auto !important;
+    margin: 0.5cm !important;
+    size: A4 landscape !important;
   }
 
   /* Asegurar que todo quepa en una página */
@@ -370,8 +359,8 @@
 
   /* Eliminar URL del pie de página */
   @page {
-    size: auto;
-    margin: 0mm;
+    size: A4 landscape;
+    margin: 0.5cm;
   }
   @page :footer { display: none; }
   @page :header { display: none; }

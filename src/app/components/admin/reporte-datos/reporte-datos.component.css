@@ -1,0 +1,201 @@
+/* Estilos de base */
+:host {
+	display: block;
+	min-height: 100vh;
+	background: rgba(82, 194, 52, 0.9);
+	background: -webkit-linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
+	background: linear-gradient(to right, rgba(6, 23, 0, 0.9), rgba(82, 194, 52, 0.9));
+	background-repeat: no-repeat;
+	box-sizing: border-box;
+	padding: 0;
+	font-family: 'Poppins', sans-serif;
+}
+
+.header {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+	border: 1px solid #bdbdbd;
+	padding: 10px;
+	text-align: center;
+}
+
+.table th {
+	background-color: #52c234;
+	color: white;
+	font-weight: bold;
+}
+
+/* Columna TOTAL con fondo naranja/amarillo */
+.table th:last-child {
+	background-color: #FFA500;
+	color: white;
+}
+
+.table td:last-child {
+	background-color: #FFD700;
+	font-weight: bold;
+}
+
+.seccion-row {
+	font-weight: bold !important;
+	font-size: 1.1em;
+}
+
+.total-row {
+	font-weight: bold !important;
+	background-color: #bdbdbd !important;
+	border-bottom: 3px solid #000 !important;
+}
+
+.total-row td {
+	font-weight: bold !important;
+	background-color: #bdbdbd !important;
+	border-bottom: 3px solid #000 !important;
+}
+
+.btn-custom, .btn-success {
+	background-color: #52c234;
+	border-color: #52c234;
+	color: white;
+}
+
+.btn-custom:hover, .btn-success:hover {
+	background-color: #45a827;
+	border-color: #45a827;
+}
+
+.table-responsive {
+	max-height: 600px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.print-header {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.logo {
+	max-width: 120px;
+	margin-bottom: 15px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+	.table-responsive {
+		max-height: 300px;
+	}
+
+	.btn-custom, .btn-success {
+		width: 100%;
+		margin-bottom: 5px;
+	}
+
+	.table th,
+	.table td {
+		padding: 8px;
+		font-size: 0.9rem;
+	}
+}
+
+/* Estilos para impresión */
+@media print {
+	.no-print,
+	.navbar,
+	app-navbar-admin {
+		display: none !important;
+	}
+
+	:host,
+	body,
+	html {
+		background: white !important;
+		background-image: none !important;
+		color: black !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	.container,
+	.container-fluid {
+		width: 100% !important;
+		max-width: none !important;
+		margin: 0 !important;
+		padding: 10px !important;
+	}
+
+	.table-responsive {
+		max-height: none !important;
+		overflow: visible !important;
+	}
+
+	.card,
+	.card-body {
+		border: none !important;
+		box-shadow: none !important;
+		margin: 0 !important;
+		padding: 5px !important;
+		background-color: white !important;
+	}
+
+	.print-header {
+		text-align: center !important;
+		margin-bottom: 10px !important;
+	}
+
+	.logo {
+		width: 80px !important;
+		height: auto !important;
+		display: block !important;
+		margin: 0 auto 10px auto !important;
+	}
+
+	.table {
+		width: 100% !important;
+		border-collapse: collapse !important;
+		margin: 5px 0 !important;
+		font-size: 8pt !important;
+	}
+
+	.table th {
+		background-color: #f0f0f0 !important;
+		color: black !important;
+		font-weight: bold !important;
+		padding: 2px !important;
+		font-size: 8pt !important;
+		border: 1px solid #000 !important;
+	}
+
+	.table td {
+		padding: 2px !important;
+		font-size: 7pt !important;
+		border: 1px solid #000 !important;
+	}
+
+	body, p, div, span {
+		font-size: 8pt !important;
+	}
+
+	h2 {
+		font-size: 12pt !important;
+		margin: 5px 0 !important;
+	}
+
+	@page {
+		margin: 0.5cm !important;
+		size: A4 landscape !important;
+	}
+}

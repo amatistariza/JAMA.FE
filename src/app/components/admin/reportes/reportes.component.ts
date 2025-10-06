@@ -78,7 +78,17 @@ export class ReportesComponent {
     }
 
     imprimir() {
-        window.print();
+        // Remover paginación para mostrar todos los datos en la impresión
+        const originalItemsPorPagina = this.itemsPorPagina;
+        this.itemsPorPagina = this.estadisticasDosisFiltradas.length || 1000;
+        
+        setTimeout(() => {
+            window.print();
+            // Restaurar paginación después de imprimir
+            setTimeout(() => {
+                this.itemsPorPagina = originalItemsPorPagina;
+            }, 500);
+        }, 100);
     }
 
     onMesChange(value: string) {

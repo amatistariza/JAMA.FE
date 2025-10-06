@@ -17,6 +17,7 @@ import { RegistroVacunaComponent } from './components/shared/registro-vacuna/reg
 import { EsquemaDetallesComponent } from './components/shared/esquema-detalles/esquema-detalles.component';
 import { ReportesComponent } from './components/admin/reportes/reportes.component';
 import { ReportesDetalladosComponent } from './components/admin/reportes-detallados/reportes-detallados.component';
+import { ReporteDatosComponent } from './components/admin/reporte-datos/reporte-datos.component';
 import { GestionAlarmasComponent } from './components/shared/gestion-alarmas/gestion-alarmas.component';
 
 
@@ -41,8 +42,9 @@ const routes: Routes = [
       { path: 'registro-vacuna', component: RegistroVacunaComponent },
       { path: 'gestionAlarmas', component: GestionAlarmasComponent },
       { path: 'esquema-detalles/:esquemaId', component: EsquemaDetallesComponent },
-      { path: 'reportes',component: ReportesComponent }
-  ,{ path: 'reportes-detallados', component: ReportesDetalladosComponent }
+      { path: 'reportes',component: ReportesComponent },
+      { path: 'reportes-detallados', component: ReportesDetalladosComponent },
+      { path: 'reporte-datos', component: ReporteDatosComponent }
     ]
   },
 

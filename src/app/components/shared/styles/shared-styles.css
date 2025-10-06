@@ -103,7 +103,9 @@ app-navbar-admin nav {
 
 /* Small spacing so content doesn't hide behind navbar */
 main, .container, .main-container {
-  margin-top: 0.5rem;
+  /* Use padding instead of margin to keep spacing from exposing background gaps
+     when zooming or when fixed-position elements are present. */
+  padding-top: 0.5rem;
 }
 
 /* DEBUG: outline navs to see if they're present and their size */

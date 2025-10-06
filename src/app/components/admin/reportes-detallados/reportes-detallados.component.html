@@ -5,67 +5,125 @@
     <div class="card" id="registroVacunaSection">
         <div class="card-body">
 
-                <div class="print-header">
-                    <img src="assets/Logo.png" alt="Logo" class="logo">
-                    <h2 class="text-center mb-4">Reporte de Vacunación Detallado</h2>
-                </div>
-
-                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
-                    <div class="mb-3">
-                        <label for="mesSelectEdad" class="form-label">Filtrar por mes</label>
-                        <select id="mesSelectEdad" class="form-control" (change)="onMesChange($event.target.value)">
-                            <option value="">Todos</option>
-                            <option *ngFor="let m of mesesDisponibles" [value]="m.value">{{ m.label }}</option>
-                        </select>
-                    </div>
-                    <h5>Detalle por edad (cada fila representa 1 aplicación)</h5>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Vacuna</th>
-                                <th>Número Dosis</th>
-                                <th>Edad</th>
-                                <th>Cantidad</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let f of filasPorEdad | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaActual }">
-                                <td>{{ f.vacuna }}</td>
-                                <td>{{ f.numeroDosis }}</td>
-                                <td>{{ f.edad }}</td>
-                                <td>{{ f.cantidad }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h5 class="mt-4">Totales por vacuna</h5>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Vacuna</th>
-                                <th>Cantidad Aplicada</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let t of totalesPorVacuna">
-                                <td>{{ t.vacuna }}</td>
-                                <td>{{ t.cantidad }}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Total de vacunas aplicadas</strong></td>
-                                <td><strong>{{ totalDosis }}</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-
-                <div class="mt-4 no-print text-center">
-                    <button class="btn btn-custom" (click)="imprimir()">
-                        <i class="fas fa-print"></i> Imprimir
-                    </button>
-                </div>
-
+            <div class="print-header">
+                <img src="assets/Logo.png" alt="Logo" class="logo">
+                <h2 class="text-center mb-4">Reporte de Vacunación Detallado</h2>
             </div>
+
+            <div class="table-responsive" style="max-height: 100%; overflow-y: auto;">
+                <div class="mb-3 no-print">
+                    <label for="mesSelectEdad" class="form-label">Filtrar por mes</label>
+                    <select id="mesSelectEdad" class="form-control" (change)="onMesChange($event.target.value)">
+                        <option value="">Todos</option>
+                        <option *ngFor="let m of mesesDisponibles" [value]="m.value">{{ m.label }}</option>
+                    </select>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Vacuna</th>
+                            <th>Número de la Dosis</th>
+                            <th>Edad</th>
+                            <th>Régimen Afiliación</th>
+                            <th>Pertenencia Étnica</th>
+                            <th>Sexo</th>
+                            <th>Desplazado</th>
+                            <th>Discapacitado</th>
+                            <th>Víctima Conflicto</th>
+                            <th>Estudia Actualmente</th>
+                            <th>Fecha Aplicación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let f of filasDetalladas | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaActual }">
+                            <td>{{ f.vacuna || '' }}</td>
+                            <td>{{ f.numeroDosis || '' }}</td>
+                            <td>{{ f.edad || '' }}</td>
+                            <td>{{ f.regimenAfiliacion || '' }}</td>
+                            <td>{{ mostrarEtnia(f.pertenenciaEtnica) }}</td>
+                            <td>{{ f.sexo || '' }}</td>
+                            <td>{{ mostrarSiNo(f.desplazado) }}</td>
+                            <td>{{ mostrarSiNo(f.discapacitado) }}</td>
+                            <td>{{ mostrarSiNo(f.victimaConflicto) }}</td>
+                            <td>{{ mostrarSiNo(f.estudiaActualmente) }}</td>
+                            <td>{{ f.fechaAplicacion | date:'dd/MM/yyyy' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h5 class="mt-4">Totales por vacuna</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Vacuna</th>
+                            <th>Cantidad Aplicada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let t of totalesPorVacuna">
+                            <td>{{ t.vacuna }}</td>
+                            <td>{{ t.cantidad }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total de vacunas aplicadas</strong></td>
+                            <td><strong>{{ totalDosis }}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h5 class="mt-4">Totales por sexo y régimen de afiliación</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Sexo</th>
+                            <th>Régimen Afiliación</th>
+                            <th>Cantidad Aplicada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let t of totalesPorSexoYRegimen">
+                            <td>{{ t.sexo }}</td>
+                            <td>{{ t.regimenAfiliacion }}</td>
+                            <td>{{ t.cantidad }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>Total</strong></td>
+                            <td><strong>{{ getTotalSexoRegimen() }}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h5 class="mt-4">Totales por sexo y pertenencia étnica</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Sexo</th>
+                            <th>Pertenencia Étnica</th>
+                            <th>Cantidad Aplicada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let t of totalesPorSexoYEtnia">
+                            <td>{{ t.sexo }}</td>
+                            <td>{{ mostrarEtnia(t.pertenenciaEtnica) }}</td>
+                            <td>{{ t.cantidad }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>Total</strong></td>
+                            <td><strong>{{ getTotalSexoEtnia() }}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="mt-4 no-print text-center">
+                <button class="btn btn-custom" (click)="imprimir()">
+                    <i class="fas fa-print"></i> Imprimir
+                </button>
+            </div>
+
         </div>
+    </div>
 </div>

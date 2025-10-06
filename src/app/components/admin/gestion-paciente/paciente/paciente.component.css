@@ -40,7 +40,6 @@
  .custom-green-hr {
    border-top: 2px solid #28a745;
  }
- 
 
  .validation-error {
    color: #dc3545; 
@@ -53,5 +52,10 @@
    box-shadow: 0 0 0 0.2rem rgba(220,53,69,0.1);
  }
 
-
+/* Navigation buttons (slightly larger) */
+.nav-btn {
+  padding: 10px 18px;
+  font-size: 1rem; /* increase text size */
+  border-radius: 6px;
+}
 

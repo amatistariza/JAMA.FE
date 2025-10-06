@@ -24,7 +24,46 @@ export class PacienteComponent implements OnInit {
 
   pacienteForm: FormGroup;
   step: number = 1;
+  totalSteps: number = 7; // número total de pasos en el formulario
   mostrarTablaMadre = false;
+  // Mapa de campos por paso para validaciones y mensajes
+  private stepsMap: { [k: number]: string[] } = {
+    1: ['tipoIdentificacion', 'numeroIdentificacion', 'primerNombre', 'primerApellido', 'segundoApellido', 'fechaNacimiento', 'paisNacimiento', 'estatusMigratorio', 'sexo', 'orientacionSexual'],
+    2: ['paisResidencia', 'departamentoResidencia', 'municipioResidencia', 'direccion', 'area', 'email', 'telefonoFijo', 'celular'],
+    3: ['regimenAfiliacion', 'aseguradora', 'pertenenciaEtnica'],
+    4: ['antecedentes'],
+    5: [],
+    6: ['condicionUsuaria.condicion'],
+    7: ['antecedentesMedicos.detalleContraindicacion']
+  };
+
+  // Nombres amigables para mostrar en la UI
+  private fieldDisplayMap: { [k: string]: string } = {
+    tipoIdentificacion: 'Tipo de Identificación',
+    numeroIdentificacion: 'Número de Identificación',
+    primerNombre: 'Primer Nombre',
+    segundoNombre: 'Segundo Nombre',
+    primerApellido: 'Primer Apellido',
+    segundoApellido: 'Segundo Apellido',
+    fechaNacimiento: 'Fecha de Nacimiento',
+    paisNacimiento: 'País de Nacimiento',
+    estatusMigratorio: 'Estatus Migratorio',
+    sexo: 'Sexo',
+    orientacionSexual: 'Orientación Sexual',
+    paisResidencia: 'País de Residencia',
+    departamentoResidencia: 'Departamento de Residencia',
+    municipioResidencia: 'Municipio de Residencia',
+    direccion: 'Dirección',
+    area: 'Área',
+    email: 'Correo Electrónico',
+    telefonoFijo: 'Teléfono Fijo',
+    celular: 'Celular',
+    regimenAfiliacion: 'Régimen de Afiliación',
+    aseguradora: 'Aseguradora',
+    pertenenciaEtnica: 'Pertenencia Étnica',
+    'condicionUsuaria.condicion': 'Condición (usuaria)',
+    'antecedentesMedicos.detalleContraindicacion': 'Detalle Contradicación'
+  };
   mostrarTablaCuidador = false;
   // Indicador para mostrar validaciones sólo después de que el usuario presione "Guardar"
   attemptedSave: boolean = false;
@@ -68,9 +107,9 @@ export class PacienteComponent implements OnInit {
       paisNacimiento: [''],
       estatusMigratorio: [''],
       lugarAtencionParto: ['-'],
-      regimenAfiliacion: [''],
-      aseguradora: [''],
-      pertenenciaEtnica: [''],
+  regimenAfiliacion: ['', [Validators.required]],
+  aseguradora: ['', [Validators.required]],
+  pertenenciaEtnica: ['', [Validators.required]],
       desplazado: [false],
       discapacitado: [false],
       fallecido: [false],
@@ -320,7 +359,8 @@ export class PacienteComponent implements OnInit {
   }
 
   nextStep() {
-    if (this.step < 9) {
+    // Actualizado para reflejar el nuevo número máximo de pasos (7)
+    if (this.step < 7) {
       this.step++;
     }
   }
@@ -423,7 +463,9 @@ export class PacienteComponent implements OnInit {
       this.pacienteForm.get('email')?.invalid ||
       this.pacienteForm.get('telefonoFijo')?.invalid ||
       this.pacienteForm.get('celular')?.invalid ||
-      this.pacienteForm.get('pertenenciaEtnica')?.invalid
+      this.pacienteForm.get('pertenenciaEtnica')?.invalid ||
+      this.pacienteForm.get('regimenAfiliacion')?.invalid ||
+      this.pacienteForm.get('aseguradora')?.invalid
     );
   }
 
@@ -441,9 +483,31 @@ export class PacienteComponent implements OnInit {
         this.attemptedSave = true;
         // Marcar todos los controles como touched/dirty para que se muestren las validaciones
         this.markAllControlsAsTouchedAndDirty();
-        // Enfocar y desplazar al primer control inválido para mejorar la UX
-        this.focusFirstInvalidControl();
-        Swal.fire('Error', 'Por favor, completa todos los campos obligatorios.', 'error');
+        // Encontrar la primera página que tenga campos inválidos y navegar a ella
+        const invalidStep = this.findFirstInvalidStep();
+        if (invalidStep) {
+          this.step = invalidStep;
+          // Dar tiempo a Angular para renderizar el paso y luego enfocar
+          setTimeout(() => this.focusFirstInvalidControl(), 60);
+        } else {
+          setTimeout(() => this.focusFirstInvalidControl(), 60);
+        }
+
+        // Construir listado detallado por página de qué campos faltan
+        const invalidByStep = this.getInvalidFieldsByStep();
+        let html = '<p>Por favor, completa los siguientes campos obligatorios:</p>';
+        html += '<ul style="text-align:left;">';
+        for (const group of invalidByStep) {
+          html += `<li><b>Página ${group.step}:</b> ${group.fields.join(', ')}</li>`;
+        }
+        html += '</ul>';
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Campos obligatorios incompletos',
+          html: html,
+          width: '520px'
+        });
       } else {
         const pacienteJson = this.validaciones();
         if (this.modo === 'crear') {
@@ -591,6 +655,58 @@ export class PacienteComponent implements OnInit {
     // Mostrar error sólo si el control es inválido y el usuario ya lo tocó (dirty/touched)
     // o si se intentó guardar el formulario (attemptedSave)
     return field.invalid && (this.attemptedSave || field.dirty || field.touched);
+  }
+
+  /**
+   * Recorre los controles por pasos y devuelve el primer paso que contenga
+   * algún control inválido. Esto permite navegar al paso correcto cuando el
+   * usuario intenta guardar el formulario incompleto.
+   */
+  findFirstInvalidStep(): number | null {
+    for (const key of Object.keys(this.stepsMap)) {
+      const stepNum = +key;
+      const fields = this.stepsMap[stepNum] || [];
+      for (const f of fields) {
+        const control = f.includes('.') ? this.getNestedControl(f) : this.pacienteForm.get(f);
+        if (control && control.invalid) return stepNum;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Devuelve una lista con los campos inválidos agrupados por página.
+   * Cada entrada tiene { step, fields: ["Nombre legible"] }
+   */
+  getInvalidFieldsByStep(): Array<{ step: number, fields: string[] }> {
+    const result: Array<{ step: number, fields: string[] }> = [];
+    for (const key of Object.keys(this.stepsMap)) {
+      const stepNum = +key;
+      const fields = this.stepsMap[stepNum] || [];
+      const invalidFields: string[] = [];
+      for (const f of fields) {
+        const control = f.includes('.') ? this.getNestedControl(f) : this.pacienteForm.get(f);
+        if (control && control.invalid) {
+          const label = this.fieldDisplayMap[f] || f;
+          invalidFields.push(label);
+        }
+      }
+      if (invalidFields.length) {
+        result.push({ step: stepNum, fields: invalidFields });
+      }
+    }
+    return result;
+  }
+
+  // Helper para obtener controles anidados a partir de 'grupo.campo'
+  private getNestedControl(path: string): AbstractControl | null {
+    const parts = path.split('.');
+    let current: any = this.pacienteForm;
+    for (const p of parts) {
+      if (!current) return null;
+      current = current.get ? current.get(p) : null;
+    }
+    return current || null;
   }
 
   /**
