@@ -375,7 +375,7 @@
 
     <!-- Sección 5: Información Usuaria -->
     <div *ngIf="step === 6">
-      <ng-container *ngIf="pacienteForm.get('sexo')?.value === 'MUJER'; else soloMujeres">
+      <ng-container *ngIf="pacienteForm.get('sexo')?.value === 'FEMENINO'; else soloMujeres">
         <h4>Condición Usuaria</h4>
         <hr class="mt-0 mb-3 custom-green-hr">
         <form [formGroup]="pacienteForm">
