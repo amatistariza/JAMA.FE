@@ -20,10 +20,12 @@ export class ReportesDetalladosComponent {
   filasDetalladas: any[] = [];
   // Totales por vacuna: { vacuna, cantidad }
   totalesPorVacuna: Array<{vacuna: string, cantidad: number}> = [];
-  // Totales por sexo y régimen
-  totalesPorSexoYRegimen: Array<{sexo: string, regimenAfiliacion: string, cantidad: number}> = [];
-  // Totales por sexo y etnia
-  totalesPorSexoYEtnia: Array<{sexo: string, pertenenciaEtnica: string, cantidad: number}> = [];
+  // Totales por vacuna y régimen
+  totalesPorVacunaYRegimen: Array<{vacuna: string, regimenAfiliacion: string, cantidad: number}> = [];
+  // Totales por vacuna y etnia
+  totalesPorVacunaYEtnia: Array<{vacuna: string, pertenenciaEtnica: string, cantidad: number}> = [];
+  // Totales por vacuna y condición social
+  totalesPorVacunaYCondicion: Array<{vacuna: string, desplazado: number, discapacitado: number, victimaConflicto: number, estudia: number}> = [];
   totalGeneral: number = 0;
 
   itemsPorPagina: number = 10;
@@ -83,8 +85,9 @@ export class ReportesDetalladosComponent {
     // limpiar
     this.filasDetalladas = [];
     this.totalesPorVacuna = [];
-    this.totalesPorSexoYRegimen = [];
-    this.totalesPorSexoYEtnia = [];
+    this.totalesPorVacunaYRegimen = [];
+    this.totalesPorVacunaYEtnia = [];
+    this.totalesPorVacunaYCondicion = [];
     this.totalGeneral = 0;
 
     // Filtrar por mes si corresponde
@@ -106,27 +109,45 @@ export class ReportesDetalladosComponent {
 
     // Totales por vacuna
     const mapTotales: { [vacuna: string]: number } = {};
-    // Totales por sexo y régimen
-    const mapSexoRegimen: { [key: string]: number } = {};
-    // Totales por sexo y etnia
-    const mapSexoEtnia: { [key: string]: number } = {};
+    // Totales por vacuna y régimen
+    const mapVacunaRegimen: { [key: string]: number } = {};
+    // Totales por vacuna y etnia
+    const mapVacunaEtnia: { [key: string]: number } = {};
+    // Totales por vacuna y condición social
+    const mapVacunaCondicion: { [vacuna: string]: {desplazado: number, discapacitado: number, victimaConflicto: number, estudia: number} } = {};
 
     for (const r of this.filasDetalladas) {
       const vacuna = (r.vacuna || '').toString();
-      const sexo = (r.sexo || 'Sin especificar').toString();
       const regimen = (r.regimenAfiliacion || 'Sin régimen').toString();
       const etnia = (r.pertenenciaEtnica || 'NINGUNO').toString();
 
       // Total por vacuna
       mapTotales[vacuna] = (mapTotales[vacuna] || 0) + 1;
 
-      // Total por sexo y régimen
-      const keySexoRegimen = `${sexo}|${regimen}`;
-      mapSexoRegimen[keySexoRegimen] = (mapSexoRegimen[keySexoRegimen] || 0) + 1;
+      // Total por vacuna y régimen
+      const keyVacunaRegimen = `${vacuna}|${regimen}`;
+      mapVacunaRegimen[keyVacunaRegimen] = (mapVacunaRegimen[keyVacunaRegimen] || 0) + 1;
 
-      // Total por sexo y etnia
-      const keySexoEtnia = `${sexo}|${etnia}`;
-      mapSexoEtnia[keySexoEtnia] = (mapSexoEtnia[keySexoEtnia] || 0) + 1;
+      // Total por vacuna y etnia
+      const keyVacunaEtnia = `${vacuna}|${etnia}`;
+      mapVacunaEtnia[keyVacunaEtnia] = (mapVacunaEtnia[keyVacunaEtnia] || 0) + 1;
+
+      // Total por vacuna y condición social
+      if (!mapVacunaCondicion[vacuna]) {
+        mapVacunaCondicion[vacuna] = {desplazado: 0, discapacitado: 0, victimaConflicto: 0, estudia: 0};
+      }
+      if (r.desplazado === true || r.desplazado === 'true' || r.desplazado === 'Sí' || r.desplazado === 'Si') {
+        mapVacunaCondicion[vacuna].desplazado++;
+      }
+      if (r.discapacitado === true || r.discapacitado === 'true' || r.discapacitado === 'Sí' || r.discapacitado === 'Si') {
+        mapVacunaCondicion[vacuna].discapacitado++;
+      }
+      if (r.victimaConflicto === true || r.victimaConflicto === 'true' || r.victimaConflicto === 'Sí' || r.victimaConflicto === 'Si') {
+        mapVacunaCondicion[vacuna].victimaConflicto++;
+      }
+      if (r.estudiaActualmente === true || r.estudiaActualmente === 'true' || r.estudiaActualmente === 'Sí' || r.estudiaActualmente === 'Si') {
+        mapVacunaCondicion[vacuna].estudia++;
+      }
 
       this.totalGeneral += 1;
     }
@@ -135,25 +156,36 @@ export class ReportesDetalladosComponent {
     this.totalesPorVacuna = Object.keys(mapTotales).map(v => ({ vacuna: v, cantidad: mapTotales[v] }));
     this.totalesPorVacuna.sort((a, b) => a.vacuna.localeCompare(b.vacuna));
 
-    this.totalesPorSexoYRegimen = Object.keys(mapSexoRegimen).map(k => {
-      const [sexo, regimen] = k.split('|');
-      return { sexo, regimenAfiliacion: regimen, cantidad: mapSexoRegimen[k] };
+    this.totalesPorVacunaYRegimen = Object.keys(mapVacunaRegimen).map(k => {
+      const [vacuna, regimen] = k.split('|');
+      return { vacuna, regimenAfiliacion: regimen, cantidad: mapVacunaRegimen[k] };
     });
-    this.totalesPorSexoYRegimen.sort((a, b) => {
-      const cmpSexo = a.sexo.localeCompare(b.sexo);
-      if (cmpSexo !== 0) return cmpSexo;
+    this.totalesPorVacunaYRegimen.sort((a, b) => {
+      const cmpVacuna = a.vacuna.localeCompare(b.vacuna);
+      if (cmpVacuna !== 0) return cmpVacuna;
       return a.regimenAfiliacion.localeCompare(b.regimenAfiliacion);
     });
 
-    this.totalesPorSexoYEtnia = Object.keys(mapSexoEtnia).map(k => {
-      const [sexo, etnia] = k.split('|');
-      return { sexo, pertenenciaEtnica: etnia, cantidad: mapSexoEtnia[k] };
+    this.totalesPorVacunaYEtnia = Object.keys(mapVacunaEtnia).map(k => {
+      const [vacuna, etnia] = k.split('|');
+      return { vacuna, pertenenciaEtnica: etnia, cantidad: mapVacunaEtnia[k] };
     });
-    this.totalesPorSexoYEtnia.sort((a, b) => {
-      const cmpSexo = a.sexo.localeCompare(b.sexo);
-      if (cmpSexo !== 0) return cmpSexo;
+    this.totalesPorVacunaYEtnia.sort((a, b) => {
+      const cmpVacuna = a.vacuna.localeCompare(b.vacuna);
+      if (cmpVacuna !== 0) return cmpVacuna;
       return a.pertenenciaEtnica.localeCompare(b.pertenenciaEtnica);
     });
+
+    this.totalesPorVacunaYCondicion = Object.keys(mapVacunaCondicion).map(vacuna => {
+      return {
+        vacuna,
+        desplazado: mapVacunaCondicion[vacuna].desplazado,
+        discapacitado: mapVacunaCondicion[vacuna].discapacitado,
+        victimaConflicto: mapVacunaCondicion[vacuna].victimaConflicto,
+        estudia: mapVacunaCondicion[vacuna].estudia
+      };
+    });
+    this.totalesPorVacunaYCondicion.sort((a, b) => a.vacuna.localeCompare(b.vacuna));
   }
   // Utilidad para mostrar Sí/No en vez de true/false
   mostrarSiNo(valor: any): string {
@@ -206,13 +238,30 @@ export class ReportesDetalladosComponent {
     return this.totalGeneral;
   }
 
-  // Calcular total de la tabla sexo y régimen
-  getTotalSexoRegimen(): number {
-    return this.totalesPorSexoYRegimen.reduce((sum, t) => sum + t.cantidad, 0);
+  // Calcular total de la tabla vacuna y régimen
+  getTotalVacunaRegimen(): number {
+    return this.totalesPorVacunaYRegimen.reduce((sum, t) => sum + t.cantidad, 0);
   }
 
-  // Calcular total de la tabla sexo y etnia
-  getTotalSexoEtnia(): number {
-    return this.totalesPorSexoYEtnia.reduce((sum, t) => sum + t.cantidad, 0);
+  // Calcular total de la tabla vacuna y etnia
+  getTotalVacunaEtnia(): number {
+    return this.totalesPorVacunaYEtnia.reduce((sum, t) => sum + t.cantidad, 0);
+  }
+
+  // Calcular totales por columna de condición social
+  getTotalDesplazados(): number {
+    return this.totalesPorVacunaYCondicion.reduce((sum, t) => sum + t.desplazado, 0);
+  }
+
+  getTotalDiscapacitados(): number {
+    return this.totalesPorVacunaYCondicion.reduce((sum, t) => sum + t.discapacitado, 0);
+  }
+
+  getTotalVictimas(): number {
+    return this.totalesPorVacunaYCondicion.reduce((sum, t) => sum + t.victimaConflicto, 0);
+  }
+
+  getTotalEstudia(): number {
+    return this.totalesPorVacunaYCondicion.reduce((sum, t) => sum + t.estudia, 0);
   }
 }

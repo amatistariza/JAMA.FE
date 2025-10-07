@@ -41,7 +41,8 @@
 	color: white;
 }
 
-.table td:last-child {
+/* Amarillo SOLO en celdas TOTAL que NO sean filas de sección */
+.table tr:not(.seccion-row) td:last-child {
 	background-color: #FFD700;
 	font-weight: bold;
 }

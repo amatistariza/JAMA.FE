@@ -91,8 +91,7 @@ export class ReporteDatosComponent implements OnInit {
       categoria: 'GÉNERO',
       valores: [],
       total: 0,
-      esSeccion: true,
-      colorFondo: '#FFFF00'
+      esSeccion: true
     });
 
     const generos = ['FEMENINO', 'MASCULINO'];
@@ -126,8 +125,7 @@ export class ReporteDatosComponent implements OnInit {
       categoria: 'RÉGIMEN',
       valores: [],
       total: 0,
-      esSeccion: true,
-      colorFondo: '#90EE90'
+      esSeccion: true
     });
 
     const regimenes = ['CONTRIBUTIVO', 'SUBSIDIADO', 'POBRE NO ASEGURADO', 'REGIMEN ESPECIAL', 'OTRO'];
@@ -169,8 +167,7 @@ export class ReporteDatosComponent implements OnInit {
       categoria: 'ETNIAS',
       valores: [],
       total: 0,
-      esSeccion: true,
-      colorFondo: '#FFB6C1'
+      esSeccion: true
     });
 
     const etnias = [
