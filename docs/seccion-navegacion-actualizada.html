@@ -1,0 +1,205 @@
+<!-- ESTRUCTURA DE NAVEGACIÓN - DOCUMENTACIÓN BASADA EN CÓDIGO REAL -->
+
+        <!-- ESTRUCTURA NAVEGACION -->
+        <section id="estructura-navegacion">
+          <h2>Estructura de Navegación</h2>
+          <p>El sistema JAMA tiene dos tipos de interfaz de navegación según su rol de usuario: una para <strong>Administradores</strong> y otra para <strong>Enfermeras</strong>. Ambas comparten elementos similares pero con diferentes opciones de menú.</p>
+
+          <h3>🔹 Barra de Navegación Superior (Navbar)</h3>
+          <p>Es la franja horizontal que aparece en la parte superior de todas las pantallas. Sus elementos son:</p>
+
+          <h4>Elementos Comunes (Ambos Roles):</h4>
+          <ul>
+            <li><strong>Logo JAMA (esquina superior izquierda):</strong> Al hacer clic, regresa a la página de <strong>"Inicio"</strong> de su rol.</li>
+            <li><strong>Menú de Navegación:</strong> Enlaces y menús desplegables según su rol.</li>
+            <li><strong>Icono de Campana (🔔):</strong> Muestra notificaciones de vacunas pendientes. Incluye:
+              <ul>
+                <li>Badge rojo con número de notificaciones pendientes</li>
+                <li>Al hacer clic, despliega un menú con lista de pacientes con vacunas del mes actual</li>
+                <li>Botón "Visualizar" para ir a la gestión completa de alarmas</li>
+                <li>Botón de refrescar para actualizar las notificaciones</li>
+              </ul>
+            </li>
+            <li><strong>Botón "Cerrar Sesión":</strong> Botón rojo con ícono de salida para cerrar su sesión.</li>
+            <li><strong>Botón de Menú Móvil (☰):</strong> Solo visible en dispositivos móviles o pantallas pequeñas, despliega el menú completo.</li>
+          </ul>
+
+          <div class="fill-space">📸 IMAGEN 9: Barra de navegación con todos sus elementos señalados</div>
+
+          <h3>🔹 Opciones de Menú para Administradores</h3>
+          <p>Si su rol es <strong>Administrador</strong>, verá las siguientes opciones en la barra de navegación:</p>
+
+          <table>
+            <thead>
+              <tr><th>Opción de Menú</th><th>Descripción</th><th>Submenú (si aplica)</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Inicio</strong></td>
+                <td>Lleva al dashboard principal con estadísticas e indicadores.</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td><strong>Reportes ▼</strong></td>
+                <td>Menú desplegable con opciones de reportes.</td>
+                <td>
+                  <ul style="margin:0; padding-left:1.2rem;">
+                    <li><strong>Reporte Vacunación:</strong> Reporte general de vacunación</li>
+                    <li><strong>Reporte Vacunación Detallado:</strong> Reporte con detalles completos</li>
+                    <li><strong>Reporte de Datos Unificados:</strong> Consolidado de información</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Gestionar Inventario ▼</strong></td>
+                <td>Menú desplegable para administrar insumos.</td>
+                <td>
+                  <ul style="margin:0; padding-left:1.2rem;">
+                    <li><strong>Vacunas:</strong> Gestión de inventario de vacunas</li>
+                    <li><strong>Jeringas:</strong> Gestión de inventario de jeringas</li>
+                    <li><strong>Diluyentes:</strong> Gestión de inventario de diluyentes</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p><strong>Nota:</strong> Los menús desplegables (marcados con ▼) se abren al hacer clic sobre ellos. Al hacer clic nuevamente, se cierran. En dispositivos móviles, todos los menús se apilan verticalmente.</p>
+
+          <div class="fill-space">📸 IMAGEN 10: Barra de navegación del Administrador con menús desplegados</div>
+
+          <h3>🔹 Opciones de Menú para Enfermeras</h3>
+          <p>Si su rol es <strong>Enfermera</strong>, verá las siguientes opciones en la barra de navegación:</p>
+
+          <table>
+            <thead>
+              <tr><th>Opción de Menú</th><th>Descripción</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Inicio</strong></td>
+                <td>Lleva al dashboard con estadísticas de inventario y accesos rápidos.</td>
+              </tr>
+              <tr>
+                <td><strong>Gestionar Pacientes</strong></td>
+                <td>Acceso a la sección de gestión de pacientes (registro, edición, consulta).</td>
+              </tr>
+              <tr>
+                <td><strong>Registro Vacunas</strong></td>
+                <td>Acceso directo al módulo de registro de aplicación de vacunas.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p><strong>Diferencia principal:</strong> Las enfermeras tienen un menú más simplificado con acceso directo a las funciones que más utilizan en su trabajo diario. No tienen acceso a reportes ni gestión de inventario.</p>
+
+          <div class="fill-space">📸 IMAGEN 11: Barra de navegación de Enfermera</div>
+
+          <h3>🔹 Icono de Notificaciones (Campana)</h3>
+          <p>El ícono de campana funciona de la siguiente manera:</p>
+          
+          <ol>
+            <li><strong>Badge numérico:</strong> Muestra el número total de notificaciones de vacunas pendientes del mes actual.</li>
+            <li><strong>Al hacer clic:</strong> Se despliega un menú dropdown que muestra:
+              <ul>
+                <li>Título "Notificaciones" con botón de refrescar</li>
+                <li>Botón "Visualizar" para ir a la pantalla completa de gestión de alarmas</li>
+                <li>Lista de pacientes con: nombre completo, dosis pendiente y fecha de aplicación</li>
+                <li>Si no hay notificaciones, muestra el mensaje "No hay notificaciones"</li>
+              </ul>
+            </li>
+            <li><strong>Estado de carga:</strong> Mientras carga, muestra "Cargando..."</li>
+            <li><strong>Errores:</strong> Si hay un error al cargar, muestra un mensaje en rojo.</li>
+          </ol>
+
+          <div class="fill-space">📸 IMAGEN 12: Menú desplegable de notificaciones</div>
+
+          <div class="callout">
+            <strong>💡 Consejo de Navegación:</strong> Si alguna vez se siente perdido, haga clic en el logo de JAMA (esquina superior izquierda) para volver a la pantalla de Inicio.
+          </div>
+        </section>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard">
+          <h2>Pantalla de Inicio (Dashboard)</h2>
+          <p>La pantalla de <strong>Inicio</strong> es lo primero que ve al iniciar sesión. Está dividida en dos columnas con diferentes tarjetas de información.</p>
+
+          <h3>📊 Columna Izquierda: Inventario de Vacunas</h3>
+          <p>Muestra una tarjeta con el título <strong>"Inventario de Vacunas"</strong> que contiene cuatro indicadores numéricos:</p>
+
+          <table>
+            <thead>
+              <tr><th>Indicador</th><th>Icono</th><th>Descripción</th><th>Interacción (Admin)</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Total Vacunas Registradas</strong></td>
+                <td>💉 (vial con virus)</td>
+                <td>Cantidad total de lotes de vacunas registrados en el sistema</td>
+                <td>Clickeable - va a "Gestionar Vacunas"</td>
+              </tr>
+              <tr>
+                <td><strong>Total Jeringas Registradas</strong></td>
+                <td>💉 (jeringa)</td>
+                <td>Cantidad total de lotes de jeringas registrados</td>
+                <td>Clickeable - va a "Gestionar Jeringas"</td>
+              </tr>
+              <tr>
+                <td><strong>Total Diluyentes Registrados</strong></td>
+                <td>🧪 (vial)</td>
+                <td>Cantidad total de lotes de diluyentes registrados</td>
+                <td>Clickeable - va a "Gestionar Diluyentes"</td>
+              </tr>
+              <tr>
+                <td><strong>Vacunas Aplicadas en el mes</strong></td>
+                <td>📅 (calendario)</td>
+                <td>Número de dosis de vacunas aplicadas durante el mes actual</td>
+                <td>No clickeable</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p><strong>Nota:</strong> Para enfermeras, estos indicadores son solo informativos (no clickeables).</p>
+
+          <div class="fill-space">📸 IMAGEN 13: Tarjeta de Inventario de Vacunas con los cuatro indicadores</div>
+
+          <h3>⚡ Columna Derecha: Accesos Rápidos</h3>
+          <p>Contiene una tarjeta con el título <strong>"Accesos Rápidos"</strong> que incluye botones grandes para acceder directamente a las secciones más utilizadas:</p>
+
+          <h4>Accesos Rápidos para Administradores:</h4>
+          <ul>
+            <li><strong>Gestionar Vacunas:</strong> Va a la gestión de inventario de vacunas</li>
+            <li><strong>Gestión Pacientes:</strong> Va a la gestión de pacientes</li>
+            <li><strong>Gestión Vacunación:</strong> Va al registro de vacunas</li>
+            <li><strong>Gestionar Usuarios:</strong> Va a la gestión de usuarios del sistema</li>
+          </ul>
+
+          <h4>Accesos Rápidos para Enfermeras:</h4>
+          <ul>
+            <li><strong>Gestión Pacientes:</strong> Va a la gestión de pacientes</li>
+            <li><strong>Gestión Vacunación:</strong> Va al registro de vacunas</li>
+          </ul>
+
+          <div class="fill-space">📸 IMAGEN 14: Tarjeta de Accesos Rápidos</div>
+
+          <h3>ℹ️ Información del Sistema</h3>
+          <p>Debajo de los Accesos Rápidos hay una tarjeta con el título <strong>"Información del Sistema"</strong> que muestra:</p>
+
+          <ul>
+            <li><strong>Bienvenido/a, [Nombre de Usuario]:</strong> Muestra su nombre de usuario registrado en el sistema</li>
+            <li><strong>Última conexión:</strong> Fecha y hora de su último inicio de sesión</li>
+            <li><strong>Versión:</strong> Versión actual del sistema (2.0.0)</li>
+            <li><strong>Última actualización:</strong> Fecha de la última actualización del sistema (03-03-2025)</li>
+            <li><strong>Estado:</strong> Muestra "Activo" cuando el sistema está operativo</li>
+          </ul>
+
+          <div class="fill-space">📸 IMAGEN 15: Tarjeta de Información del Sistema</div>
+
+          <div class="callout">
+            <strong>💡 Diferencias entre Roles:</strong>
+            <ul style="margin-top:.5rem;">
+              <li><strong>Administradores:</strong> Tienen 4 accesos rápidos y pueden hacer clic en los indicadores de inventario para navegar directamente.</li>
+              <li><strong>Enfermeras:</strong> Tienen 2 accesos rápidos y los indicadores de inventario son solo informativos (no clickeables).</li>
+            </ul>
+          </div>
+        </section>

@@ -81,7 +81,6 @@
       <p class="subtitle">Documento funcional para orientar al usuario final en el uso adecuado de la aplicación JAMA. Incluye navegación, flujos principales, gestión de datos y soporte. (Sin instrucciones de instalación.)</p>
       <div class="quick-links" aria-label="Accesos rápidos">
         <a href="#resumen">Resumen</a>
-        <a href="#primer-ingreso">Primer ingreso</a>
         <a href="#pacientes">Pacientes</a>
         <a href="#inventario">Inventario</a>
         <a href="#reportes">Reportes</a>
@@ -100,12 +99,10 @@
         <li><a href="#objetivo">Objetivo del Sistema</a></li>
         <li><a href="#perfiles">Perfiles y Roles</a></li>
         <li><a href="#acceso">Acceso y Sesión</a></li>
-        <li><a href="#primer-ingreso">Primer Ingreso</a></li>
         <li><a href="#estructura-navegacion">Estructura de Navegación</a></li>
         <li><a href="#dashboard">Dashboard</a></li>
         <li><a href="#pacientes">Gestión de Pacientes</a></li>
         <li><a href="#vacunacion">Vacunación / Esquemas</a></li>
-        <li><a href="#madres">Gestión de Madres / Cuidadores</a></li>
         <li><a href="#inventario">Inventario (Vacunas / Insumos)</a></li>
         <li><a href="#alertas">Alertas y Notificaciones</a></li>
         <li><a href="#usuarios">Gestión de Usuarios</a></li>
@@ -113,11 +110,6 @@
         <li><a href="#busqueda">Búsqueda Avanzada</a></li>
         <li><a href="#accesibilidad">Accesibilidad y Usabilidad</a></li>
         <li><a href="#seguridad-uso">Buenas Prácticas de Seguridad</a></li>
-        <li><a href="#errores-comunes">Errores Comunes</a></li>
-        <li><a href="#faq">Preguntas Frecuentes</a></li>
-        <li><a href="#soporte">Soporte</a></li>
-        <li><a href="#glosario">Glosario</a></li>
-        <li><a href="#anexos">Anexos</a></li>
       </ul>
     </nav>
 
@@ -147,28 +139,37 @@
         <!-- RESUMEN -->
         <section id="resumen">
           <h2>Resumen Ejecutivo</h2>
-          <p>La Plataforma JAMA es su herramienta de trabajo diario para:</p>
+          <p>La Plataforma JAMA es su herramienta de trabajo diario para la gestión integral de programas de vacunación materno-infantil. El sistema le permite:</p>
           
           <div class="grid-2">
             <div>
-              <h4>✅ Registrar y actualizar pacientes</h4>
-              <p>Capture todos los datos importantes de cada paciente: nombres, fechas de nacimiento, datos de contacto, y vincúlelos con sus madres o cuidadores.</p>
+              <h4>✅ Registrar y gestionar pacientes</h4>
+              <p>Capture información completa de madres gestantes y niños: datos personales, antecedentes médicos, condiciones de salud y vincule a cada paciente con su madre o cuidador responsable.</p>
             </div>
             <div>
-              <h4>💉 Controlar vacunación</h4>
-              <p>Consulte el esquema completo de cada paciente, registre las dosis aplicadas y sepa cuándo corresponde la próxima cita.</p>
+              <h4>💉 Controlar esquemas de vacunación</h4>
+              <p>Consulte esquemas de vacunación según la edad del paciente, registre dosis aplicadas con información del lote utilizado, y reciba notificaciones automáticas sobre dosis pendientes del mes actual.</p>
             </div>
             <div>
-              <h4>📦 Gestionar inventario</h4>
-              <p>Mantenga actualizado el stock de vacunas, diluyentes, jeringas y sueros. Reciba alertas cuando algo esté por agotarse o vencer.</p>
+              <h4>📦 Administrar inventario</h4>
+              <p>Mantenga control del stock de vacunas, diluyentes, jeringas y sueros. Registre ingresos de lotes y cantidades disponibles para cada tipo de insumo.</p>
             </div>
             <div>
-              <h4>📊 Generar reportes</h4>
-              <p>Obtenga estadísticas y reportes en PDF o Excel con información sobre cobertura de vacunación, pacientes atendidos y más.</p>
+              <h4>📊 Generar reportes y estadísticas</h4>
+              <p>Obtenga análisis de cobertura de vacunación, dosis aplicadas, pacientes registrados y otros indicadores del programa de inmunización.</p>
             </div>
           </div>
 
-          <p><strong>En pocas palabras:</strong> JAMA centraliza toda la información que antes manejaba en papel o en múltiples archivos, y la presenta de forma clara y accesible desde cualquier computadora conectada a internet.</p>
+          <p><strong>Características adicionales:</strong></p>
+          <ul>
+            <li><strong>Asociación de madres y cuidadores:</strong> Durante el registro de pacientes menores de edad, puede asociar madres o cuidadores seleccionándolos de listas existentes o registrando nuevos directamente en el formulario.</li>
+            <li><strong>Sistema de notificaciones:</strong> Alertas sobre vacunas próximas a aplicar en el mes actual para mantener los esquemas al día.</li>
+            <li><strong>Control de usuarios por roles:</strong> Administradores y enfermeras con permisos específicos según sus funciones.</li>
+            <li><strong>Registro de aplicaciones:</strong> Cada vacuna aplicada queda registrada con fecha, lote y responsable de la aplicación.</li>
+            <li><strong>Búsqueda y filtros:</strong> Encuentre rápidamente pacientes por nombre, documento u otros criterios.</li>
+          </ul>
+
+          <p><strong>En pocas palabras:</strong> JAMA centraliza y digitaliza la gestión de vacunación que antes requería múltiples registros en papel, presentándolo todo en una interfaz clara y accesible desde cualquier dispositivo con navegador web.</p>
         </section>
 
         <!-- OBJETIVO -->
@@ -181,8 +182,6 @@
             <li><strong>Organiza la información:</strong> Centraliza datos de pacientes, vacunas aplicadas y próximas citas en un solo lugar.</li>
             <li><strong>Previene errores:</strong> Valida datos automáticamente y evita duplicados o inconsistencias.</li>
             <li><strong>Envía recordatorios:</strong> Genera alertas cuando una dosis está próxima o atrasada.</li>
-            <li><strong>Controla los recursos:</strong> Asegura que siempre haya vacunas e insumos disponibles, alertando sobre productos próximos a vencer.</li>
-            <li><strong>Facilita la toma de decisiones:</strong> Proporciona reportes con indicadores clave de cobertura y desempeño.</li>
           </ul>
 
           <div class="callout">
@@ -238,68 +237,42 @@
                 </td>
               </tr>
               <tr>
-                <td><strong>Consulta</strong><br><small>(si aplica)</small></td>
-                <td>Personal administrativo o auditoría que solo necesita ver información.</td>
-                <td>
-                  <ul style="margin:0; padding-left:1.2rem;">
-                    <li>Consultar datos de pacientes.</li>
-                    <li>Ver reportes y estadísticas.</li>
-                    <li>Consultar inventario.</li>
-                  </ul>
-                </td>
-                <td>No puede modificar, crear ni eliminar ningún registro.</td>
-              </tr>
             </tbody>
           </table>
-
-          <div class="callout">
-            <strong>💡 Consejo:</strong> Si al intentar realizar una acción el sistema le muestra un mensaje de "no tiene permisos", significa que su rol no está autorizado para esa tarea. Contacte al administrador si considera que necesita permisos adicionales.
-          </div>
-
-          <div class="fill-space">📸 IMAGEN 2: Ejemplo de mensaje de permisos insuficientes</div>
-        </section>
 
         <!-- ACCESO -->
         <section id="acceso">
           <h2>Acceso y Sesión</h2>
           
           <h3>Pantalla de Inicio de Sesión</h3>
-          <p>Para ingresar a JAMA, abra su navegador web (Chrome, Firefox, Edge, etc.) y escriba la dirección del sistema que le proporcionó su institución. Verá una pantalla de inicio de sesión.</p>
           
           <p><strong>Pasos para iniciar sesión:</strong></p>
           <ol>
-            <li><strong>Usuario:</strong> Escriba el nombre de usuario que le asignaron (puede ser su correo electrónico o un código único).</li>
+            <li><strong>Usuario:</strong> Escriba el nombre de usuario que le asignaron.</li>
             <li><strong>Contraseña:</strong> Digite su contraseña personal. <em>Tip: la contraseña es sensible a mayúsculas y minúsculas, así que escriba con cuidado.</em></li>
-            <li>Haga clic en el botón <strong>"Ingresar"</strong> o <strong>"Iniciar Sesión"</strong>.</li>
+            <li>Haga clic en el botón <strong>"Inicia Sesión"</strong>.</li>
           </ol>
 
           <div class="fill-space">📸 IMAGEN 3: Pantalla de inicio de sesión (formulario con campos Usuario y Contraseña)</div>
 
-          <p><strong>¿Qué pasa si me equivoco?</strong> Si ingresa mal su usuario o contraseña, el sistema mostrará un mensaje de error como "Usuario o contraseña incorrectos". Simplemente intente de nuevo con cuidado.</p>
-
-          <blockquote><strong>⚠️ Seguridad:</strong> Después de varios intentos fallidos (generalmente 3 a 5), su cuenta puede quedar bloqueada temporalmente para protegerla. Si esto ocurre, contacte al administrador.</blockquote>
+          <p><strong>¿Qué pasa si me equivoco?</strong> Si ingresa mal su usuario o contraseña, el sistema mostrará un mensaje de error como "Ocurrió un error al intentar iniciar sesión.". Simplemente intente de nuevo con cuidado.</p>
 
           <h3>Recuperación de Credenciales</h3>
           <p><strong>¿Olvidó su contraseña?</strong></p>
-          <p>Si no recuerda su contraseña, busque en la pantalla de inicio un enlace que diga "¿Olvidó su contraseña?" o similar. Al hacer clic:</p>
-          <ol>
-            <li>Se le pedirá su correo electrónico registrado.</li>
-            <li>Recibirá un mensaje con instrucciones para crear una nueva contraseña.</li>
-            <li>Siga el enlace del correo y defina su nueva contraseña.</li>
-          </ol>
-
-          <div class="fill-space">📸 IMAGEN 4: Pantalla de recuperación de contraseña</div>
-
-          <p><strong>¿Usuario bloqueado?</strong> Si su cuenta fue bloqueada por seguridad, necesitará que el administrador del sistema la desbloquee. Comuníquese con el área de soporte técnico.</p>
+          <p>Si no recuerda su contraseña o tiene problemas para iniciar sesión, debe comunicarse con el <strong>administrador del sistema</strong>. El administrador es la única persona autorizada para:</p>
+          <ul>
+            <li>Restablecer su contraseña y asignarle una nueva contraseña temporal.</li>
+            <li>Modificar sus datos de usuario (nombre, rol, contraseña.).</li>
+            <li>Verificar el estado de su cuenta y permisos.</li>
+          </ul>
 
           <h3>Cierre de Sesión</h3>
           <p>Cuando termine de trabajar, es <strong>muy importante</strong> que cierre su sesión correctamente, especialmente si usa una computadora compartida.</p>
           
           <p><strong>Para cerrar sesión:</strong></p>
           <ol>
-            <li>Busque en la parte superior derecha de la pantalla su nombre de usuario o un ícono de perfil.</li>
-            <li>Haga clic sobre él para abrir un menú desplegable.</li>
-            <li>Seleccione la opción <strong>"Cerrar Sesión"</strong> o <strong>"Salir"</strong>.</li>
+            <li>Busque en la parte superior derecha de la pantalla el botón <strong>"Cerrar Sesión"</strong>.</li>
+            <li>Seleccione la opción.</li>
             <li>El sistema lo regresará a la pantalla de inicio de sesión.</li>
           </ol>
 
@@ -310,613 +283,1461 @@
           </div>
         </section>
 
-        <!-- PRIMER INGRESO -->
-        <section id="primer-ingreso">
-          <h2>Primer Ingreso</h2>
-          <p>La primera vez que ingrese al sistema, es posible que deba realizar algunas configuraciones iniciales. No se preocupe, es un proceso sencillo y solo lo hará una vez.</p>
-
-          <h3>1. Cambio de Contraseña Inicial</h3>
-          <p>Por seguridad, muchos sistemas le piden cambiar la contraseña temporal que le dieron al inicio.</p>
-          <ul>
-            <li>El sistema le mostrará un formulario solicitando que ingrese una <strong>nueva contraseña</strong>.</li>
-            <li>Deberá escribirla dos veces para confirmar que no se equivocó.</li>
-            <li><strong>Requisitos comunes:</strong> Mínimo 8 caracteres, al menos una letra mayúscula, una minúscula, un número y un carácter especial (como @, #, $, etc.).</li>
-          </ul>
-
-          <div class="fill-space">📸 IMAGEN 6: Formulario de cambio de contraseña inicial</div>
-
-          <h3>2. Revisión de Datos del Perfil</h3>
-          <p>El sistema puede pedirle que revise o complete su información personal:</p>
-          <ul>
-            <li><strong>Nombre completo</strong></li>
-            <li><strong>Correo electrónico:</strong> Importante para recibir notificaciones y recuperar contraseña.</li>
-            <li><strong>Teléfono de contacto</strong></li>
-            <li><strong>Cargo o área de trabajo</strong></li>
-          </ul>
-          <p>Verifique que todos los datos sean correctos y haga clic en <strong>"Guardar"</strong> o <strong>"Actualizar"</strong>.</p>
-
-          <div class="fill-space">📸 IMAGEN 7: Pantalla de perfil de usuario</div>
-
-          <h3>3. Configuración de Preferencias (opcional)</h3>
-          <p>Algunos sistemas permiten personalizar ciertos aspectos:</p>
-          <ul>
-            <li><strong>Idioma de la interfaz</strong> (si está disponible en más de uno).</li>
-            <li><strong>Notificaciones:</strong> Puede elegir recibir alertas por correo o solo dentro del sistema.</li>
-            <li><strong>Zona horaria:</strong> Para que las fechas y horas se muestren correctamente.</li>
-          </ul>
-
-          <div class="callout">
-            <strong>✅ Checklist de Bienvenida:</strong>
-            <ul style="margin-top:.5rem;">
-              <li>✓ Cambié mi contraseña inicial</li>
-              <li>✓ Verifiqué mis datos de contacto</li>
-              <li>✓ Configuré mis preferencias</li>
-              <li>✓ Exploré el menú principal para familiarizarme</li>
-            </ul>
-          </div>
-
-          <div class="fill-space">📸 IMAGEN 8: Pantalla de bienvenida o tutorial inicial (si existe)</div>
-        </section>
-
         <!-- ESTRUCTURA NAVEGACION -->
         <section id="estructura-navegacion">
           <h2>Estructura de Navegación</h2>
-          <p>Una vez dentro del sistema, verá varias áreas en la pantalla. Aquí le explicamos cada una para que sepa dónde buscar lo que necesita.</p>
+          <p>El sistema JAMA utiliza una <strong>barra de navegación superior</strong> que permanece visible en todas las pantallas. La estructura y opciones varían según su rol de usuario.</p>
 
-          <h3>🔹 Barra Superior (Navbar)</h3>
-          <p>Es la franja que aparece en la parte superior de la pantalla, presente en todo momento. Aquí encontrará:</p>
+          <h3>🔹 Barra de Navegación Superior</h3>
+          <p>Es la franja horizontal en la parte superior de la pantalla con fondo gris claro. Contiene los siguientes elementos <strong>de izquierda a derecha:</strong></p>
+
+          <h4>1. Logo de JAMA (Esquina Superior Izquierda)</h4>
           <ul>
-            <li><strong>Logo de JAMA:</strong> Generalmente en la esquina superior izquierda. Al hacer clic, vuelve a la página principal.</li>
-            <li><strong>Nombre del Módulo Activo:</strong> Indica en qué sección se encuentra actualmente (ej: "Pacientes", "Inventario").</li>
-            <li><strong>Ícono de Notificaciones (🔔):</strong> Muestra el número de alertas pendientes. Al hacer clic, verá la lista de notificaciones.</li>
-            <li><strong>Ícono de Usuario:</strong> Su nombre o foto de perfil. Al hacer clic, despliega opciones como "Mi Perfil", "Configuración" y "Cerrar Sesión".</li>
+            <li>Muestra el logotipo del sistema</li>
+            <li><strong>Función:</strong> Al hacer clic, regresa a la pantalla de <strong>"Inicio"</strong></li>
+            <li>Disponible para todos los roles</li>
           </ul>
 
-          <div class="fill-space">📸 IMAGEN 9: Barra superior completa con todos sus elementos señalados</div>
+          
+          <h4>2. Opciones de Navegación (Centro)</h4>
+          <p>Las opciones varían según su rol:</p>
 
-          <h3>🔹 Menú Lateral (Sidebar)</h3>
-          <p>A la izquierda de la pantalla hay un menú con todas las secciones principales del sistema. Según su rol, verá diferentes opciones:</p>
+          <h5>Para Administradores:</h5>
           <ul>
-            <li><strong>Dashboard / Inicio:</strong> Resumen general con indicadores clave.</li>
-            <li><strong>Pacientes:</strong> Listado, registro y actualización de pacientes.</li>
-            <li><strong>Vacunación:</strong> Esquemas de vacunación y registro de dosis aplicadas.</li>
-            <li><strong>Madres / Cuidadores:</strong> Gestión de responsables de los pacientes.</li>
-            <li><strong>Inventario:</strong> Control de vacunas, diluyentes, jeringas, sueros.</li>
-            <li><strong>Alertas:</strong> Avisos sobre dosis pendientes, productos por vencer, etc.</li>
-            <li><strong>Usuarios:</strong> Gestión de cuentas (solo para administradores).</li>
-            <li><strong>Reportes:</strong> Generación de informes y estadísticas.</li>
+            <li><strong>Inicio:</strong> Lleva al dashboard principal</li>
+            <li><strong>Reportes ▼</strong> (menú desplegable con flecha):
+              <ul>
+                <li>Reporte Vacunación</li>
+                <li>Reporte Vacunación Detallado</li>
+                <li>Reporte de Datos Unificados</li>
+              </ul>
+            </li>
+            <li><strong>Gestionar Inventario ▼</strong> (menú desplegable con flecha):
+              <ul>
+                <li>Vacunas</li>
+                <li>Jeringas</li>
+                <li>Diluyentes</li>
+              </ul>
+            </li>
           </ul>
 
-          <p><strong>¿Cómo funciona?</strong> Simplemente haga clic en el nombre de la sección a la que desea ir. La opción activa se resalta con un color diferente para que sepa dónde está.</p>
+          <h5>Para Enfermeras:</h5>
+          <ul>
+            <li><strong>Inicio:</strong> Lleva al dashboard principal</li>
+            <li><strong>Gestionar Pacientes:</strong> Acceso directo a gestión de pacientes</li>
+            <li><strong>Registro Vacunas:</strong> Acceso directo al registro de vacunación</li>
+          </ul>
 
-          <div class="fill-space">📸 IMAGEN 10: Menú lateral con todas las opciones visibles</div>
+          <p><strong>Nota sobre menús desplegables:</strong> Los que tienen una flecha hacia abajo (▼) se abren al hacer clic.</p>
 
-          <h3>🔹 Área de Contenido Principal</h3>
-          <p>Es el espacio central y más grande de la pantalla. Aquí es donde aparecen los formularios, listados, tablas y toda la información con la que trabajará.</p>
+          <div class="fill-space">📸 IMAGEN 9: Barra de navegación con menú desplegable abierto</div>
 
-          <h3>🔹 Breadcrumbs (Migas de Pan)</h3>
-          <p>En la parte superior del área de contenido, puede ver una ruta como: <code class="inline">Inicio > Pacientes > Detalle</code>. Esto le indica su ubicación actual y le permite volver a secciones anteriores con un clic.</p>
+          <h4>4. Icono de Notificaciones 🔔 (Campana)</h4>
+          <p>Ubicado en la parte derecha de la barra, antes del botón de Cerrar Sesión. Características:</p>
+          <ul>
+            <li><strong>Badge rojo con número:</strong> Muestra la cantidad de notificaciones de vacunas pendientes del mes actual</li>
+            <li><strong>Al hacer clic:</strong> Despliega un menú dropdown que muestra:
+              <ul>
+                <li>Título "Notificaciones" con un botón de refrescar (🔄)</li>
+                <li>Botón "Visualizar" para ir a la gestión completa de alarmas</li>
+                <li>Lista de pacientes con: nombre, dosis pendiente y fecha de aplicación</li>
+                <li>Si no hay notificaciones: "No hay notificaciones"</li>
+                <li>Si está cargando: "Cargando..."</li>
+              </ul>
+            </li>
+            <li><strong>Actualización automática:</strong> Se actualiza cada hora (60 minutos) automáticamente</li>
+            <li><strong>Botón refrescar:</strong> Permite actualizar manualmente las notificaciones</li>
+          </ul>
 
-          <div class="fill-space">📸 IMAGEN 11: Vista completa de la interfaz con todas las áreas etiquetadas</div>
+          <div class="fill-space">📸 IMAGEN 10: Menú desplegable de notificaciones con ejemplos</div>
+
+          <h4>5. Botón "Cerrar Sesión" (Extremo Derecho)</h4>
+          <ul>
+            <li>Botón rojo con ícono de salida y texto "Cerrar Sesión"</li>
+            <li><strong>Función:</strong> Cierra su sesión y lo regresa a la pantalla de inicio de sesión</li>
+            <li>Disponible en todo momento</li>
+          </ul>
 
           <div class="callout">
-            <strong>💡 Consejo de Navegación:</strong> Si alguna vez se siente perdido, haga clic en el logo de JAMA o en "Dashboard" en el menú lateral para volver a la pantalla principal.
+            <strong>💡 Consejos de Navegación:</strong>
+            <ul style="margin-top:.5rem;">
+              <li>✓ Haga clic en el logo JAMA para volver rápidamente al Inicio desde cualquier pantalla</li>
+              <li>✓ Revise las notificaciones regularmente haciendo clic en el icono de campana</li>
+              <li>✓ Use el botón refrescar en notificaciones si acaba de registrar vacunas y quiere actualizar la lista</li>
+              <li>✓ Siempre cierre sesión cuando termine de trabajar, especialmente en equipos compartidos</li>
+            </ul>
           </div>
         </section>
 
         <!-- DASHBOARD -->
         <section id="dashboard">
-          <h2>Dashboard / Panel Principal</h2>
-          <p>El <strong>Dashboard</strong> (o Panel Principal) es la primera pantalla que ve al ingresar. Es como el "escritorio" del sistema: le muestra un resumen de la información más importante de un vistazo.</p>
+          <h2>Pantalla de Inicio (Dashboard)</h2>
+          <p>La pantalla de <strong>Inicio</strong> es lo primero que ve al iniciar sesión. Muestra un resumen con estadísticas de inventario e información del sistema. El contenido está dividido en dos columnas.</p>
 
-          <h3>¿Qué encontrará en el Dashboard?</h3>
-          <p>El Dashboard está organizado en <strong>tarjetas o widgets</strong> (pequeñas cajas con información). Cada una muestra datos diferentes:</p>
+          <h3>📊 Columna Izquierda: Tarjeta "Inventario de Vacunas"</h3>
+          <p>Contiene una tarjeta con el título <strong>"Inventario de Vacunas"</strong> que muestra cuatro indicadores estadísticos en formato de cuadrícula:</p>
 
-          <div class="grid-2">
-            <div>
-              <h4>📊 Indicadores Numéricos</h4>
-              <ul>
-                <li><strong>Total de Pacientes Activos:</strong> Cuántos pacientes están registrados en el sistema.</li>
-                <li><strong>Vacunas Aplicadas Hoy:</strong> Dosis registradas en el día.</li>
-                <li><strong>Alertas Pendientes:</strong> Número de notificaciones sin atender.</li>
-                <li><strong>Stock Crítico:</strong> Productos con inventario bajo.</li>
-              </ul>
-            </div>
-            <div>
-              <h4>📅 Citas y Recordatorios</h4>
-              <ul>
-                <li><strong>Próximas Citas:</strong> Pacientes que deben venir en los próximos días.</li>
-                <li><strong>Dosis Atrasadas:</strong> Niños que no han recibido vacunas en las fechas previstas.</li>
-              </ul>
-            </div>
-          </div>
+          <table>
+            <thead>
+              <tr><th>Indicador</th><th>Descripción</th><th>Interacción</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Total Vacunas Registradas</strong></td>
+                <td>Muestra el número total de dosis de vacunas registradas en el inventario</td>
+                <td><strong>Administradores:</strong> Clickeable, navega a "Gestionar Vacunas"<br><strong>Enfermeras:</strong> Solo lectura</td>
+              </tr>
+              <tr>
+                <td><strong>Total Jeringas Registradas</strong></td>
+                <td>Muestra el número total de jeringas registradas en el inventario</td>
+                <td><strong>Administradores:</strong> Clickeable, navega a "Gestionar Jeringas"<br><strong>Enfermeras:</strong> Solo lectura</td>
+              </tr>
+              <tr>
+                <td><strong>Total Diluyentes Registrados</strong></td>
+                <td>Muestra el número total de diluyentes registrados en el inventario</td>
+                <td><strong>Administradores:</strong> Clickeable, navega a "Gestionar Diluyentes"<br><strong>Enfermeras:</strong> Solo lectura</td>
+              </tr>
+              <tr>
+                <td><strong>Vacunas Aplicadas en el mes</strong></td>
+                <td>Muestra el número de aplicaciones de vacunas registradas durante el mes actual</td>
+                <td>Solo lectura para todos los roles</td>
+              </tr>
+            </tbody>
+          </table>
 
-          <div class="fill-space">📸 IMAGEN 12: Vista completa del Dashboard con sus widgets principales</div>
+          <p><strong>Nota importante:</strong> Los números que ve aquí provienen de las estadísticas del sistema que se calculan automáticamente. Si un número muestra "0", significa que no hay registros de ese tipo en el sistema.</p>
 
-          <h3>📈 Gráficas y Estadísticas</h3>
-          <p>Algunas tarjetas muestran gráficas (barras, líneas, pasteles) que le ayudan a entender tendencias:</p>
-          <ul>
-            <li><strong>Vacunación por Mes:</strong> Gráfica de barras que muestra cuántas dosis se aplicaron cada mes.</li>
-            <li><strong>Cobertura por Vacuna:</strong> Gráfica circular que indica qué porcentaje de niños ha recibido cada tipo de vacuna.</li>
-          </ul>
+          <div class="fill-space">📸 IMAGEN 12: Tarjeta "Inventario de Vacunas" con los cuatro indicadores</div>
 
-          <div class="fill-space">📸 IMAGEN 13: Ejemplos de gráficas en el Dashboard</div>
+          <h3>⚡ Columna Derecha: Tarjeta "Accesos Rápidos"</h3>
+          <p>Contiene una tarjeta con el título <strong>"Accesos Rápidos"</strong> que presenta botones grandes para navegar directamente a las secciones más utilizadas:</p>
 
-          <h3>🔔 Alertas Rápidas</h3>
-          <p>En una sección del Dashboard verá alertas destacadas con colores:</p>
-          <ul>
-            <li><strong style="color:#dc3545;">Rojo:</strong> Urgente (ej: vacuna vencida, dosis muy atrasada).</li>
-            <li><strong style="color:#ffc107;">Amarillo:</strong> Advertencia (ej: producto próximo a vencer, stock bajo).</li>
-            <li><strong style="color:#17a2b8;">Azul:</strong> Informativo (ej: recordatorio de cita próxima).</li>
-          </ul>
+          <h4>Accesos Rápidos para Administradores (4 botones):</h4>
+          <table>
+            <thead>
+              <tr><th>Botón</th><th>Destino</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Gestionar Vacunas</strong></td>
+                <td>Navega a la gestión de inventario de vacunas</td>
+              </tr>
+              <tr>
+                <td><strong>Gestión Pacientes</strong></td>
+                <td>Navega a la gestión de pacientes</td>
+              </tr>
+              <tr>
+                <td><strong>Gestión Vacunación</strong></td>
+                <td>Navega al módulo de registro de vacunas</td>
+              </tr>
+              <tr>
+                <td><strong>Gestionar Usuarios</strong></td>
+                <td>Navega a la gestión de usuarios del sistema</td>
+              </tr>
+            </tbody>
+          </table>
 
-          <div class="fill-space">📸 IMAGEN 14: Sección de alertas con ejemplos de diferentes niveles de prioridad</div>
+          <h4>Accesos Rápidos para Enfermeras (2 botones):</h4>
+          <table>
+            <thead>
+              <tr><th>Botón</th><th>Destino</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Gestión Pacientes</strong></td>
+                <td>Navega a la gestión de pacientes</td>
+              </tr>
+              <tr>
+                <td><strong>Gestión Vacunación</strong></td>
+                <td>Navega al módulo de registro de vacunas</td>
+              </tr>
+            </tbody>
+          </table>
 
-          <h3>Acciones Rápidas</h3>
-          <p>Algunos Dashboards incluyen botones de acceso directo a tareas comunes:</p>
-          <ul>
-            <li><strong>"+ Nuevo Paciente":</strong> Para registrar un paciente rápidamente.</li>
-            <li><strong>"Registrar Vacuna":</strong> Para ir directamente al formulario de aplicación de dosis.</li>
-            <li><strong>"Ver Inventario":</strong> Acceso rápido al control de stock.</li>
-          </ul>
+          <p><strong>Cómo usar los accesos rápidos:</strong> Simplemente haga clic en cualquier botón para ir directamente a esa sección del sistema. Son atajos para las funciones más comunes de su rol.</p>
+
+          <div class="fill-space">📸 IMAGEN 13: Tarjeta "Accesos Rápidos" con botones visibles</div>
+
+          <h3>ℹ️ Tarjeta "Información del Sistema"</h3>
+          <p>Debajo de los Accesos Rápidos, en la misma columna derecha, hay una tarjeta con el título <strong>"Información del Sistema"</strong> que muestra:</p>
+
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Descripción</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Bienvenido/a, [Nombre]</strong></td>
+                <td>Muestra su nombre de usuario registrado en el sistema. Si no puede obtener el nombre, muestra "Usuario no encontrado".</td>
+              </tr>
+              <tr>
+                <td><strong>Última conexión</strong></td>
+                <td>Muestra la fecha (formato DD/MM/AAAA) de su último inicio de sesión. Si no está disponible, muestra "No disponible".</td>
+              </tr>
+              <tr>
+                <td><strong>Versión</strong></td>
+                <td>Muestra la versión actual del sistema: <strong>2.0.0</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Última actualización</strong></td>
+                <td>Muestra la fecha de la última actualización del sistema: <strong>03-03-2025</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Estado</strong></td>
+                <td>Muestra el estado del sistema: <strong>Activo</strong></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="fill-space">📸 IMAGEN 14: Tarjeta "Información del Sistema" completa</div>
+
 
           <div class="callout">
-            <strong>💡 Interpretación del Dashboard:</strong> Si ve muchos números en rojo o alertas urgentes, priorice atender esas situaciones primero. El Dashboard está diseñado para que sepa de inmediato qué necesita su atención.
+            <strong>💡 Diferencias entre Roles:</strong>
+            <ul style="margin-top:.5rem;">
+              <li><strong>Administradores:</strong> 
+                <ul>
+                  <li>Pueden hacer clic en los 3 primeros indicadores de inventario para navegar</li>
+                  <li>Tienen 4 botones de accesos rápidos</li>
+                </ul>
+              </li>
+              <li><strong>Enfermeras:</strong> 
+                <ul>
+                  <li>Los indicadores de inventario son solo informativos (no clickeables)</li>
+                  <li>Tienen 2 botones de accesos rápidos</li>
+                </ul>
+              </li>
+            </ul>
           </div>
 
-          <div class="fill-space">📸 IMAGEN 15: Botones de acciones rápidas en el Dashboard</div>
-        </section>
 
         <!-- PACIENTES -->
         <section id="pacientes">
           <h2>Gestión de Pacientes</h2>
-          <p>Esta es una de las secciones más importantes del sistema. Aquí registrará y administrará toda la información de los niños y niñas que atiende.</p>
+          <p>Esta sección permite registrar y administrar toda la información de los pacientes. Acceda desde el menú superior: <strong>"Gestión Pacientes"</strong>.</p>
 
-          <h3>📝 Registrar un Nuevo Paciente</h3>
-          <p><strong>Pasos para registrar un paciente:</strong></p>
-          <ol>
-            <li>En el menú lateral, haga clic en <strong>"Pacientes"</strong>.</li>
-            <li>Busque y haga clic en el botón <strong>"+ Nuevo Paciente"</strong> o <strong>"Registrar"</strong> (generalmente está en la parte superior derecha).</li>
-            <li>Se abrirá un formulario con varios campos. Complete la información solicitada.</li>
-          </ol>
+          <h3>📋 Pantalla Principal - Listado de Pacientes</h3>
+          <p>Al entrar a "Gestión Pacientes", verá:</p>
+          
+          <ul>
+            <li><strong>Título:</strong> "Gestión Pacientes"</li>
+            <li><strong>Botón "Añadir":</strong> En la parte superior izquierda (icono ➕) para registrar un nuevo paciente</li>
+            <li><strong>Buscador:</strong> Campo de texto con el placeholder "Buscar por Número de Identificación..."</li>
+            <li><strong>Tabla de Pacientes:</strong> Con scroll vertical.</li>
+            <li><strong>Paginación:</strong> Botones "Atrás" y "Siguiente" con indicador "Página X"</li>
+          </ul>
 
-          <h4>Campos del Formulario:</h4>
+          <div class="fill-space">📸 IMAGEN 16: Vista principal de Gestión Pacientes con listado</div>
+
+          <h3>📊 Columnas de la Tabla</h3>
+          <p>La tabla muestra las siguientes columnas en este orden exacto:</p>
+
           <table>
             <thead>
-              <tr><th>Campo</th><th>Descripción</th><th>¿Es obligatorio?</th></tr>
+              <tr><th>Columna</th><th>Contenido</th></tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>Nombres</strong></td>
-                <td>Nombre(s) del paciente, tal como aparece en su documento de identidad.</td>
-                <td>✅ Sí</td>
+                <td><strong>ID</strong></td>
+                <td>Identificador único del paciente en el sistema</td>
               </tr>
               <tr>
-                <td><strong>Apellidos</strong></td>
-                <td>Apellido(s) completo(s).</td>
-                <td>✅ Sí</td>
+                <td><strong>Tipo de Identificación</strong></td>
+                <td>RC, TI, CC, CE, o PA</td>
               </tr>
               <tr>
-                <td><strong>Tipo de Documento</strong></td>
-                <td>Seleccione del menú desplegable: Registro Civil, Tarjeta de Identidad, Cédula, Pasaporte, etc.</td>
-                <td>✅ Sí</td>
+                <td><strong>Número de Identificación</strong></td>
+                <td>Número del documento</td>
               </tr>
               <tr>
-                <td><strong>Número de Documento</strong></td>
-                <td>Digite el número sin puntos ni espacios. Ej: 1234567890.</td>
-                <td>✅ Sí</td>
+                <td><strong>Primer Nombre</strong></td>
+                <td>Primer nombre del paciente</td>
+              </tr>
+              <tr>
+                <td><strong>Primer Apellido</strong></td>
+                <td>Primer apellido del paciente</td>
               </tr>
               <tr>
                 <td><strong>Fecha de Nacimiento</strong></td>
-                <td>Use el calendario que aparece al hacer clic, o escriba en formato DD/MM/AAAA.</td>
-                <td>✅ Sí</td>
+                <td>Formato: DD/MM/AAAA</td>
               </tr>
               <tr>
                 <td><strong>Sexo</strong></td>
-                <td>Masculino o Femenino.</td>
-                <td>✅ Sí</td>
+                <td>MASCULINO o FEMENINO</td>
+              </tr>
+              <tr>
+                <td><strong>Acciones</strong></td>
+                <td>Botones "Editar" y "Eliminar"</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>🔍 Búsqueda de Pacientes</h3>
+          <p>El sistema permite buscar pacientes escribiendo en el campo de búsqueda:</p>
+          <ul>
+            <li>Solo busca por <strong>Número de Identificación</strong></li>
+            <li>Filtra mientras escribe (búsqueda en tiempo real)</li>
+            <li>Reinicia la paginación a la página 1 al filtrar</li>
+            <li>Muestra 5 pacientes por página</li>
+          </ul>
+
+          <h3>➕ Registrar un Nuevo Paciente</h3>
+          <p>Al hacer clic en el botón <strong>"Añadir"</strong>, se abre un formulario de 7 páginas. El sistema muestra en la parte superior: <strong>"Página X de 7"</strong>.</p>
+
+          <div class="callout">
+            <strong>📝 Importante:</strong> El formulario está dividido en 7 secciones. Use los botones de navegación en la parte inferior para avanzar o retroceder entre páginas. Los campos marcados con * son obligatorios.
+          </div>
+
+          <h4>Página 1 de 7: Información Personal</h4>
+          <p>Título de la sección: <strong>"Información Personal"</strong></p>
+
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Tipo</th><th>Opciones/Formato</th><th>Obligatorio</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Tipo de identificación</strong></td>
+                <td>Lista desplegable</td>
+                <td>RC - Registro Civil, TI - Tarjeta de Identidad, CC - Cédula de Ciudadania, CE - Cédula Extranjera, PA - Pasaporte</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Número de Identificación</strong></td>
+                <td>Número</td>
+                <td>Solo números</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Primer Nombre</strong></td>
+                <td>Texto</td>
+                <td>-</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Segundo Nombre</strong></td>
+                <td>Texto</td>
+                <td>-</td>
+                <td>❌ No</td>
+              </tr>
+              <tr>
+                <td><strong>Primer Apellido</strong></td>
+                <td>Texto</td>
+                <td>-</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Segundo Apellido</strong></td>
+                <td>Texto</td>
+                <td>-</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Fecha de Nacimiento</strong></td>
+                <td>Fecha</td>
+                <td>Selector de calendario</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>País de Nacimiento</strong></td>
+                <td>Texto</td>
+                <td>-</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Estatus Migratorio</strong></td>
+                <td>Lista desplegable</td>
+                <td>No Aplica, Residente, Legal</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Sexo</strong></td>
+                <td>Lista desplegable</td>
+                <td>MASCULINO, FEMENINO</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Orientación Sexual</strong></td>
+                <td>Lista desplegable</td>
+                <td>HETEROSEXUAL, HOMOSEXUAL, OTRO</td>
+                <td>✅ Sí*</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="fill-space">📸 IMAGEN 18: Página 1 - Información Personal</div>
+
+          <h4>Página 2 de 7: Información de Contacto</h4>
+          <p>Título de la sección: <strong>"Información de Contacto"</strong></p>
+
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Tipo</th><th>Opciones/Formato</th><th>Obligatorio</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>País de Residencia</strong></td>
+                <td>Texto</td>
+                <td>-</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Departamento de Residencia</strong></td>
+                <td>Texto</td>
+                <td>-</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Municipio de Residencia</strong></td>
+                <td>Texto</td>
+                <td>-</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Comuna</strong></td>
+                <td>Texto</td>
+                <td>-</td>
+                <td>❌ No</td>
               </tr>
               <tr>
                 <td><strong>Dirección</strong></td>
-                <td>Domicilio actual del paciente.</td>
-                <td>⚪ Opcional</td>
+                <td>Texto</td>
+                <td>-</td>
+                <td>✅ Sí*</td>
               </tr>
               <tr>
-                <td><strong>Teléfono de Contacto</strong></td>
-                <td>Número para recordatorios y notificaciones.</td>
-                <td>⚪ Opcional</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="fill-space">📸 IMAGEN 16: Formulario de registro de nuevo paciente (vacío)</div>
-
-          <p><strong>Validaciones automáticas:</strong> El sistema verificará que:</p>
-          <ul>
-            <li>No exista ya un paciente con el mismo número de documento (evita duplicados).</li>
-            <li>La fecha de nacimiento sea lógica (no puede ser futura ni excesivamente antigua).</li>
-            <li>Todos los campos obligatorios estén completos.</li>
-          </ul>
-
-          <p>Una vez complete el formulario, haga clic en <strong>"Guardar"</strong> o <strong>"Registrar"</strong>. Verá un mensaje de confirmación como "Paciente registrado exitosamente".</p>
-
-          <div class="fill-space">📸 IMAGEN 17: Mensaje de confirmación tras guardar un paciente</div>
-
-          <h3>✏️ Editar / Actualizar Datos de un Paciente</h3>
-          <p>Si necesita corregir o actualizar información (ej: cambio de dirección o teléfono):</p>
-          <ol>
-            <li>Vaya a <strong>"Pacientes"</strong> y busque al paciente en la lista (puede usar el buscador).</li>
-            <li>Haga clic sobre el nombre del paciente o en el ícono de <strong>"Editar"</strong> (lápiz) al lado de su nombre.</li>
-            <li>Se abrirá el formulario con los datos actuales.</li>
-            <li>Modifique solo los campos que necesite y haga clic en <strong>"Guardar Cambios"</strong>.</li>
-          </ol>
-
-          <blockquote><strong>⚠️ Importante:</strong> Algunos campos como el número de documento pueden estar bloqueados para evitar cambios accidentales. Si necesita modificarlos, contacte al administrador.</blockquote>
-
-          <div class="fill-space">📸 IMAGEN 18: Formulario de edición de paciente con datos precargados</div>
-
-          <h3>🏥 Antecedentes y Datos Clínicos</h3>
-          <p>Para cada paciente, puede registrar información médica relevante:</p>
-          <ul>
-            <li><strong>Antecedentes Médicos:</strong> Enfermedades previas, cirugías, hospitalizaciones.</li>
-            <li><strong>Alergias:</strong> Muy importante para evitar reacciones adversas a vacunas.</li>
-            <li><strong>Observaciones Generales:</strong> Cualquier nota adicional que el equipo médico deba conocer.</li>
-          </ul>
-
-          <p><strong>¿Cómo registrar antecedentes?</strong></p>
-          <ol>
-            <li>Entre al detalle del paciente (haga clic en su nombre).</li>
-            <li>Busque la pestaña o sección <strong>"Antecedentes"</strong> o <strong>"Historia Clínica"</strong>.</li>
-            <li>Haga clic en <strong>"+ Agregar Antecedente"</strong>.</li>
-            <li>Complete el formulario con tipo de antecedente, fecha, descripción.</li>
-            <li>Guarde.</li>
-          </ol>
-
-          <div class="fill-space">📸 IMAGEN 19: Sección de antecedentes médicos</div>
-          <div class="fill-space">📸 IMAGEN 20: Formulario para agregar un antecedente</div>
-
-          <h3>👪 Asociar Madre o Cuidador</h3>
-          <p>Cada paciente puede estar vinculado a su madre o a un cuidador responsable. Esto facilita el contacto para citas y seguimiento.</p>
-          <ol>
-            <li>Desde el detalle del paciente, busque la sección <strong>"Madre / Cuidador"</strong>.</li>
-            <li>Haga clic en <strong>"Asociar"</strong> o <strong>"Vincular"</strong>.</li>
-            <li>Seleccione de la lista si la madre ya está registrada, o haga clic en <strong>"Registrar Nueva Madre"</strong>.</li>
-            <li>Complete los datos solicitados y guarde.</li>
-          </ol>
-
-          <div class="fill-space">📸 IMAGEN 21: Formulario de asociación de madre/cuidador</div>
-
-          <h3>🔍 Listado y Filtros de Pacientes</h3>
-          <p>En la sección "Pacientes", verá una tabla con todos los pacientes registrados. Puede tener muchos, así que el sistema ofrece herramientas para encontrar rápidamente a quien busca:</p>
-
-          <h4>Barra de Búsqueda:</h4>
-          <ul>
-            <li>Escriba el nombre, apellido o número de documento del paciente.</li>
-            <li>El listado se filtrará automáticamente mientras escribe.</li>
-          </ul>
-
-          <h4>Filtros Avanzados:</h4>
-          <p>Haga clic en <strong>"Filtros"</strong> para opciones adicionales:</p>
-          <ul>
-            <li><strong>Por Edad:</strong> Buscar solo pacientes de cierto rango de edad.</li>
-            <li><strong>Por Estado de Vacunación:</strong> Al día, atrasados, sin iniciar.</li>
-            <li><strong>Por Género:</strong> Masculino o Femenino.</li>
-            <li><strong>Por Fecha de Registro:</strong> Pacientes registrados en un período específico.</li>
-          </ul>
-
-          <div class="fill-space">📸 IMAGEN 22: Listado de pacientes con barra de búsqueda</div>
-          <div class="fill-space">📸 IMAGEN 23: Panel de filtros avanzados</div>
-
-          <h4>Acciones en el Listado:</h4>
-          <p>Cada fila del listado tiene botones de acción:</p>
-          <ul>
-            <li><strong>👁️ Ver:</strong> Abre el detalle completo del paciente.</li>
-            <li><strong>✏️ Editar:</strong> Permite modificar sus datos.</li>
-            <li><strong>💉 Vacunar:</strong> Acceso directo al registro de dosis.</li>
-            <li><strong>📋 Historial:</strong> Ver todas las vacunas aplicadas.</li>
-          </ul>
-
-          <div class="fill-space">📸 IMAGEN 24: Detalle de botones de acción en cada fila del listado</div>
-
-          <div class="callout">
-            <strong>💡 Consejo:</strong> Use los filtros para enfocarse en pacientes que requieren atención inmediata, como los que tienen dosis atrasadas.
-          </div>
-        </section>
-
-        <!-- VACUNACION -->
-        <section id="vacunacion">
-          <h2>Vacunación y Esquemas</h2>
-          <p>Esta sección es el corazón del sistema JAMA. Aquí podrá consultar, registrar y hacer seguimiento a las vacunas que recibe cada paciente.</p>
-
-          <h3>📅 ¿Qué es un Esquema de Vacunación?</h3>
-          <p>El <strong>esquema de vacunación</strong> es el calendario oficial que indica qué vacunas debe recibir un niño y en qué edades. El sistema tiene precargados los esquemas nacionales y calcula automáticamente las fechas en que cada dosis debe aplicarse según la fecha de nacimiento del paciente.</p>
-
-          <h3>👀 Visualizar el Esquema de Vacunación</h3>
-          <p><strong>Para ver el esquema de un paciente:</strong></p>
-          <ol>
-            <li>Vaya a <strong>"Pacientes"</strong> y busque al paciente.</li>
-            <li>Haga clic en su nombre para abrir el detalle.</li>
-            <li>Busque la pestaña <strong>"Esquema de Vacunación"</strong> o <strong>"Vacunas"</strong>.</li>
-          </ol>
-
-          <p>Verá una tabla o cronograma con todas las vacunas. Cada vacuna tiene un <strong>estado</strong> indicado por colores:</p>
-          <ul>
-            <li><strong style="color:#28a745;">Verde:</strong> Dosis aplicada, al día.</li>
-            <li><strong style="color:#ffc107;">Amarillo:</strong> Próxima a vencer (se acerca la fecha recomendada).</li>
-            <li><strong style="color:#dc3545;">Rojo:</strong> Atrasada (pasó la fecha recomendada y no se ha aplicado).</li>
-            <li><strong style="color:#6c757d;">Gris:</strong> Pendiente (aún no corresponde por edad).</li>
-          </ul>
-
-          <div class="fill-space">📸 IMAGEN 25: Vista del esquema de vacunación completo con estados de colores</div>
-
-          <h3>💉 Registrar la Aplicación de una Vacuna</h3>
-          <p>Cuando aplique una dosis a un paciente, debe registrarlo en el sistema inmediatamente.</p>
-
-          <p><strong>Pasos para registrar una vacuna aplicada:</strong></p>
-          <ol>
-            <li>Desde el esquema del paciente, identifique la vacuna que acaba de aplicar.</li>
-            <li>Haga clic en el botón <strong>"Aplicar"</strong> o en el ícono de jeringa junto a esa dosis.</li>
-            <li>Se abrirá un formulario con los siguientes campos:</li>
-          </ol>
-
-          <table>
-            <thead>
-              <tr><th>Campo</th><th>Descripción</th><th>Obligatorio</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Fecha de Aplicación</strong></td>
-                <td>Fecha en que se aplicó la vacuna (por defecto, la fecha actual).</td>
-                <td>✅ Sí</td>
-              </tr>
-              <tr>
-                <td><strong>Vacuna</strong></td>
-                <td>Nombre de la vacuna (generalmente ya viene preseleccionada).</td>
-                <td>✅ Sí</td>
-              </tr>
-              <tr>
-                <td><strong>Lote</strong></td>
-                <td>Número de lote del frasco utilizado (muy importante para trazabilidad).</td>
-                <td>✅ Sí</td>
-              </tr>
-              <tr>
-                <td><strong>Dosis</strong></td>
-                <td>Cantidad aplicada (ej: 0.5 ml). Generalmente viene precargada según la vacuna.</td>
-                <td>✅ Sí</td>
-              </tr>
-              <tr>
-                <td><strong>Vía de Administración</strong></td>
-                <td>Intramuscular, Subcutánea, Oral, etc.</td>
-                <td>✅ Sí</td>
-              </tr>
-              <tr>
-                <td><strong>Sitio de Aplicación</strong></td>
-                <td>Brazo derecho, brazo izquierdo, muslo, etc.</td>
-                <td>⚪ Opcional</td>
-              </tr>
-              <tr>
-                <td><strong>Responsable</strong></td>
-                <td>Nombre del profesional que aplicó la vacuna (puede autocompletarse con su usuario).</td>
-                <td>✅ Sí</td>
-              </tr>
-              <tr>
-                <td><strong>Observaciones</strong></td>
-                <td>Cualquier nota relevante: reacciones, cambios de temperatura, etc.</td>
-                <td>⚪ Opcional</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="fill-space">📸 IMAGEN 26: Formulario de registro de vacuna aplicada</div>
-
-          <p><strong>Validaciones automáticas:</strong></p>
-          <ul>
-            <li>El sistema verifica que el lote exista en inventario y tenga stock disponible.</li>
-            <li>Descuenta automáticamente una dosis del inventario.</li>
-            <li>Alerta si la fecha de aplicación es muy diferente a la fecha recomendada.</li>
-            <li>No permite duplicar el registro de la misma dosis.</li>
-          </ul>
-
-          <p>Haga clic en <strong>"Guardar"</strong>. Verá un mensaje de confirmación y el esquema se actualizará mostrando la dosis en verde.</p>
-
-          <div class="fill-space">📸 IMAGEN 27: Mensaje de confirmación tras registrar una vacuna</div>
-
-          <h3>📜 Historial de Vacunación</h3>
-          <p>Para ver todas las vacunas que un paciente ha recibido hasta la fecha:</p>
-          <ol>
-            <li>Entre al detalle del paciente.</li>
-            <li>Vaya a la pestaña <strong>"Historial"</strong> o <strong>"Vacunas Aplicadas"</strong>.</li>
-          </ol>
-
-          <p>Verá una lista cronológica con:</p>
-          <ul>
-            <li>Nombre de cada vacuna aplicada.</li>
-            <li>Fecha de aplicación.</li>
-            <li>Lote utilizado.</li>
-            <li>Profesional responsable.</li>
-            <li>Observaciones (si las hay).</li>
-          </ul>
-
-          <div class="fill-space">📸 IMAGEN 28: Historial completo de vacunación de un paciente</div>
-
-          <h3>📆 Consultar Próximas Dosis</h3>
-          <p>El sistema calcula automáticamente cuándo corresponde cada próxima dosis. En el esquema, las dosis pendientes muestran la <strong>fecha recomendada</strong>. Puede usar esta información para:</p>
-          <ul>
-            <li>Agendar citas.</li>
-            <li>Enviar recordatorios a las madres o cuidadores.</li>
-            <li>Planificar el inventario necesario.</li>
-          </ul>
-
-          <div class="fill-space">📸 IMAGEN 29: Vista de próximas dosis con fechas recomendadas</div>
-
-          <h3>⚠️ Manejo de Errores Comunes</h3>
-          
-          <h4>❌ Error: "Esta vacuna ya fue registrada"</h4>
-          <p><strong>Causa:</strong> Intentó registrar una dosis que ya está aplicada.</p>
-          <p><strong>Solución:</strong> Verifique el historial. Si fue un error y necesita corregir, contacte al administrador para anular el registro incorrecto.</p>
-
-          <h4>❌ Error: "No hay stock suficiente del lote seleccionado"</h4>
-          <p><strong>Causa:</strong> El lote que eligió no tiene dosis disponibles en el inventario.</p>
-          <p><strong>Solución:</strong> Seleccione otro lote con stock, o primero ingrese un nuevo lote al inventario.</p>
-
-          <h4>❌ Error: "La fecha de aplicación no es válida"</h4>
-          <p><strong>Causa:</strong> Puso una fecha futura o muy antigua.</p>
-          <p><strong>Solución:</strong> Verifique la fecha. El sistema solo acepta fechas lógicas (no puede aplicar una vacuna "mañana" ni hace 10 años).</p>
-
-          <div class="callout">
-            <strong>💡 Buena Práctica:</strong> Registre las vacunas inmediatamente después de aplicarlas para evitar olvidos y mantener el inventario sincronizado.
-          </div>
-
-          <div class="fill-space">📸 IMAGEN 30: Ejemplo de mensaje de error con explicación</div>
-        </section>
-
-        <!-- MADRES / CUIDADORES -->
-        <section id="madres">
-          <h2>Gestión de Madres y Cuidadores</h2>
-          <p>Esta sección le permite registrar y administrar la información de las madres o cuidadores responsables de los pacientes. Tener estos datos actualizados es fundamental para enviar recordatorios, confirmar citas y mantener comunicación efectiva.</p>
-
-          <h3>👤 ¿Qué es un Cuidador?</h3>
-          <p>Un <strong>cuidador</strong> puede ser la madre biológica, el padre, un familiar, o cualquier persona responsable del cuidado del niño o niña. En el sistema, registrará sus datos de contacto y su relación con el paciente.</p>
-
-          <h3>➕ Registrar una Nueva Madre o Cuidador</h3>
-          <p><strong>Pasos:</strong></p>
-          <ol>
-            <li>Vaya al menú <strong>"Madres / Cuidadores"</strong> (o "Responsables").</li>
-            <li>Haga clic en <strong>"+ Nuevo Cuidador"</strong>.</li>
-            <li>Complete el formulario con los siguientes datos:</li>
-          </ol>
-
-          <table>
-            <thead>
-              <tr><th>Campo</th><th>Descripción</th><th>Obligatorio</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Nombres</strong></td>
-                <td>Nombre completo del cuidador.</td>
-                <td>✅ Sí</td>
-              </tr>
-              <tr>
-                <td><strong>Apellidos</strong></td>
-                <td>Apellidos completos.</td>
-                <td>✅ Sí</td>
-              </tr>
-              <tr>
-                <td><strong>Tipo de Documento</strong></td>
-                <td>Cédula, Pasaporte, etc.</td>
-                <td>✅ Sí</td>
-              </tr>
-              <tr>
-                <td><strong>Número de Documento</strong></td>
-                <td>Sin puntos ni espacios.</td>
-                <td>✅ Sí</td>
-              </tr>
-              <tr>
-                <td><strong>Teléfono Principal</strong></td>
-                <td>Número de celular o fijo para contacto.</td>
-                <td>✅ Sí</td>
-              </tr>
-              <tr>
-                <td><strong>Teléfono Alternativo</strong></td>
-                <td>Otro número de contacto (opcional pero recomendado).</td>
-                <td>⚪ Opcional</td>
+                <td><strong>Área</strong></td>
+                <td>Lista desplegable</td>
+                <td>URBANA, RURAL</td>
+                <td>✅ Sí*</td>
               </tr>
               <tr>
                 <td><strong>Correo Electrónico</strong></td>
-                <td>Para enviar recordatorios y notificaciones.</td>
-                <td>⚪ Opcional</td>
+                <td>Email</td>
+                <td>Formato de correo válido</td>
+                <td>✅ Sí*</td>
               </tr>
               <tr>
-                <td><strong>Dirección</strong></td>
-                <td>Domicilio actual.</td>
-                <td>⚪ Opcional</td>
+                <td><strong>Celular</strong></td>
+                <td>Número</td>
+                <td>Solo números</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Teléfono Fijo</strong></td>
+                <td>Número</td>
+                <td>Solo números</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Autoriza llamadas</strong></td>
+                <td>Checkbox</td>
+                <td>Sí/No</td>
+                <td>❌ No</td>
+              </tr>
+              <tr>
+                <td><strong>Autoriza Envio de Correos Electrónicos</strong></td>
+                <td>Checkbox</td>
+                <td>Sí/No</td>
+                <td>❌ No</td>
               </tr>
             </tbody>
           </table>
 
-          <div class="fill-space">📸 IMAGEN 31: Formulario de registro de madre/cuidador</div>
+          <div class="fill-space">📸 IMAGEN 19: Página 2 - Información de Contacto</div>
 
-          <p>Haga clic en <strong>"Guardar"</strong>. El cuidador quedará registrado y ahora podrá vincularlo a uno o más pacientes.</p>
+          <h4>Página 3 de 7: Información Adicional</h4>
+          <p>Título de la sección: <strong>"Información Adicional"</strong></p>
 
-          <h3>🔗 Vincular un Cuidador a un Paciente</h3>
-          <p>Un cuidador puede estar vinculado a varios pacientes (ej: una madre con varios hijos). Para vincular:</p>
-          <ol>
-            <li>Vaya al detalle del paciente.</li>
-            <li>En la sección <strong>"Madre / Cuidador"</strong>, haga clic en <strong>"Asociar"</strong>.</li>
-            <li>Busque el cuidador en la lista (puede usar el buscador por nombre o documento).</li>
-            <li>Seleccione el tipo de relación: Madre, Padre, Abuelo/a, Tío/a, Otro.</li>
-            <li>Haga clic en <strong>"Vincular"</strong>.</li>
-          </ol>
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Tipo</th><th>Opciones/Formato</th><th>Obligatorio</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Regimen de Afiliacion</strong></td>
+                <td>Lista desplegable</td>
+                <td>CONTRIBUTIVO, SUBSIDIADO, POBRE NO ASEGURADO, REGIMEN ESPECIAL, OTRO</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Aseguradora</strong></td>
+                <td>Texto</td>
+                <td>-</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Pertenencia Étnica</strong></td>
+                <td>Lista desplegable</td>
+                <td>INDIGENA, ROM(GITANO), RAIZAL, NEGRO,PALENQUERO,MULATO,AFROCOLOMBIANO, NINGUNO</td>
+                <td>✅ Sí*</td>
+              </tr>
+            </tbody>
+          </table>
 
-          <div class="fill-space">📸 IMAGEN 32: Pantalla de vinculación de cuidador a paciente</div>
+          <p><strong>Condición Social (Seleccione 1 o más opciones):</strong></p>
+          <ul>
+            <li>Desplazado (Checkbox)</li>
+            <li>Discapacitado (Checkbox)</li>
+            <li>Victima del Conflicto Armado (Checkbox)</li>
+            <li>Estudia Actualmente (Checkbox)</li>
+          </ul>
 
-          <p><strong>¿Qué pasa si el cuidador no está registrado?</strong> Puede registrarlo directamente desde esta pantalla haciendo clic en <strong>"Registrar Nuevo Cuidador"</strong> sin necesidad de salir del detalle del paciente.</p>
+          <div class="fill-space">📸 IMAGEN 20: Página 3 - Información Adicional y Condición Social</div>
 
-          <h3>✏️ Actualizar Datos de Contacto</h3>
-          <p>Es común que los números de teléfono o direcciones cambien. Para actualizarlos:</p>
-          <ol>
-            <li>Vaya a <strong>"Madres / Cuidadores"</strong>.</li>
-            <li>Busque al cuidador en el listado.</li>
-            <li>Haga clic en <strong>"Editar"</strong> (ícono de lápiz).</li>
-            <li>Modifique los campos necesarios y guarde.</li>
-          </ol>
+          <h4>Página 4 de 7: Antecedentes</h4>
+          <p>Título de la sección: <strong>"Antecedentes"</strong></p>
 
-          <p><strong>Importante:</strong> Los cambios se aplicarán automáticamente a todos los pacientes vinculados a ese cuidador.</p>
+          <p>Esta sección permite registrar antecedentes del paciente. Por cada antecedente se solicita:</p>
 
-          <div class="fill-space">📸 IMAGEN 33: Listado de madres/cuidadores con opciones de editar</div>
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Tipo</th><th>Obligatorio</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Fecha Registro</strong></td>
+                <td>Fecha (selector de calendario, por defecto fecha actual)</td>
+                <td>✅ Sí</td>
+              </tr>
+              <tr>
+                <td><strong>Tipo</strong></td>
+                <td>Texto</td>
+                <td>❌ No</td>
+              </tr>
+              <tr>
+                <td><strong>Descripción</strong></td>
+                <td>Área de texto (textarea)</td>
+                <td>❌ No</td>
+              </tr>
+              <tr>
+                <td><strong>Observaciones Especiales</strong></td>
+                <td>Área de texto (textarea)</td>
+                <td>❌ No</td>
+              </tr>
+            </tbody>
+          </table>
 
-          <h3>📋 Ver Pacientes de un Cuidador</h3>
-          <p>Para saber qué pacientes están asociados a un cuidador:</p>
-          <ol>
-            <li>En el listado de cuidadores, haga clic en el nombre del cuidador.</li>
-            <li>Verá una lista de todos los pacientes vinculados.</li>
-            <li>Desde ahí puede acceder directamente al detalle de cada paciente.</li>
-          </ol>
+          <div class="fill-space">📸 IMAGEN 21: Página 4 - Antecedentes</div>
 
-          <div class="fill-space">📸 IMAGEN 34: Vista de detalle de cuidador mostrando pacientes asociados</div>
+          <h4>Página 5 de 7: Cuidador o Madre</h4>
+          <p>Título de la sección: <strong>"Cuidador o Madre"</strong></p>
 
           <div class="callout">
-            <strong>💡 Consejo:</strong> Mantenga los datos de contacto actualizados. Un número de teléfono erróneo puede hacer que se pierdan recordatorios importantes sobre vacunas.
+            <strong>ℹ️ Nota:</strong> Esta sección solo está disponible para pacientes <strong>menores de edad</strong> (menores de 18 años). Si el paciente es mayor de edad, se muestra el mensaje: "Esta sección solo está disponible para pacientes menores de edad."
           </div>
-        </section>
+
+          <p>Permite asociar una madre o un cuidador al paciente. La pantalla muestra:</p>
+
+          <ul>
+            <li><strong>Madre Seleccionada:</strong> Campo de texto de solo lectura que muestra el nombre completo de la madre seleccionada o "Ninguna seleccionada"</li>
+            <li><strong>Botón "Seleccionar Madre":</strong> Abre una tabla con las madres ya registradas en el sistema</li>
+            <li><strong>Botón "Quitar Selección Madre":</strong> Solo aparece si hay una madre seleccionada</li>
+            <li><strong>Cuidador Seleccionado:</strong> Campo de texto de solo lectura que muestra el nombre completo del cuidador seleccionado o "Ninguno seleccionado"</li>
+            <li><strong>Botón "Seleccionar Cuidador":</strong> Abre una tabla con los cuidadores ya registrados en el sistema</li>
+            <li><strong>Botón "Quitar Selección Cuidador":</strong> Solo aparece si hay un cuidador seleccionado</li>
+          </ul>
+
+          <h4>🔍 Tabla de Selección de Madres</h4>
+          <p><strong>Al hacer clic en "Seleccionar Madre":</strong> Se abre una tabla completa con funcionalidad de gestión que incluye:</p>
+
+          <ul>
+            <li><strong>Botón "Añadir":</strong> Permite registrar una nueva madre directamente desde esta pantalla</li>
+            <li><strong>Buscador:</strong> Campo "Buscar por Número de Identificación..." para filtrar madres</li>
+            <li><strong>Tabla con columnas:</strong>
+              <ul>
+                <li>ID, Tipo de Identificación, Número de Identificación</li>
+                <li>Primer Nombre, Segundo Nombre, Primer Apellido, Segundo Apellido</li>
+                <li>Acciones: Seleccionar, Editar, Eliminar</li>
+              </ul>
+            </li>
+            <li><strong>Paginación:</strong> 5 madres por página con botones "Atrás" y "Siguiente"</li>
+            <li><strong>Botón "Volver al Formulario":</strong> Para regresar sin seleccionar</li>
+          </ul>
+
+          <h4>🔍 Tabla de Selección de Cuidadores</h4>
+          <p><strong>Al hacer clic en "Seleccionar Cuidador":</strong> Se abre una tabla similar con:</p>
+
+          <ul>
+            <li><strong>Botón "Añadir":</strong> Registrar nuevo cuidador</li>
+            <li><strong>Buscador por Número de Identificación</strong></li>
+            <li><strong>Tabla con columnas:</strong>
+              <ul>
+                <li>ID, Tipo de Identificación, Número de Identificación</li>
+                <li>Primer Nombre, Segundo Nombre, Primer Apellido, Segundo Apellido</li>
+                <li><strong>Parentesco:</strong> Relación con el paciente</li>
+                <li>Acciones: Seleccionar, Editar, Eliminar</li>
+              </ul>
+            </li>
+            <li><strong>Paginación y botón "Volver al Formulario"</strong></li>
+          </ul>
+
+          <h4>📝 Formularios de Registro</h4>
+          <p><strong>Formulario de Nueva Madre (desde botón "Añadir"):</strong></p>
+
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Tipo</th><th>Opciones</th><th>Obligatorio</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Tipo de identificación</strong></td>
+                <td>Lista desplegable</td>
+                <td>RC, TI, CC, CE, PA</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Número de Identificación</strong></td>
+                <td>Número</td>
+                <td>Solo números</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Primer Nombre</strong></td>
+                <td>Texto</td>
+                <td>-</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Segundo Nombre</strong></td>
+                <td>Texto</td>
+                <td>-</td>
+                <td>❌ No</td>
+              </tr>
+              <tr>
+                <td><strong>Primer Apellido</strong></td>
+                <td>Texto</td>
+                <td>-</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Segundo Apellido</strong></td>
+                <td>Texto</td>
+                <td>-</td>
+                <td>❌ No</td>
+              </tr>
+              <tr>
+                <td><strong>Correo Electrónico</strong></td>
+                <td>Email</td>
+                <td>Formato válido</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Teléfono Fijo</strong></td>
+                <td>Número</td>
+                <td>Solo números</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Celular</strong></td>
+                <td>Número</td>
+                <td>Solo números</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Régimen de Afiliación</strong></td>
+                <td>Lista desplegable</td>
+                <td>CONTRIBUTIVO, SUBSIDIADO, EXCEPCION Y ESPECIAL E INPEC, OTRO</td>
+                <td>✅ Sí*</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p><strong>Gestión desde las Tablas:</strong></p>
+          <ul>
+            <li><strong>Seleccionar:</strong> Botón azul con ✓ que asocia la madre/cuidador al paciente y regresa al formulario</li>
+            <li><strong>Editar:</strong> Botón amarillo con ✏️ que abre el formulario de edición</li>
+            <li><strong>Eliminar:</strong> Botón rojo con 🗑️ que solicita confirmación antes de eliminar</li>
+          </ul>
+
+          <div class="callout">
+            <strong>💡 Funcionalidad Importante:</strong> Estas tablas permiten gestión completa de madres y cuidadores directamente desde el registro de pacientes. No existe un módulo independiente para gestionar madres/cuidadores - toda la gestión se realiza aquí durante el registro del paciente.
+          </div>
+
+          <div class="fill-space">📸 IMAGEN 22: Página 5 - Selección de Madre o Cuidador</div>
+
+          <h4>Página 6 de 7: Condición Usuaria</h4>
+          <p>Título de la sección: <strong>"Condición Usuaria"</strong></p>
+
+          <div class="callout">
+            <strong>ℹ️ Nota:</strong> Esta sección solo está disponible para pacientes de <strong>sexo FEMENINO</strong> (MUJER). Si el paciente es de sexo MASCULINO, se muestra el mensaje: "Esta sección solo está disponible para pacientes de sexo femenino."
+          </div>
+
+          <p>Campos de la condición usuaria:</p>
+
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Tipo</th><th>Obligatorio</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Condición</strong></td>
+                <td>Texto</td>
+                <td>✅ Sí</td>
+              </tr>
+              <tr>
+                <td><strong>Gestante</strong></td>
+                <td>Checkbox</td>
+                <td>❌ No</td>
+              </tr>
+              <tr>
+                <td><strong>Fecha de Última Menstruación</strong></td>
+                <td>Fecha</td>
+                <td>❌ No</td>
+              </tr>
+              <tr>
+                <td><strong>Semanas de Gestación</strong></td>
+                <td>Número</td>
+                <td>❌ No</td>
+              </tr>
+              <tr>
+                <td><strong>Fecha Probable de Parto</strong></td>
+                <td>Fecha</td>
+                <td>❌ No</td>
+              </tr>
+              <tr>
+                <td><strong>Cantidad de Embarazos Previos</strong></td>
+                <td>Número</td>
+                <td>❌ No</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="fill-space">📸 IMAGEN 23: Página 6 - Condición Usuaria</div>
+
+          <h4>Página 7 de 7: Antecedentes Médicos</h4>
+          <p>Título de la sección: <strong>"Antecedentes Médicos"</strong></p>
+
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Tipo</th><th>Obligatorio</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Contraindicacion Vacunación</strong></td>
+                <td>Checkbox</td>
+                <td>❌ No</td>
+              </tr>
+              <tr>
+                <td><strong>Detalle Contraindicacion</strong></td>
+                <td>Texto</td>
+                <td>❌ No</td>
+              </tr>
+              <tr>
+                <td><strong>Reacción Biológicos</strong></td>
+                <td>Checkbox</td>
+                <td>❌ No</td>
+              </tr>
+              <tr>
+                <td><strong>Detalle Reacción</strong></td>
+                <td>Texto</td>
+                <td>❌ No</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="fill-space">📸 IMAGEN 24: Página 7 - Antecedentes Médicos</div>
+
+          <h3>🔘 Navegación del Formulario</h3>
+          <p>En la parte inferior del formulario (excepto cuando está en una tabla de selección) hay botones de navegación centrados:</p>
+
+          <ul>
+            <li><strong>Botón "Atrás":</strong> Retrocede a la página anterior. No aparece en la página 1.</li>
+            <li><strong>Botón "Siguiente":</strong> Avanza a la siguiente página. No aparece en la página 7.</li>
+            <li><strong>Botón "Guardar":</strong> Solo aparece en la página 7. Guarda el paciente completo.</li>
+            <li><strong>Botón "Cancelar":</strong> Aparece en todas las páginas. Cierra el formulario sin guardar.</li>
+          </ul>
+
+
+
+          <h3>✏️ Editar un Paciente</h3>
+          <p>Para editar un paciente existente:</p>
+          <ol>
+            <li>En la tabla de pacientes, haga clic en el botón <strong>"Editar"</strong> (icono de lápiz) de la fila del paciente que desea modificar</li>
+            <li>Se abrirá el mismo formulario de 7 páginas, pero con los datos actuales del paciente precargados</li>
+            <li>El título del formulario cambia a <strong>"Editar Paciente"</strong></li>
+            <li>Navegue por las páginas y modifique los campos necesarios</li>
+            <li>Al llegar a la página 7, haga clic en <strong>"Guardar"</strong></li>
+          </ol>
+
+          
+          <h3>🗑️ Eliminar un Paciente</h3>
+          <p>Para eliminar un paciente:</p>
+          <ol>
+            <li>En la tabla de pacientes, haga clic en el botón <strong>"Eliminar"</strong> (icono de papelera) de la fila del paciente</li>
+            <li>Aparece un mensaje de confirmación con el texto: <strong>"¿Estás seguro?"</strong> y <strong>"Esta acción no se puede deshacer."</strong></li>
+            <li>Haga clic en <strong>"Sí, eliminar"</strong> para confirmar o en <strong>"Cancelar"</strong> para abortar</li>
+            <li>Si confirma, el sistema elimina el paciente y muestra el mensaje: <strong>"Eliminado - El paciente ha sido eliminado con éxito."</strong></li>
+          </ol>
+
+          <blockquote><strong>⚠️ Advertencia:</strong> La eliminación de pacientes es permanente y no se puede deshacer. El sistema pedirá confirmación antes de eliminar.</blockquote>
+
+
+
+
+        <!-- VACUNACION -->
+        <section id="vacunacion">
+          <h2>Gestión Vacunación</h2>
+          <p>Esta sección permite consultar los esquemas de vacunación registrados y registrar nuevas vacunas aplicadas. Acceda desde accesos rápidos <strong>"Gestión Vacunación"</strong>.</p>
+
+          <h3>📋 Pantalla Principal - Listado de Esquemas</h3>
+          <p>Al entrar a "Gestión Vacunación", verá:</p>
+          
+          <ul>
+            <li><strong>Título:</strong> "Gestión Vacunación"</li>
+            <li><strong>Botón "Añadir":</strong> En la parte superior izquierda (icono ➕) para registrar un nuevo esquema de vacunación</li>
+            <li><strong>Buscador:</strong> Campo de texto con el placeholder "Buscar por Número de Id del esquema..."</li>
+            <li><strong>Tabla de Esquemas:</strong> Con scroll vertical.</li>
+            <li><strong>Paginación:</strong> Botones "Atrás" y "Siguiente" con indicador "Página X" (5 registros por página)</li>
+          </ul>
+
+          <div class="fill-space">📸 IMAGEN 29: Vista principal de Gestión Vacunación con listado de esquemas</div>
+
+          <h3>📊 Columnas de la Tabla de Esquemas</h3>
+          <p>La tabla muestra las siguientes columnas en este orden exacto:</p>
+
+          <table>
+            <thead>
+              <tr><th>Columna</th><th>Contenido</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Tipo de Identificación</strong></td>
+                <td>RC, TI, CC, CE, o PA del paciente</td>
+              </tr>
+              <tr>
+                <td><strong>Numero de Identificación</strong></td>
+                <td>Número del documento del paciente</td>
+              </tr>
+              <tr>
+                <td><strong>Tipo de carnet</strong></td>
+                <td>Tipo de carnet de vacunación</td>
+              </tr>
+              <tr>
+                <td><strong>Registrado en el PAI</strong></td>
+                <td>Sí/No - Indica si está registrado en el Programa Ampliado de Inmunizaciones</td>
+              </tr>
+              <tr>
+                <td><strong>Vacuna Aplicada</strong></td>
+                <td>Nombre de la vacuna aplicada</td>
+              </tr>
+              <tr>
+                <td><strong>Fecha de Aplicación</strong></td>
+                <td>Fecha en formato DD/MM/AAAA o "Sin registro"</td>
+              </tr>
+              <tr>
+                <td><strong>Fecha próxima de vacuna</strong></td>
+                <td>Fecha de la próxima dosis en formato DD/MM/AAAA o "Sin registro"</td>
+              </tr>
+              <tr>
+                <td><strong>Responsable</strong></td>
+                <td>Nombre del profesional responsable</td>
+              </tr>
+              <tr>
+                <td><strong>Ver esquema</strong></td>
+                <td>Botón "Ver" para abrir el detalle del esquema</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>🔍 Búsqueda de Esquemas</h3>
+          <p>El sistema permite buscar esquemas escribiendo en el campo de búsqueda:</p>
+          <ul>
+            <li>Solo busca por <strong>Número de Id del esquema</strong></li>
+            <li>Filtra mientras escribe (búsqueda en tiempo real)</li>
+            <li>Reinicia la paginación a la página 1 al filtrar</li>
+            <li>Muestra 5 esquemas por página</li>
+          </ul>
+
+
+          <h3>👁️ Ver Detalle del Esquema</h3>
+          <p>Al hacer clic en el botón <strong>"Ver"</strong> (icono de ojo) en cualquier fila, se abre la pantalla del <strong>"Esquema de Vacunación"</strong> que muestra:</p>
+
+          <h4>📋 Información General del Esquema</h4>
+          <ul>
+            <li><strong>Logo del sistema:</strong> En la parte superior</li>
+            <li><strong>Título:</strong> "Esquema de Vacunación"</li>
+            <li><strong>Fecha:</strong> Fecha actual (DD/MM/AAAA)</li>
+            <li><strong>Tipo de Carnet:</strong> Tipo de carnet registrado</li>
+            <li><strong>Responsable:</strong> Nombre del profesional responsable</li>
+            <li><strong>Registrado en PAI:</strong> "Sí" o "No"</li>
+            <li><strong>Motivo de ingreso:</strong> Motivo registrado en el esquema</li>
+          </ul>
+
+          <h4>👤 Información del Paciente</h4>
+          <p>Al hacer clic en el botón "Ver" (icono de ojo) se muestra una sección con título <strong>"Información del Paciente"</strong> que incluye:</p>
+          <ul>
+            <li><strong>Nombre:</strong> Primer nombre + Segundo nombre + Primer apellido + Segundo apellido</li>
+            <li><strong>Identificación:</strong> Tipo de identificación - Número de identificación</li>
+          </ul>
+
+          <h4>💉 Detalles de Vacunación</h4>
+          <p>Se muestra una tabla con título <strong>"Detalles de Vacunación"</strong> con las siguientes columnas:</p>
+
+          <table>
+            <thead>
+              <tr><th>Columna</th><th>Contenido</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Vacuna</strong></td>
+                <td>Nombre de la vacuna aplicada</td>
+              </tr>
+              <tr>
+                <td><strong>Dosis</strong></td>
+                <td>Número de la dosis aplicada</td>
+              </tr>
+              <tr>
+                <td><strong>Vía</strong></td>
+                <td>Vía de administración utilizada</td>
+              </tr>
+              <tr>
+                <td><strong>Sitio</strong></td>
+                <td>Sitio de aplicación en el cuerpo</td>
+              </tr>
+              <tr>
+                <td><strong>Fecha próxima dosis</strong></td>
+                <td>Fecha de la próxima dosis o "Esquema finalizado"</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>📝 Observaciones</h4>
+          <p>Si existen observaciones registradas, se muestra una sección con título <strong>"Observaciones"</strong> con el texto completo.</p>
+
+          <h4>🖨️ Función de Impresión</h4>
+          <p>En la parte inferior hay un botón <strong>"Imprimir"</strong> (icono de impresora) que permite imprimir el esquema completo.</p>
+
+          <div class="fill-space">📸 IMAGEN 31: Vista completa del esquema de vacunación</div>
+
+          <h3>➕ Registrar Nuevo Esquema de Vacunación</h3>
+          <p>Al hacer clic en el botón <strong>"Añadir"</strong> desde la pantalla principal, se abre el <strong>"Registro de Vacunación"</strong>.</p>
+
+          <h4>🔄 Navegación entre Pantallas</h4>
+          <p>El sistema tiene dos pantallas principales:</p>
+          <ul>
+            <li><strong>Pantalla 1:</strong> "Gestión Vacunación" (listado de esquemas)</li>
+            <li><strong>Pantalla 2:</strong> "Registro de Vacunación" (formulario para nuevo registro)</li>
+            <li>Use el botón <strong>"Volver"</strong> (icono de flecha izquierda) para regresar al listado</li>
+          </ul>
+
+          <h4>🔍 Búsqueda de Paciente</h4>
+          <p>En la pantalla "Registro de Vacunación", lo primero que debe hacer es buscar el paciente:</p>
+
+          <ol>
+            <li>En el campo <strong>"Para empezar, digita la cédula de un paciente..."</strong> escriba el número de identificación</li>
+            <li>El sistema busca automáticamente mientras escribe</li>
+            <li>Se muestran mensajes de estado:</li>
+            <ul>
+              <li><strong>"Buscando paciente...":</strong> Mientras realiza la búsqueda</li>
+              <li><strong>"Paciente encontrado":</strong> Si encuentra el paciente (con fondo verde)</li>
+              <li><strong>"Paciente no encontrado":</strong> Si no existe (con fondo rojo)</li>
+            </ul>
+            <li>Si el paciente NO existe, aparece un botón <strong>"Registrar"</strong> para crear un nuevo paciente</li>
+          </ol>
+
+          <div class="callout">
+            <strong>📝 Importante:</strong> Solo puede continuar con el formulario si se encuentra un paciente existente. El resto del formulario permanece oculto hasta que seleccione un paciente válido.
+          </div>
+
+          <div class="fill-space">📸 IMAGEN 32: Búsqueda de paciente con mensajes de estado</div>
+
+          <h4>📋 Formulario de Registro (con paciente seleccionado)</h4>
+          <p>Una vez que se encuentra el paciente, se muestra el formulario completo:</p>
+
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Tipo</th><th>Descripción</th><th>Obligatorio</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Tipo de Carnet</strong></td>
+                <td>Texto</td>
+                <td>Tipo de carnet de vacunación</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Responsable</strong></td>
+                <td>Texto (solo lectura)</td>
+                <td>Se autocompleta con el usuario logueado</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Registrado en PAI</strong></td>
+                <td>Checkbox</td>
+                <td>Indica si está registrado en el Programa Ampliado de Inmunizaciones</td>
+                <td>❌ No</td>
+              </tr>
+              <tr>
+                <td><strong>Motivo de Ingreso</strong></td>
+                <td>Área de texto</td>
+                <td>Motivo por el cual se registra el esquema</td>
+                <td>❌ No</td>
+              </tr>
+              <tr>
+                <td><strong>Observaciones</strong></td>
+                <td>Área de texto</td>
+                <td>Observaciones adicionales sobre el esquema</td>
+                <td>❌ No</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>💉 Sección de Detalles de Vacunación</h4>
+          <p>Esta sección permite registrar los detalles específicos de la vacuna aplicada:</p>
+
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Tipo</th><th>Descripción</th><th>Obligatorio</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Vacuna</strong></td>
+                <td>Lista desplegable</td>
+                <td>Seleccione de las vacunas disponibles en inventario. Muestra: Nombre - Lote (Disponible: X dosis)</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Jeringa</strong></td>
+                <td>Lista desplegable</td>
+                <td>Seleccione de las jeringas disponibles. Muestra: Tipo - Calibre (Disponible: X unidades)</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Diluyente</strong></td>
+                <td>Lista desplegable</td>
+                <td>Opcional. Muestra: Nombre (Disponible: X unidades)</td>
+                <td>❌ No</td>
+              </tr>
+              <tr>
+                <td><strong>Cantidad de Diluyente Utilizada</strong></td>
+                <td>Número</td>
+                <td>Solo aparece si selecciona un diluyente. Cantidad mínima: 0</td>
+                <td>❌ No</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>📊 Campos Adicionales del Registro</h4>
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Tipo</th><th>Descripción</th><th>Obligatorio</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Numero de la dosis</strong></td>
+                <td>Texto (solo lectura)</td>
+                <td>Se autocompleta automáticamente</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Lote de Vacuna</strong></td>
+                <td>Texto (solo lectura)</td>
+                <td>Se autocompleta al seleccionar la vacuna</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Vía de Administración</strong></td>
+                <td>Lista desplegable</td>
+                <td>Opciones: Intramuscular, Subcutánea, Intradérmica, Oral, Nasal</td>
+                <td>✅ Sí*</td>
+              </tr>
+              <tr>
+                <td><strong>Sitio de Aplicación</strong></td>
+                <td>Lista desplegable</td>
+                <td>Opciones: Brazo Derecho, Brazo Izquierdo, etc.</td>
+                <td>✅ Sí*</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="fill-space">📸 IMAGEN 33: Formulario completo de registro de vacunación</div>
+
+          <h3>🔄 Comportamiento del Formulario</h3>
+
+          <h4>Selección de Vacuna</h4>
+          <p>Al seleccionar una vacuna de la lista desplegable:</p>
+          <ul>
+            <li>Se autocompleta el campo <strong>"Lote de Vacuna"</strong> con el lote de la vacuna seleccionada</li>
+            <li>Se actualiza automáticamente el campo <strong>"Numero de la dosis"</strong></li>
+            <li>Solo se muestran vacunas que tienen stock disponible (dosisDisponibles > 0)</li>
+          </ul>
+
+          <h4>Validaciones del Sistema</h4>
+          <ul>
+            <li>El formulario NO permite guardar si no hay un paciente seleccionado</li>
+            <li>Todos los campos marcados con * son obligatorios</li>
+            <li>El botón <strong>"Guardar Registro"</strong> está deshabilitado hasta que complete los campos requeridos</li>
+            <li>Si hay errores de validación, se muestra un mensaje: <strong>"Por favor complete todos los campos requeridos."</strong></li>
+          </ul>
+
+          <h4>Campos de Solo Lectura</h4>
+          <p>Los siguientes campos se llenan automáticamente y no se pueden editar:</p>
+          <ul>
+            <li><strong>Responsable:</strong> Se llena con el usuario actual del sistema</li>
+            <li><strong>Numero de la dosis:</strong> Se calcula automáticamente</li>
+            <li><strong>Lote de Vacuna:</strong> Se toma del inventario de la vacuna seleccionada</li>
+          </ul>
+
+
+          <h3>💾 Guardar el Registro</h3>
+          <p>Para completar el registro de vacunación:</p>
+          <ol>
+            <li>Asegúrese de que todos los campos obligatorios estén completos</li>
+            <li>Verifique que el paciente correcto esté seleccionado</li>
+            <li>Haga clic en <strong>"Guardar Registro"</strong></li>
+            <li>El sistema procesará el registro y actualizará automáticamente:
+              <ul>
+                <li>El inventario de vacunas (resta 1 dosis)</li>
+                <li>El inventario de jeringas (resta 1 unidad)</li>
+                <li>El inventario de diluyentes (resta la cantidad utilizada, si aplica)</li>
+                <li>El esquema de vacunación del paciente</li>
+              </ul>
+            </li>
+            <li>Se mostrará un mensaje de confirmación de que el registro fue exitoso</li>
+          </ol>
+
+          <div class="callout">
+            <strong>⚠️ Importante:</strong> Una vez guardado el registro, el sistema automáticamente descuenta el stock utilizado del inventario. Asegúrese de que toda la información sea correcta antes de guardar.
+          </div>
+
+          <h3>🔄 Navegación en la Aplicación</h3>
+          <p>Para acceder al módulo de Gestión Vacunación:</p>
+          
+          <h4>Desde el Dashboard:</h4>
+          <ul>
+            <li><strong>Administradores:</strong> Clic en "Gestión Vacunación" desde Accesos Rápidos</li>
+            <li><strong>Enfermeras:</strong> Clic en "Gestión Vacunación" desde Accesos Rápidos</li>
+          </ul>
+
+          <h4>Desde el Menú Superior:</h4>
+          <ul>
+            <li><strong>Administradores:</strong> No tienen opción directa en el menú (usan Dashboard)</li>
+            <li><strong>Enfermeras:</strong> Menú "Registro Vacunas" en la barra superior</li>
+          </ul>
+
+          <div class="fill-space">📸 IMAGEN 35: Opciones de acceso al módulo de vacunación</div>
+
 
         <!-- INVENTARIO -->
         <section id="inventario">
-          <h2>Inventario de Vacunas e Insumos</h2>
-          <p>El módulo de Inventario es donde controlará todo el stock de vacunas, diluyentes, jeringas y sueros. Un buen manejo del inventario asegura que siempre tenga los insumos necesarios y evita desperdicios por vencimiento.</p>
+          <h2>Gestión de Inventario de Vacunas e Insumos</h2>
+          <p>El sistema JAMA cuenta con cuatro módulos separados para administrar el inventario médico: <strong>Gestión Inventario Vacuna</strong>, <strong>Gestión Inventario Jeringa</strong>, <strong>Gestión Inventario Diluyente</strong> y <strong>Gestión Inventario Suero</strong>. Cada módulo permite agregar, editar, eliminar y visualizar productos con funcionalidades de búsqueda y paginación.</p>
 
-          <h3>📦 Tipos de Productos Gestionados</h3>
+          <h3>📦 Módulos de Inventario Disponibles</h3>
           <div class="grid-2">
             <div>
-              <h4>💉 Vacunas</h4>
-              <p>Los biológicos principales que se aplican a los pacientes. Cada vacuna tiene nombre, fabricante, lote y fecha de vencimiento.</p>
+              <h4>💉 Gestión Inventario Vacuna</h4>
+              <p>Administra las vacunas con: Nombre, Laboratorio, Lote, Dosis Disponibles, Número de Dosis e Intervalo en semanas.</p>
             </div>
             <div>
-              <h4>💧 Diluyentes</h4>
-              <p>Líquidos necesarios para reconstituir algunas vacunas antes de aplicarlas (ej: diluyente de BCG).</p>
+              <h4>💧 Gestión Inventario Diluyente</h4>
+              <p>Controla los diluyentes con: Nombre de Diluyente, Lote y Cantidad Disponible.</p>
             </div>
             <div>
-              <h4>💉 Jeringas</h4>
-              <p>Jeringas de diferentes capacidades (1ml, 3ml, 5ml, etc.) usadas para la aplicación.</p>
+              <h4>💉 Gestión Inventario Jeringa</h4>
+              <p>Maneja las jeringas con: Tipo de Jeringa, Lote y Cantidad Disponible.</p>
             </div>
             <div>
-              <h4>💉 Sueros</h4>
-              <p>Soluciones fisiológicas u otros insumos médicos complementarios.</p>
+              <h4>💉 Gestión Inventario Suero</h4>
+              <p>Administra los sueros con: Nombre de Suero, Lote y Frascos Disponibles.</p>
             </div>
           </div>
 
-          <h3>➕ Ingresar Nuevos Lotes al Inventario</h3>
-          <p>Cuando reciba un nuevo suministro de vacunas o insumos, debe registrarlo en el sistema.</p>
+          <h3>🔧 Funcionalidades Comunes de Todos los Módulos</h3>
+          <p>Cada módulo de inventario cuenta con las siguientes funciones estándar:</p>
+          <ul>
+            <li><strong>Agregar:</strong> Botón "Añadir" con ícono + para crear nuevos registros</li>
+            <li><strong>Buscar:</strong> Campo de búsqueda con filtros específicos por producto</li>
+            <li><strong>Visualizar:</strong> Tabla con todos los datos y paginación automática</li>
+            <li><strong>Editar:</strong> Botón "Editar" con ícono de lápiz para modificar registros</li>
+            <li><strong>Eliminar:</strong> Botón "Eliminar" con ícono de papelera para borrar registros</li>
+            <li><strong>Paginación:</strong> Botones "Atrás" y "Siguiente" para navegar entre páginas</li>
+          </ul>
 
-          <p><strong>Pasos para ingresar un lote:</strong></p>
-          <ol>
-            <li>Vaya al menú <strong>"Inventario"</strong>.</li>
-            <li>Seleccione el tipo de producto: <strong>Vacunas</strong>, <strong>Diluyentes</strong>, <strong>Jeringas</strong> o <strong>Sueros</strong>.</li>
-            <li>Haga clic en <strong>"+ Nuevo Lote"</strong> o <strong>"Ingresar"</strong>.</li>
-            <li>Complete el formulario con los datos del lote:</li>
-          </ol>
+          <h3>💉 Gestión Inventario Vacuna</h3>
+          <p>Accesible desde el menú <strong>"Gestionar Inventario > Vacunas"</strong>. Muestra el título <strong>"Gestión Inventario Vacuna"</strong>.</p>
 
-          <h4>Para Vacunas:</h4>
+          <h4>🔍 Búsqueda de Vacunas</h4>
+          <p>El campo de búsqueda tiene el placeholder: <strong>"Buscar por nombre de vacuna..."</strong> y filtra en tiempo real la tabla de resultados.</p>
+
+          <h4>📊 Tabla de Vacunas</h4>
+          <p>La tabla muestra las siguientes columnas en este orden exacto:</p>
+          <table>
+            <thead>
+              <tr><th>Columna</th><th>Descripción</th><th>Tipo de Dato</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>ID</strong></td>
+                <td>Identificador único automático de la vacuna</td>
+                <td>Número</td>
+              </tr>
+              <tr>
+                <td><strong>Nombre de Vacuna</strong></td>
+                <td>Nombre comercial o técnico de la vacuna</td>
+                <td>Texto</td>
+              </tr>
+              <tr>
+                <td><strong>Laboratorio</strong></td>
+                <td>Fabricante o laboratorio productor</td>
+                <td>Texto</td>
+              </tr>
+              <tr>
+                <td><strong>Lote</strong></td>
+                <td>Número de lote del producto</td>
+                <td>Texto</td>
+              </tr>
+              <tr>
+                <td><strong>Dosis</strong></td>
+                <td>Cantidad de dosis disponibles en inventario</td>
+                <td>Número</td>
+              </tr>
+              <tr>
+                <td><strong>Número de Dosis</strong></td>
+                <td>Número total de dosis del esquema (puede mostrar "-" si no aplica)</td>
+                <td>Número o "-"</td>
+              </tr>
+              <tr>
+                <td><strong>Intervalo (semanas)</strong></td>
+                <td>Semanas entre dosis del esquema (puede mostrar "-" si no aplica)</td>
+                <td>Número o "-"</td>
+              </tr>
+              <tr>
+                <td><strong>Fecha</strong></td>
+                <td>Fecha de registro en formato DD/MM/AAAA</td>
+                <td>Fecha</td>
+              </tr>
+              <tr>
+                <td><strong>Acciones</strong></td>
+                <td>Botones "Editar" y "Eliminar"</td>
+                <td>Botones</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>➕ Formulario de Vacunas</h4>
+          <p>Al hacer clic en "Añadir" o "Editar", se muestra un formulario con los siguientes campos obligatorios:</p>
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Tipo</th><th>Validaciones</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Nombre</strong></td>
+                <td>Texto</td>
+                <td>Campo requerido</td>
+              </tr>
+              <tr>
+                <td><strong>Laboratorio</strong></td>
+                <td>Texto</td>
+                <td>Campo requerido</td>
+              </tr>
+              <tr>
+                <td><strong>Lote</strong></td>
+                <td>Texto</td>
+                <td>Campo requerido</td>
+              </tr>
+              <tr>
+                <td><strong>Dosis Disponibles</strong></td>
+                <td>Número</td>
+                <td>Campo requerido, mayor o igual a 0</td>
+              </tr>
+              <tr>
+                <td><strong>Número de Dosis</strong></td>
+                <td>Número</td>
+                <td>Campo requerido, mayor o igual a 1</td>
+              </tr>
+              <tr>
+                <td><strong>Intervalo de Dosis en semanas</strong></td>
+                <td>Número</td>
+                <td>Mayor o igual a 0. Si Número de Dosis = 1, debe ser 0. Si Número de Dosis > 1, debe ser mayor a 0</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Nota:</strong> El campo "Intervalo" incluye la aclaración: <em>"Ponga 0 si es dosis única"</em></p>
+
+          <h3>💉 Gestión Inventario Jeringa</h3>
+          <p>Accesible desde el menú <strong>"Gestionar Inventario > Jeringas"</strong>. Muestra el título <strong>"Gestión Inventario Jeringa"</strong>.</p>
+
+          <h4>🔍 Búsqueda de Jeringas</h4>
+          <p>El campo de búsqueda tiene el placeholder: <strong>"Buscar por tipo de jeringa..."</strong></p>
+
+          <h4>📊 Tabla de Jeringas</h4>
+          <p>La tabla muestra las siguientes columnas:</p>
+          <table>
+            <thead>
+              <tr><th>Columna</th><th>Descripción</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>ID</strong></td>
+                <td>Identificador único automático</td>
+              </tr>
+              <tr>
+                <td><strong>Tipo de Jeringa</strong></td>
+                <td>Descripción del tipo de jeringa</td>
+              </tr>
+              <tr>
+                <td><strong>Lote</strong></td>
+                <td>Número de lote del producto</td>
+              </tr>
+              <tr>
+                <td><strong>Cantidad Disponible</strong></td>
+                <td>Unidades disponibles en inventario</td>
+              </tr>
+              <tr>
+                <td><strong>Acciones</strong></td>
+                <td>Botones "Editar" y "Eliminar"</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>➕ Formulario de Jeringas</h4>
+          <p>Campos del formulario:</p>
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Validaciones</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Tipo de Jeringa</strong></td>
+                <td>Campo requerido</td>
+              </tr>
+              <tr>
+                <td><strong>Lote</strong></td>
+                <td>Campo requerido</td>
+              </tr>
+              <tr>
+                <td><strong>Cantidad Disponible</strong></td>
+                <td>Campo requerido, mayor o igual a 0</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>💧 Gestión Inventario Diluyente</h3>
+          <p>Accesible desde el menú <strong>"Gestionar Inventario > Diluyentes"</strong>. Muestra el título <strong>"Gestión Inventario Diluyente"</strong>.</p>
+
+          <h4>🔍 Búsqueda de Diluyentes</h4>
+          <p>El campo de búsqueda tiene el placeholder: <strong>"Buscar por nombre de diluyente..."</strong></p>
+
+          <h4>📊 Tabla de Diluyentes</h4>
+          <p>La tabla muestra las siguientes columnas:</p>
+          <table>
+            <thead>
+              <tr><th>Columna</th><th>Descripción</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Nombre de Diluyente</strong></td>
+                <td>Nombre del producto diluyente</td>
+              </tr>
+              <tr>
+                <td><strong>Lote</strong></td>
+                <td>Número de lote del producto</td>
+              </tr>
+              <tr>
+                <td><strong>Cantidad Disponible</strong></td>
+                <td>Unidades disponibles en inventario</td>
+              </tr>
+              <tr>
+                <td><strong>Acciones</strong></td>
+                <td>Botones "Editar" y "Eliminar"</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>➕ Formulario de Diluyentes</h4>
+          <p>Campos del formulario:</p>
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Validaciones</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Nombre</strong></td>
+                <td>Campo requerido</td>
+              </tr>
+              <tr>
+                <td><strong>Lote</strong></td>
+                <td>Campo requerido</td>
+              </tr>
+              <tr>
+                <td><strong>Cantidad Disponible</strong></td>
+                <td>Campo requerido, mayor o igual a 0</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>💉 Gestión Inventario Suero</h3>
+          <p>Accesible desde el menú <strong>"Gestionar Inventario > Sueros"</strong>. Muestra el título <strong>"Gestión Inventario Suero"</strong>.</p>
+
+          <h4>🔍 Búsqueda de Sueros</h4>
+          <p>El campo de búsqueda tiene el placeholder: <strong>"Buscar por tipo de suero..."</strong></p>
+
+          <h4>📊 Tabla de Sueros</h4>
+          <p>La tabla muestra las siguientes columnas:</p>
+          <table>
+            <thead>
+              <tr><th>Columna</th><th>Descripción</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>ID</strong></td>
+                <td>Identificador único automático</td>
+              </tr>
+              <tr>
+                <td><strong>Nombre</strong></td>
+                <td>Nombre del suero</td>
+              </tr>
+              <tr>
+                <td><strong>Lote</strong></td>
+                <td>Número de lote del producto</td>
+              </tr>
+              <tr>
+                <td><strong>Frascos Disponibles</strong></td>
+                <td>Cantidad de frascos disponibles en inventario</td>
+              </tr>
+              <tr>
+                <td><strong>Acciones</strong></td>
+                <td>Botones "Editar" y "Eliminar"</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>➕ Formulario de Sueros</h4>
+          <p>Campos del formulario:</p>
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Validaciones</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Nombre del Suero</strong></td>
+                <td>Campo requerido</td>
+              </tr>
+              <tr>
+                <td><strong>Lote</strong></td>
+                <td>Campo requerido</td>
+              </tr>
+              <tr>
+                <td><strong>Frascos Disponibles</strong></td>
+                <td>Campo requerido, mayor o igual a 0</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>🔧 Operaciones Disponibles</h3>
+          <p>En todos los módulos de inventario puede realizar las siguientes acciones:</p>
+          <ul>
+            <li><strong>Crear:</strong> Botón "Añadir" - Abre formulario en modo "crear" con título "Añadir [Producto]"</li>
+            <li><strong>Editar:</strong> Botón "Editar" - Abre formulario en modo "editar" con título "Editar [Producto]"</li>
+            <li><strong>Eliminar:</strong> Botón "Eliminar" - Solicita confirmación antes de borrar</li>
+            <li><strong>Cancelar:</strong> Botón "Cancelar" - Cierra formulario y regresa a la tabla</li>
+            <li><strong>Guardar/Actualizar:</strong> Guarda cambios según el modo (Agregar/Actualizar)</li>
+          </ul>
+
+          <p><strong>Validaciones de formulario:</strong> Todos los campos marcados como requeridos deben completarse. Los campos numéricos validan rangos mínimos. El sistema muestra mensajes de error específicos para cada validación fallida.</p>
           <table>
             <thead>
               <tr><th>Campo</th><th>Descripción</th><th>Obligatorio</th></tr>
@@ -1000,32 +1821,32 @@
             <li><strong>Estado:</strong> Disponible, Próximo a Vencer, Vencido, Agotado.</li>
           </ul>
 
-          <div class="fill-space">📸 IMAGEN 37: Listado de inventario con estados de stock</div>
+          <div class="fill-space">📸 IMAGEN 37: Listado de inventario con cantidades disponibles</div>
 
-          <h3>🔔 Alertas de Inventario</h3>
-          <p>El sistema genera alertas automáticas cuando:</p>
+          <h3>� Consulta de Stock</h3>
+          <p>Para verificar las cantidades disponibles de cada producto:</p>
           <ul>
-            <li><strong>Stock Bajo:</strong> La cantidad disponible está por debajo de un umbral definido (ej: menos de 10 dosis).</li>
-            <li><strong>Próximo a Vencer:</strong> Faltan menos de 30 días para la fecha de vencimiento.</li>
-            <li><strong>Vencido:</strong> El producto ya pasó su fecha de vencimiento y NO debe usarse.</li>
+            <li>Revise el listado que muestra el stock actual de cada lote.</li>
+            <li>Verifique que haya cantidades suficientes para las próximas jornadas de vacunación.</li>
+            <li>Solicite nuevos insumos cuando las cantidades sean bajas.</li>
           </ul>
 
-          <p><strong>Colores de alerta:</strong></p>
+          <p class="callout"><strong>Nota importante:</strong> El sistema no calcula automáticamente fechas de vencimiento ni genera alertas de stock bajo. Es responsabilidad del personal verificar manualmente las fechas de vencimiento de los productos físicos y solicitar reabastecimiento cuando sea necesario.</p>
+
+          <div class="fill-space">📸 IMAGEN 38: Vista de inventario con opciones de consulta</div>
+
+          <h3>🔄 Registro de Aplicaciones</h3>
+          <p><strong>Importante:</strong> Cuando registra una vacuna aplicada en el sistema, la dosis queda asociada al lote que seleccione. El sistema registra la aplicación con fines de trazabilidad (lote usado, fecha, paciente).</p>
+
+          <p>Para mantener el inventario actualizado:</p>
           <ul>
-            <li><strong style="color:#28a745;">Verde:</strong> Stock normal, sin problemas.</li>
-            <li><strong style="color:#ffc107;">Amarillo:</strong> Advertencia (stock bajo o próximo a vencer).</li>
-            <li><strong style="color:#dc3545;">Rojo:</strong> Crítico (sin stock o ya vencido).</li>
+            <li>Registre los ingresos de nuevos lotes cuando reciba suministros.</li>
+            <li>Lleve un control manual de las dosis utilizadas.</li>
+            <li>Actualice las cantidades disponibles periódicamente según el consumo real.</li>
           </ul>
 
-          <div class="fill-space">📸 IMAGEN 38: Alertas de inventario con colores</div>
-
-          <h3>🔄 Actualización Automática del Stock</h3>
-          <p><strong>Muy importante:</strong> Cada vez que registra una vacuna aplicada, el sistema automáticamente descuenta una dosis del lote seleccionado. Usted no necesita ajustar manualmente el inventario tras cada aplicación.</p>
-
-          <p>Esto garantiza que el stock mostrado siempre refleje la realidad.</p>
-
-          <h3>🔍 Trazabilidad y Reportes de Inventario</h3>
-          <p>El sistema guarda un historial de todos los movimientos:</p>
+          <h3>🔍 Trazabilidad</h3>
+          <p>El sistema permite identificar qué lote de vacuna se usó para cada aplicación registrada, lo cual es fundamental para:</p>
           <ul>
             <li><strong>Ingresos:</strong> Cuándo y cuántas dosis se agregaron.</li>
             <li><strong>Salidas:</strong> Cada dosis aplicada (con fecha, paciente y responsable).</li>
@@ -1041,20 +1862,19 @@
           <div class="fill-space">📸 IMAGEN 39: Historial de movimientos de un lote</div>
 
           <h3>⚠️ Manejo de Productos Vencidos</h3>
-          <p><strong>Nunca use un producto vencido.</strong> Si el sistema indica que un lote está vencido:</p>
+          <p><strong>Nunca use un producto vencido.</strong> Es importante que verifique manualmente las fechas de vencimiento de los productos físicos:</p>
           <ol>
-            <li>Separe físicamente ese lote en el almacén (márquelo claramente).</li>
-            <li>En el sistema, puede marcarlo como <strong>"Baja por Vencimiento"</strong> (opción disponible para administradores).</li>
+            <li>Revise regularmente las fechas de vencimiento impresas en los envases de vacunas, diluyentes y otros insumos.</li>
+            <li>Separe físicamente cualquier lote vencido o próximo a vencer (márquelo claramente).</li>
+            <li>Use primero los lotes con fecha de vencimiento más próxima (método FEFO: First Expired, First Out).</li>
             <li>Siga el protocolo institucional para destrucción de biológicos vencidos.</li>
           </ol>
 
           <h3>📉 Reportes de Inventario</h3>
-          <p>Puede generar reportes sobre el estado del inventario:</p>
+          <p>Puede consultar información sobre el estado del inventario:</p>
           <ul>
-            <li><strong>Inventario General:</strong> Resumen de todos los productos y cantidades.</li>
-            <li><strong>Productos por Vencer:</strong> Lista de lotes que vencen en los próximos 30, 60 o 90 días.</li>
-            <li><strong>Movimientos por Período:</strong> Ingresos y salidas en un rango de fechas.</li>
-            <li><strong>Consumo por Vacuna:</strong> Cuántas dosis se han usado de cada tipo.</li>
+            <li><strong>Stock Actual:</strong> Cantidades disponibles de cada producto y lote registrado.</li>
+            <li><strong>Productos Registrados:</strong> Listado completo de vacunas, diluyentes, jeringas y sueros en el sistema.</li>
           </ul>
 
           <p>Vaya a <strong>"Reportes"</strong> > <strong>"Inventario"</strong> y seleccione el tipo de reporte que necesita.</p>
@@ -1064,86 +1884,50 @@
           <div class="callout">
             <strong>💡 Buenas Prácticas:</strong>
             <ul style="margin-top:.5rem;">
-              <li>✓ Revise el inventario semanalmente para detectar productos próximos a vencer.</li>
+              <li>✓ Verifique manualmente las fechas de vencimiento de los productos físicos regularmente.</li>
               <li>✓ Use primero los lotes que vencen antes (método FEFO: First Expired, First Out).</li>
-              <li>✓ Registre los ingresos inmediatamente al recibir suministros.</li>
+              <li>✓ Registre los ingresos de nuevos lotes inmediatamente al recibir suministros.</li>
               <li>✓ Si detecta una discrepancia entre el stock físico y el del sistema, notifique al administrador para hacer un ajuste.</li>
+              <li>✓ Lleve un control manual complementario de las fechas de vencimiento y cantidades consumidas.</li>
             </ul>
           </div>
 
-          <div class="fill-space">📸 IMAGEN 41: Dashboard de inventario con resumen visual de estado de stock</div>
         </section>
 
         <!-- ALERTAS -->
         <section id="alertas">
           <h2>Alertas y Notificaciones</h2>
-          <p>Las alertas son avisos automáticos que el sistema genera para mantenerlo informado sobre situaciones que requieren su atención. Son una herramienta clave para no olvidar tareas importantes.</p>
+          <p>El sistema genera notificaciones automáticas para mantenerlo informado sobre pacientes que requieren vacunación. Esta herramienta le ayuda a no olvidar las dosis programadas.</p>
 
-          <h3>🔔 Tipos de Alertas</h3>
+          <h3>🔔 Notificaciones de Vacunación</h3>
+          <p>El sistema genera automáticamente una lista de pacientes con vacunas pendientes para el mes actual.</p>
           
-          <h4>1️⃣ Alertas de Vacunación</h4>
+          <p><strong>Cómo funciona:</strong></p>
           <ul>
-            <li><strong>Dosis Próxima:</strong> Un paciente tiene una vacuna que debe recibir en los próximos 7 días.</li>
-            <li><strong>Dosis Atrasada:</strong> Un paciente no recibió una vacuna en la fecha recomendada.</li>
-            <li><strong>Esquema Incompleto:</strong> Pacientes con dosis pendientes hace más de 30 días.</li>
+            <li>El sistema calcula qué pacientes tienen vacunas programadas para aplicarse durante el mes en curso según su edad y esquema de vacunación.</li>
+            <li>Para cada paciente, muestra: nombre completo, documento de identidad, datos de contacto (teléfono, celular, correo), la dosis pendiente y la fecha de aplicación.</li>
+            <li>Estas notificaciones se actualizan automáticamente según las aplicaciones que vaya registrando.</li>
           </ul>
 
-          <h4>2️⃣ Alertas de Inventario</h4>
+          <p><strong>Para acceder a las notificaciones:</strong></p>
+          <ol>
+            <li>Haga clic en el ícono de campana (🔔) en la barra superior para ver un resumen rápido.</li>
+            <li>O vaya al menú <strong>"Alertas"</strong> o <strong>"Notificaciones"</strong> para ver el listado completo.</li>
+          </ol>
+
+          <div class="fill-space">📸 IMAGEN 42: Panel de notificaciones con pacientes pendientes del mes</div>
+
+          <h3>📋 Información que Muestra Cada Notificación</h3>
+          <p>Cada notificación incluye:</p>
           <ul>
-            <li><strong>Stock Bajo:</strong> La cantidad de un producto está por debajo del umbral mínimo.</li>
-            <li><strong>Próximo a Vencer:</strong> Un lote vence en menos de 30 días.</li>
-            <li><strong>Vencido:</strong> Un lote ya pasó su fecha de vencimiento.</li>
-            <li><strong>Sin Stock:</strong> Un producto se agotó completamente.</li>
+            <li><strong>Nombre del paciente:</strong> Nombres y apellidos completos.</li>
+            <li><strong>Documento de identidad:</strong> Tipo y número de documento.</li>
+            <li><strong>Datos de contacto:</strong> Teléfono fijo, celular y correo electrónico (si están registrados).</li>
+            <li><strong>Dosis pendiente:</strong> Qué vacuna debe recibir (ej: "Dosis 2 de Neumococo").</li>
+            <li><strong>Fecha de aplicación:</strong> Fecha programada para la aplicación de esa dosis.</li>
           </ul>
 
-          <h4>3️⃣ Alertas Administrativas</h4>
-          <ul>
-            <li><strong>Datos Incompletos:</strong> Pacientes con información faltante (ej: sin teléfono de contacto).</li>
-            <li><strong>Cuenta Bloqueada:</strong> Un usuario intentó ingresar con contraseña incorrecta varias veces.</li>
-          </ul>
-
-          <div class="fill-space">📸 IMAGEN 42: Panel de alertas mostrando diferentes tipos</div>
-
-          <h3>🎨 Interpretación de Colores e Íconos</h3>
-          <p>Cada alerta tiene un color y un ícono que indican su nivel de prioridad:</p>
-
-          <table>
-            <thead>
-              <tr><th>Color</th><th>Ícono</th><th>Nivel</th><th>Significado</th><th>Acción Requerida</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong style="color:#dc3545;">🔴 Rojo</strong></td>
-                <td>⚠️</td>
-                <td>Crítico</td>
-                <td>Situación urgente que puede afectar la salud o el servicio.</td>
-                <td>Atender inmediatamente</td>
-              </tr>
-              <tr>
-                <td><strong style="color:#ffc107;">🟡 Amarillo</strong></td>
-                <td>⚡</td>
-                <td>Advertencia</td>
-                <td>Situación que requiere atención pronto, pero no es inmediata.</td>
-                <td>Atender en las próximas horas o días</td>
-              </tr>
-              <tr>
-                <td><strong style="color:#17a2b8;">🔵 Azul</strong></td>
-                <td>ℹ️</td>
-                <td>Informativo</td>
-                <td>Recordatorio o información general.</td>
-                <td>Revisar cuando tenga tiempo</td>
-              </tr>
-              <tr>
-                <td><strong style="color:#28a745;">🟢 Verde</strong></td>
-                <td>✓</td>
-                <td>Completado</td>
-                <td>La alerta fue atendida y resuelta.</td>
-                <td>Ninguna, ya está cerrada</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="fill-space">📸 IMAGEN 43: Ejemplos de alertas con sus colores e íconos</div>
+          <div class="fill-space">📸 IMAGEN 43: Ejemplo de notificación con información completa</div>
 
           <h3>📍 Dónde Ver las Alertas</h3>
           <p>Las alertas aparecen en varios lugares:</p>
@@ -1578,653 +2362,3 @@
             <li>Mensajes sospechosos pidiendo credenciales.</li>
             <li>Intentos de acceso no autorizados.</li>
           </ul>
-
-        <!-- ERRORES COMUNES -->
-        <section id="errores-comunes">
-          <h2>Errores Comunes y Soluciones Rápidas</h2>
-          <p>Aquí encontrará los problemas más frecuentes y cómo resolverlos.</p>
-
-          <details>
-            <summary>❌ "Usuario o contraseña incorrectos"</summary>
-            <p><strong>Causas posibles:</strong></p>
-            <ul>
-              <li>Escribió mal su usuario o contraseña.</li>
-              <li>La tecla Bloq Mayús (Caps Lock) está activada.</li>
-              <li>Su cuenta fue desactivada o bloqueada.</li>
-            </ul>
-            <p><strong>Soluciones:</strong></p>
-            <ul>
-              <li>Verifique que no tenga Bloq Mayús activado.</li>
-              <li>Intente escribir su contraseña en un bloc de notas primero para verificar que la está escribiendo correctamente, luego cópiela y péguela.</li>
-              <li>Si después de 3 intentos sigue sin poder entrar, use la opción "¿Olvidó su contraseña?" o contacte al administrador.</li>
-            </ul>
-          </details>
-
-          <details>
-            <summary>❌ "No se puede registrar vacuna: stock insuficiente"</summary>
-            <p><strong>Causa:</strong> El lote seleccionado no tiene dosis disponibles en el inventario.</p>
-            <p><strong>Soluciones:</strong></p>
-            <ul>
-              <li>Seleccione otro lote de la misma vacuna que tenga stock.</li>
-              <li>Si no hay otro lote, primero ingrese un nuevo lote al inventario.</li>
-              <li>Verifique que el lote físicamente exista y que el sistema esté actualizado.</li>
-            </ul>
-          </details>
-
-          <details>
-            <summary>❌ "Este documento ya está registrado"</summary>
-            <p><strong>Causa:</strong> Ya existe un paciente con ese número de documento en el sistema.</p>
-            <p><strong>Soluciones:</strong></p>
-            <ul>
-              <li>Busque el paciente en el sistema para verificar si ya está registrado.</li>
-              <li>Si es un error (ej: número mal digitado antes), contacte al administrador para corregir el registro duplicado.</li>
-              <li>Si es realmente un nuevo paciente, verifique que el número de documento sea correcto.</li>
-            </ul>
-          </details>
-
-          <details>
-            <summary>❌ "La página no carga" o "Error de conexión"</summary>
-            <p><strong>Causas posibles:</strong></p>
-            <ul>
-              <li>Problemas de conexión a internet.</li>
-              <li>El servidor del sistema está temporalmente inaccesible.</li>
-              <li>Su sesión expiró.</li>
-            </ul>
-            <p><strong>Soluciones:</strong></p>
-            <ul>
-              <li>Verifique su conexión a internet.</li>
-              <li>Refresque la página presionando <code class="inline">F5</code> o <code class="inline">Ctrl + R</code>.</li>
-              <li>Cierre sesión y vuelva a ingresar.</li>
-              <li>Si el problema persiste, contacte al área de sistemas.</li>
-            </ul>
-          </details>
-
-          <details>
-            <summary>❌ "Los datos no se guardan" o "Error al guardar"</summary>
-            <p><strong>Causas posibles:</strong></p>
-            <ul>
-              <li>Hay campos obligatorios sin completar.</li>
-              <li>Los datos tienen un formato incorrecto (ej: fecha mal escrita).</li>
-              <li>Problema de conexión.</li>
-            </ul>
-            <p><strong>Soluciones:</strong></p>
-            <ul>
-              <li>Revise que todos los campos con asterisco (*) o marcados como obligatorios estén completos.</li>
-              <li>Verifique que las fechas estén en el formato correcto (DD/MM/AAAA).</li>
-              <li>Intente nuevamente. Si persiste, copie la información en un documento externo y contacte soporte.</li>
-            </ul>
-          </details>
-
-          <details>
-            <summary>❌ "No tengo permisos para esta acción"</summary>
-            <p><strong>Causa:</strong> Su rol de usuario no tiene autorización para realizar esa tarea.</p>
-            <p><strong>Solución:</strong></p>
-            <ul>
-              <li>Contacte al administrador si considera que debería tener ese permiso.</li>
-              <li>Solicite a un usuario con permisos adecuados que realice la acción.</li>
-            </ul>
-          </details>
-
-          <details>
-            <summary>❌ "El reporte tarda mucho en generarse"</summary>
-            <p><strong>Causa:</strong> El reporte incluye muchos datos y el sistema necesita tiempo para procesarlos.</p>
-            <p><strong>Soluciones:</strong></p>
-            <ul>
-              <li>Sea paciente; no cierre la ventana.</li>
-              <li>Intente reducir el rango de fechas o la cantidad de filtros.</li>
-              <li>Si es posible, genere el reporte en horarios de menor uso del sistema.</li>
-            </ul>
-          </details>
-
-          <div class="callout">
-            <strong>💡 Consejo General:</strong> Si encuentra un error que no está listado aquí o que no puede resolver, tome una captura de pantalla del mensaje de error y contacte al soporte técnico. Esto ayudará a resolver el problema más rápido.
-          </div>
-
-          <div class="fill-space">📸 IMAGEN 66: Ejemplos de mensajes de error comunes</div>
-        </section>y>
-          </table>
-
-          <h3>👁️ Contraste y Tamaño de Texto</h3>
-          <p>Si tiene dificultad para leer la pantalla:</p>
-          <ul>
-            <li><strong>Zoom del Navegador:</strong> Presione <code class="inline">Ctrl + +</code> para aumentar el tamaño de la página, o <code class="inline">Ctrl + -</code> para reducirlo.</li>
-            <li><strong>Modo Alto Contraste:</strong> Algunos navegadores ofrecen extensiones para mejorar el contraste. Consulte con el área de sistemas si necesita ayuda.</li>
-          </ul>
-
-          <h3>🔊 Compatibilidad con Lectores de Pantalla</h3>
-          <p>Si utiliza un lector de pantalla (como NVDA o JAWS), el sistema está diseñado para ser compatible. Todos los elementos importantes tienen etiquetas descriptivas.</p>
-
-          <h3>📱 Uso en Dispositivos Móviles</h3>
-          <p>JAMA es <strong>responsive</strong>, lo que significa que se adapta a pantallas de celulares y tablets. Sin embargo, para tareas complejas se recomienda usar una computadora.</p>
-
-          <div class="callout">
-            <strong>💡 Ayuda de Accesibilidad:</strong> Si tiene alguna necesidad especial no cubierta, contacte al administrador para explorar opciones de configuración personalizada.
-          </div>
-        </section>
-
-        <!-- SEGURIDAD USO -->
-        <section id="seguridad-uso">
-          <h2>Buenas Prácticas de Seguridad en el Uso</h2>
-          <ul>
-            <li class="placeholder">COMPLETAR: No compartir credenciales.</li>
-            <li class="placeholder">COMPLETAR: Cerrar sesión en equipos compartidos.</li>
-            <li class="placeholder">COMPLETAR: Manejo responsable de datos sensibles.</li>
-          </ul>
-        </section>
-
-        <!-- ERRORES COMUNES -->
-        <section id="errores-comunes">
-          <h2>Errores Comunes y Soluciones Rápidas</h2>
-          <details>
-            <summary>Mensaje: "Usuario o contraseña incorrectos"</summary>
-            <div class="placeholder">COMPLETAR: Causas y qué hacer.</div>
-          </details>
-          <details>
-            <summary>No se puede registrar vacuna (stock insuficiente)</summary>
-            <div class="placeholder">COMPLETAR: Verificar inventario, solicitar ingreso de lote.</div>
-          </details>
-          <details>
-            <summary>Datos no guardan</summary>
-            <div class="placeholder">COMPLETAR: Revisión de campos obligatorios, conexión.</div>
-          </details>
-        </section>
-
-        <!-- FAQ -->
-        <section id="faq">
-          <h2>Preguntas Frecuentes (FAQ)</h2>
-          
-          <details>
-            <summary>¿Cómo actualizo un dato del paciente?</summary>
-            <p><strong>Respuesta:</strong></p>
-            <ol>
-              <li>Vaya a <strong>"Pacientes"</strong> y busque al paciente.</li>
-              <li>Haga clic en su nombre o en el botón <strong>"Editar"</strong> (ícono de lápiz).</li>
-              <li>Modifique los campos necesarios.</li>
-              <li>Haga clic en <strong>"Guardar Cambios"</strong>.</li>
-            </ol>
-            <p><em>Nota: Algunos campos como el documento pueden estar bloqueados. Si necesita cambiarlos, contacte al administrador.</em></p>
-          </details>
-
-          <details>
-            <summary>¿Cómo sé cuándo corresponde la próxima vacuna de un paciente?</summary>
-            <p><strong>Respuesta:</strong></p>
-            <ol>
-              <li>Entre al detalle del paciente.</li>
-              <li>Vaya a la pestaña <strong>"Esquema de Vacunación"</strong>.</li>
-              <li>Las vacunas pendientes mostrarán la <strong>"Fecha Recomendada"</strong>.</li>
-              <li>Las que están próximas aparecerán en amarillo; las atrasadas, en rojo.</li>
-            </ol>
-            <p>También puede ver las próximas dosis en el Dashboard o en las Alertas.</p>
-          </details>
-
-          <details>
-            <summary>¿Puedo deshacer o eliminar una vacuna que registré por error?</summary>
-            <p><strong>Respuesta:</strong></p>
-            <p>Por seguridad, los usuarios regulares no pueden eliminar registros de vacunas aplicadas. Si registró una por error:</p>
-            <ol>
-              <li>Contacte inmediatamente al administrador.</li>
-              <li>Explique el error con detalles (paciente, vacuna, fecha).</li>
-              <li>El administrador puede anular el registro incorrecto.</li>
-            </ol>
-            <p><em>Esto garantiza la integridad y trazabilidad de los datos.</em></p>
-          </details>
-
-          <details>
-            <summary>¿Qué hago si un lote de vacuna llegó vencido?</summary>
-            <p><strong>Respuesta:</strong></p>
-            <ol>
-              <li><strong>No ingrese ese lote al sistema.</strong></li>
-              <li>Separe físicamente el lote vencido.</li>
-              <li>Notifique a su supervisor y al proveedor.</li>
-              <li>Siga el protocolo de devolución o destrucción según su institución.</li>
-            </ol>
-          </details>
-
-          <details>
-            <summary>¿Cómo exporto una lista de todos mis pacientes?</summary>
-            <p><strong>Respuesta:</strong></p>
-            <ol>
-              <li>Vaya a <strong>"Reportes"</strong> > <strong>"Pacientes"</strong>.</li>
-              <li>Seleccione <strong>"Listado de Pacientes"</strong>.</li>
-              <li>Configure los filtros (si desea todos, no aplique filtros).</li>
-              <li>Haga clic en <strong>"Generar"</strong>.</li>
-              <li>Exporte en Excel o PDF usando el botón <strong>"Exportar"</strong>.</li>
-            </ol>
-          </details>
-
-          <details>
-            <summary>¿Puedo usar JAMA desde mi celular?</summary>
-            <p><strong>Respuesta:</strong></p>
-            <p>Sí, el sistema es responsive y funciona en celulares y tablets. Sin embargo, para tareas complejas (ej: registrar pacientes, generar reportes) se recomienda usar una computadora para mayor comodidad.</p>
-          </details>
-
-          <details>
-            <summary>¿Cada cuánto debo cambiar mi contraseña?</summary>
-            <p><strong>Respuesta:</strong></p>
-            <p>Se recomienda cambiarla cada <strong>3 meses</strong> como mínimo. Algunas instituciones tienen políticas más estrictas que pueden forzar el cambio periódico.</p>
-          </details>
-
-          <details>
-            <summary>¿Qué navegador web debo usar?</summary>
-            <p><strong>Respuesta:</strong></p>
-            <p>JAMA funciona mejor en navegadores modernos y actualizados:</p>
-            <ul>
-              <li><strong>Google Chrome</strong> (recomendado)</li>
-              <li><strong>Mozilla Firefox</strong></li>
-              <li><strong>Microsoft Edge</strong></li>
-              <li><strong>Safari</strong> (en Mac)</li>
-            </ul>
-            <p><em>Evite usar Internet Explorer (obsoleto). Mantenga su navegador actualizado.</em></p>
-          </details>
-
-          <details>
-            <summary>¿El sistema guarda automáticamente o debo hacer clic en "Guardar"?</summary>
-            <p><strong>Respuesta:</strong></p>
-            <p>El sistema <strong>NO</strong> guarda automáticamente. Siempre debe hacer clic en <strong>"Guardar"</strong>, <strong>"Registrar"</strong> o <strong>"Actualizar"</strong> para que los cambios se apliquen. Si cierra una ventana sin guardar, perderá lo que escribió.</p>
-          </details>
-
-          <details>
-            <summary>¿Puedo imprimir el carné de vacunación de un paciente?</summary>
-            <p><strong>Respuesta:</strong></p>
-            <p>Depende de la configuración del sistema. Busque en el detalle del paciente un botón que diga <strong>"Imprimir Carné"</strong> o <strong>"Certificado de Vacunación"</strong>. Si no lo encuentra, consulte con el administrador si esta función está disponible.</p>
-          </details>
-
-          <div class="callout">
-            <strong>❓ ¿Más preguntas?</strong> Si su pregunta no está aquí, contacte al área de soporte. Sus preguntas ayudan a mejorar este manual.
-          </div>
-        </section>
-
-        <!-- SOPORTE -->
-        <section id="soporte">
-          <h2>Soporte y Escalamiento</h2>
-          <p>Si encuentra un problema que no puede resolver consultando este manual, el equipo de soporte está disponible para ayudarle.</p>
-
-          <h3>📞 Canales de Contacto</h3>
-          <table>
-            <thead>
-              <tr><th>Canal</th><th>Información de Contacto</th><th>Horario de Atención</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Correo Electrónico</strong></td>
-                <td><code class="inline">soporte.jama@[institucion].com</code><br><small>(Completar con el correo real)</small></td>
-                <td>Respuesta en 24-48 horas hábiles</td>
-              </tr>
-              <tr>
-                <td><strong>Teléfono / WhatsApp</strong></td>
-        <!-- GLOSARIO -->
-        <section id="glosario">
-          <h2>Glosario</h2>
-          <p>Términos clave que encontrará en el sistema y este manual.</p>
-
-          <table>
-            <thead><tr><th>Término</th><th>Definición</th></tr></thead>
-            <tbody>
-              <tr>
-                <td><strong>Administrador</strong></td>
-                <td>Usuario con permisos completos para configurar el sistema, crear usuarios y acceder a todas las funciones.</td>
-              </tr>
-              <tr>
-                <td><strong>Alerta</strong></td>
-                <td>Notificación automática generada por el sistema para informar sobre situaciones que requieren atención (ej: dosis atrasada, stock bajo).</td>
-              </tr>
-              <tr>
-                <td><strong>Antecedente Médico</strong></td>
-                <td>Información sobre enfermedades previas, cirugías, alergias u otros datos clínicos del paciente.</td>
-              </tr>
-              <tr>
-                <td><strong>Biológico</strong></td>
-                <td>Nombre técnico para las vacunas. Son productos derivados de organismos vivos (virus o bacterias atenuados).</td>
-              </tr>
-              <tr>
-                <td><strong>Cobertura de Vacunación</strong></td>
-                <td>Porcentaje de la población objetivo que ha recibido las vacunas correspondientes según el esquema.</td>
-              </tr>
-              <tr>
-                <td><strong>Cuidador</strong></td>
-                <td>Persona responsable del cuidado del paciente. Puede ser la madre, padre, abuelo/a, tío/a u otro familiar.</td>
-              </tr>
-              <tr>
-                <td><strong>Dashboard</strong></td>
-                <td>Panel principal del sistema que muestra un resumen con indicadores clave y alertas. Es la primera pantalla al iniciar sesión.</td>
-              </tr>
-              <tr>
-                <td><strong>Diluyente</strong></td>
-                <td>Líquido estéril usado para reconstituir vacunas liofilizadas (en polvo) antes de su aplicación.</td>
-              </tr>
-              <tr>
-                <td><strong>Dosis</strong></td>
-                <td>Cantidad específica de vacuna que se administra al paciente en una aplicación. Algunos esquemas requieren múltiples dosis de la misma vacuna.</td>
-              </tr>
-              <tr>
-                <td><strong>Enfermera</strong></td>
-                <td>Rol de usuario que corresponde al personal de salud que registra pacientes, aplica vacunas y consulta información clínica.</td>
-              </tr>
-              <tr>
-                <td><strong>Esquema de Vacunación</strong></td>
-                <td>Calendario oficial que establece qué vacunas debe recibir un niño y a qué edades, según normativa nacional de salud.</td>
-              </tr>
-              <tr>
-                <td><strong>Inventario</strong></td>
-                <td>Control de stock de vacunas, diluyentes, jeringas y otros insumos médicos disponibles.</td>
-              </tr>
-              <tr>
-                <td><strong>Lote</strong></td>
-                <td>Número único que identifica un grupo de vacunas o insumos producidos en la misma fecha y condiciones. Es clave para la trazabilidad.</td>
-              </tr>
-              <tr>
-                <td><strong>Paciente</strong></td>
-                <td>Niño o niña registrado en el sistema que recibe atención de salud y vacunación.</td>
-              </tr>
-              <tr>
-                <td><strong>Reactive (Responsivo)</strong></td>
-                <td>Característica del sistema que le permite adaptarse a diferentes tamaños de pantalla (computadora, tablet, celular).</td>
-              </tr>
-              <tr>
-                <td><strong>Rol</strong></td>
-                <td>Perfil de usuario que define qué acciones puede realizar en el sistema (Administrador, Enfermera, Consulta, etc.).</td>
-              </tr>
-              <tr>
-                <td><strong>Sesión</strong></td>
-                <td>Período de tiempo durante el cual un usuario está conectado al sistema después de iniciar sesión.</td>
-              </tr>
-              <tr>
-                <td><strong>Stock</strong></td>
-                <td>Cantidad disponible de un producto en el inventario.</td>
-              </tr>
-              <tr>
-                <td><strong>Trazabilidad</strong></td>
-                <td>Capacidad de rastrear el origen, aplicación y destino de cada dosis de vacuna mediante los números de lote y registros.</td>
-              </tr>
-              <tr>
-                <td><strong>Umbral</strong></td>
-                <td>Cantidad mínima de stock definida para generar alertas. Ej: si el umbral es 10 dosis y queda solo 8, se genera una alerta de stock bajo.</td>
-              </tr>
-              <tr>
-                <td><strong>Vencimiento</strong></td>
-                <td>Fecha límite hasta la cual un producto (vacuna, diluyente, jeringa) puede usarse de forma segura. Después de esta fecha, no debe utilizarse.</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="callout">
-            <strong>💡 Nota:</strong> Si encuentra un término que no está en este glosario, no dude en preguntar al equipo de soporte. Envíe sus sugerencias para enriquecer esta lista.
-          </div>
-        </section>y>
-          </table>
-
-          <h3>📝 Información que Debe Proveer al Contactar Soporte</h3>
-          <p>Para recibir ayuda más rápida y efectiva, siempre incluya:</p>
-          <ul>
-            <li><strong>Su Nombre Completo y Usuario:</strong> Para identificar su cuenta y permisos.</li>
-            <li><strong>Módulo o Sección Donde Ocurre el Problema:</strong> Ej: "Módulo de Pacientes", "Registro de Vacunas".</li>
-            <li><strong>Descripción Detallada del Problema:</strong> Qué estaba haciendo cuando ocurrió.</li>
-            <li><strong>Mensaje de Error (si hay alguno):</strong> Cópielo textualmente o tome una captura de pantalla.</li>
-            <li><strong>Hora Aproximada:</strong> Cuándo ocurrió el problema.</li>
-            <li><strong>Navegador y Sistema Operativo:</strong> Ej: Chrome en Windows 10.</li>
-            <li><strong>Captura de Pantalla:</strong> Una imagen ayuda mucho a entender el problema.</li>
-          </ul>
-
-          <div class="callout">
-            <strong>📸 Cómo Tomar una Captura de Pantalla:</strong>
-            <ul style="margin-top:.5rem;">
-              <li><strong>Windows:</strong> Presione <code class="inline">Win + Shift + S</code> para seleccionar el área, o <code class="inline">PrtScn</code> para toda la pantalla.</li>
-              <li><strong>Mac:</strong> Presione <code class="inline">Cmd + Shift + 4</code> para seleccionar el área.</li>
-            </ul>
-          </div>
-
-          <h3>🚦 Niveles de Prioridad</h3>
-          <p>Los tickets de soporte se clasifican según su urgencia:</p>
-
-          <table>
-            <thead>
-              <tr><th>Prioridad</th><th>Descripción y Ejemplos</th><th>Tiempo Objetivo de Respuesta</th></tr>
-            </thead>
-        <!-- ANEXOS -->
-        <section id="anexos">
-          <h2>Anexos</h2>
-          
-          <h3>📋 A. Lista de Abreviaturas Comunes</h3>
-          <table>
-            <thead><tr><th>Abreviatura</th><th>Significado</th></tr></thead>
-            <tbody>
-              <tr><td><strong>BCG</strong></td><td>Bacilo de Calmette-Guérin (vacuna contra tuberculosis)</td></tr>
-              <tr><td><strong>DPT</strong></td><td>Difteria, Pertussis (tos ferina), Tétanos</td></tr>
-              <tr><td><strong>HB</strong></td><td>Hepatitis B</td></tr>
-              <tr><td><strong>MMR / SRP</strong></td><td>Sarampión, Rubéola, Parotiditis (Triple Viral)</td></tr>
-              <tr><td><strong>OPV</strong></td><td>Oral Polio Vaccine (Vacuna Oral contra Polio)</td></tr>
-              <tr><td><strong>IPV</strong></td><td>Inactivated Polio Vaccine (Vacuna Inactivada contra Polio)</td></tr>
-              <tr><td><strong>HPV</strong></td><td>Human Papillomavirus (Virus del Papiloma Humano)</td></tr>
-              <tr><td><strong>IM</strong></td><td>Intramuscular (vía de administración)</td></tr>
-              <tr><td><strong>SC</strong></td><td>Subcutánea (vía de administración)</td></tr>
-              <tr><td><strong>VO</strong></td><td>Vía Oral</td></tr>
-              <tr><td><strong>ml</strong></td><td>Mililitros (unidad de volumen)</td></tr>
-              <tr><td><strong>°C</strong></td><td>Grados Celsius (temperatura)</td></tr>
-            </tbody>
-          </table>
-
-          <h3>📜 B. Referencias Normativas</h3>
-          <p><em>(Complete con las referencias legales y normativas aplicables en su país/región)</em></p>
-          <ul>
-            <li><strong>Esquema Nacional de Vacunación:</strong> [Enlace o referencia oficial del Ministerio de Salud]</li>
-            <li><strong>Normas de Cadena de Frío:</strong> [Referencia a guías oficiales]</li>
-            <li><strong>Ley de Protección de Datos de Salud:</strong> [Normativa aplicable sobre confidencialidad]</li>
-            <li><strong>Reglamento de Farmacovigilancia:</strong> [Para reporte de eventos adversos]</li>
-          </ul>
-
-          <h3>🗺️ C. Flujogramas Detallados</h3>
-          <p>Diagramas visuales de los procesos clave del sistema.</p>
-
-          <h4>C.1. Flujo de Registro de Nuevo Paciente</h4>
-          <div class="fill-space">📸 IMAGEN 68: Flujograma - Registro de Paciente</div>
-          <p><em>Diagrama mostrando: Inicio → Ingresar datos → Validar duplicados → Asociar cuidador → Guardar → Asignar esquema → Fin</em></p>
-
-          <h4>C.2. Flujo de Aplicación de Vacuna</h4>
-          <div class="fill-space">📸 IMAGEN 69: Flujograma - Aplicación de Vacuna</div>
-          <p><em>Diagrama mostrando: Buscar paciente → Ver esquema → Seleccionar dosis → Verificar stock → Aplicar → Registrar en sistema → Descuento automático de inventario → Fin</em></p>
-
-          <h4>C.3. Flujo de Manejo de Alertas</h4>
-          <div class="fill-space">📸 IMAGEN 70: Flujograma - Gestión de Alertas</div>
-          <p><em>Diagrama mostrando: Sistema genera alerta → Usuario recibe notificación → Evalúa prioridad → Toma acción → Marca como resuelta → Fin</em></p>
-
-          <h3>📊 D. Indicadores Clave de Desempeño (KPI)</h3>
-          <p>Métricas sugeridas para monitorear el programa de vacunación usando JAMA:</p>
-          <table>
-            <thead>
-              <tr><th>Indicador</th><th>Fórmula</th><th>Meta Sugerida</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Cobertura de Vacunación</strong></td>
-                <td>(Niños con esquema completo / Total niños registrados) × 100</td>
-                <td>≥ 95%</td>
-              </tr>
-              <tr>
-                <td><strong>Tasa de Deserción</strong></td>
-                <td>(Niños con esquema incompleto / Total iniciaron esquema) × 100</td>
-                <td>≤ 5%</td>
-              </tr>
-              <tr>
-                <td><strong>Índice de Stock Crítico</strong></td>
-                <td>(Productos con stock bajo / Total productos) × 100</td>
-                <td>≤ 10%</td>
-              </tr>
-              <tr>
-                <td><strong>Tiempo Promedio de Atención de Alertas</strong></td>
-                <td>Suma de tiempo de resolución / Número de alertas</td>
-                <td>≤ 24 horas</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h3>🖼️ E. Plantillas y Formatos</h3>
-          <p><em>(Si aplica, incluir enlaces a plantillas descargables)</em></p>
-          <ul>
-            <li><strong>Formato de Solicitud de Acceso al Sistema</strong> [PDF]</li>
-            <li><strong>Plantilla de Reporte de Incidente</strong> [Word/PDF]</li>
-            <li><strong>Checklist de Verificación de Inventario</strong> [Excel]</li>
-          </ul>
-
-          <h3>📞 F. Directorio de Contactos Clave</h3>
-          <table>
-            <thead>
-              <tr><th>Área / Persona</th><th>Responsabilidad</th><th>Contacto</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Coordinador de Vacunación</strong></td>
-                <td>Supervisión del programa de vacunación</td>
-                <td>[Nombre, Tel, Email]</td>
-              </tr>
-              <tr>
-                <td><strong>Administrador del Sistema JAMA</strong></td>
-                <td>Gestión de usuarios y permisos</td>
-                <td>[Nombre, Tel, Email]</td>
-              </tr>
-              <tr>
-                <td><strong>Soporte Técnico</strong></td>
-                <td>Resolución de problemas técnicos</td>
-                <td>[Email, Tel]</td>
-              </tr>
-              <tr>
-                <td><strong>Proveedor de JAMA</strong></td>
-                <td>Soporte especializado y actualizaciones</td>
-                <td>[Empresa, Email, Tel]</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h3>📝 G. Registro de Cambios del Manual</h3>
-          <table>
-            <thead>
-              <tr><th>Versión</th><th>Fecha</th><th>Cambios Realizados</th><th>Responsable</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>0.1</strong></td>
-                <td>Octubre 2025</td>
-                <td>Versión inicial del manual</td>
-                <td>[Completar nombre]</td>
-              </tr>
-              <tr>
-                <td colspan="4" style="text-align:center;"><em>Las actualizaciones futuras se registrarán aquí...</em></td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="callout">
-            <strong>📌 Importante:</strong> Este manual es un documento vivo. Se actualizará periódicamente conforme el sistema JAMA evolucione. Consulte siempre la versión más reciente disponible en el sistema o con el área de capacitación.
-          </div>
-        </section>  <li>Se perdieron datos importantes.</li>
-                  </ul>
-                </td>
-                <td>1-2 horas</td>
-              </tr>
-              <tr>
-                <td><strong style="color:#ffc107;">🟡 Media</strong></td>
-                <td>
-                  <strong>Problema que afecta una función importante pero hay alternativas temporales.</strong>
-                  <ul style="margin:.25rem 0 0; padding-left:1.2rem;">
-                    <li>No puedo generar un reporte específico.</li>
-                    <li>Un módulo no funciona correctamente.</li>
-                    <li>Datos incorrectos en pantalla.</li>
-                  </ul>
-                </td>
-                <td>4-8 horas</td>
-              </tr>
-              <tr>
-                <td><strong style="color:#17a2b8;">🔵 Baja</strong></td>
-                <td>
-                  <strong>Consulta general, mejora sugerida o problema menor.</strong>
-                  <ul style="margin:.25rem 0 0; padding-left:1.2rem;">
-                    <li>¿Cómo hago X tarea?</li>
-                    <li>Sugerencia de mejora.</li>
-                    <li>Error cosmético (ej: texto mal alineado).</li>
-                  </ul>
-                </td>
-                <td>24-48 horas</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h3>🔄 Proceso de Escalamiento</h3>
-          <p>Si su problema no se resuelve en el tiempo esperado:</p>
-          <ol>
-            <li><strong>Primera Línea:</strong> Mesa de ayuda técnica (email, teléfono).</li>
-            <li><strong>Segunda Línea:</strong> Coordinador de TI o sistemas.</li>
-            <li><strong>Tercera Línea:</strong> Proveedor del sistema JAMA (si aplica).</li>
-          </ol>
-
-          <p>El equipo de soporte le informará si su caso necesita escalarse a un nivel superior.</p>
-
-          <h3>📚 Recursos Adicionales</h3>
-          <ul>
-            <li><strong>Este Manual de Usuario</strong> (el que está leyendo): Su primera fuente de consulta.</li>
-            <li><strong>Videos Tutoriales</strong> (si están disponibles): Consulte con el área de capacitación.</li>
-            <li><strong>Base de Conocimiento Interna</strong> (si existe): Portal con artículos y guías paso a paso.</li>
-          </ul>
-
-          <div class="callout">
-            <strong>💡 Antes de Contactar Soporte:</strong>
-            <ul style="margin-top:.5rem;">
-              <li>✓ Consulte este manual para ver si la respuesta está aquí.</li>
-              <li>✓ Intente cerrar sesión y volver a ingresar.</li>
-              <li>✓ Verifique su conexión a internet.</li>
-              <li>✓ Pregunte a un compañero si tiene el mismo problema (puede ser un error general).</li>
-            </ul>
-          </div>
-
-          <div class="fill-space">📸 IMAGEN 67: Ejemplo de ticket de soporte o formulario de contacto</div>
-        </section>
-
-        <!-- GLOSARIO -->
-        <section id="glosario">
-          <h2>Glosario</h2>
-          <table>
-            <thead><tr><th>Término</th><th>Definición</th></tr></thead>
-            <tbody>
-              <tr><td>Esquema</td><td class="placeholder">COMPLETAR</td></tr>
-              <tr><td>Dosis</td><td class="placeholder">COMPLETAR</td></tr>
-              <tr><td>Lote</td><td class="placeholder">COMPLETAR</td></tr>
-              <tr><td>Stock</td><td class="placeholder">COMPLETAR</td></tr>
-              <tr><td>Alerta</td><td class="placeholder">COMPLETAR</td></tr>
-            </tbody>
-          </table>
-        </section>
-
-        <!-- ANEXOS -->
-        <section id="anexos">
-          <h2>Anexos</h2>
-          <ul>
-            <li class="placeholder">COMPLETAR: Lista abreviaturas.</li>
-            <li class="placeholder">COMPLETAR: Referencias normativas.</li>
-            <li class="placeholder">COMPLETAR: Flujogramas detallados.</li>
-          </ul>
-        </section>
-
-        <footer>
-          Documento interno de uso funcional. © <!-- COMPLETAR AÑO --> Organización / Proyecto JAMA. Todos los derechos reservados.
-        </footer>
-      </article>
-    </main>
-  </div>
-
-  <script>
-    // Realce dinámico en TOC según scroll
-    const sections = document.querySelectorAll('main section[id]');
-    const navLinks = document.querySelectorAll('nav.toc-wrapper a');
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting) {
-          navLinks.forEach(a => a.classList.remove('active'));
-          const link = document.querySelector(`nav.toc-wrapper a[href="#${entry.target.id}"]`);
-          if(link) link.classList.add('active');
-        }
-      });
-    }, { rootMargin: '0px 0px -70% 0px', threshold: 0.2 });
-
-    sections.forEach(sec => observer.observe(sec));
-  </script>
-</body>
-</html>
