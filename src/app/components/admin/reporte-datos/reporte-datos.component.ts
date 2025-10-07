@@ -213,7 +213,8 @@ export class ReporteDatosComponent implements OnInit {
     const seccionesAdicionales = [
       { nombre: 'EN SITUACION DE DESPLAZADO', campo: 'desplazado' },
       { nombre: 'EN SITUACION DE DISCAPACIDAD', campo: 'discapacitado' },
-      { nombre: 'VICTIMAS DEL CONFLICTO', campo: 'victimaConflicto' }
+      { nombre: 'VICTIMAS DEL CONFLICTO ARMADO', campo: 'victimaConflicto' },
+      { nombre: 'ESTUDIA ACTUALMENTE', campo: 'estudiaActualmente' }
     ];
 
     seccionesAdicionales.forEach(seccion => {

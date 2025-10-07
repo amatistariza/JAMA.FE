@@ -79,52 +79,40 @@ export class PacienteComponent implements OnInit {
     private cuidadorService: CuidadorService) { }
 
   ngOnInit(): void {
-
     this.pacienteForm = this.fb.group({
-      numeroIdentificacion: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(7),   // ✅ mínimo 7 dígitos
-          Validators.pattern(/^\d+$/) // ✅ solo números
-        ]
-      ]
-    });
-
-    this.pacienteForm = this.fb.group({
-      tipoIdentificacion: [''],
-      numeroIdentificacion: ['', [Validators.required]],
-      primerNombre: [''],
+      tipoIdentificacion: ['', [Validators.required]],
+      numeroIdentificacion: ['', [Validators.required, Validators.minLength(7), Validators.pattern(/^\d+$/)]],
+      primerNombre: ['', [Validators.required]],
       segundoNombre: [''],
-      primerApellido: [''],
-      segundoApellido: [''],
-      fechaNacimiento: [this.formatFecha(new Date())],
+      primerApellido: ['', [Validators.required]],
+      segundoApellido: ['', [Validators.required]],
+      fechaNacimiento: [this.formatFecha(new Date()), [Validators.required]],
       esquemaCompleto: [true],
-      sexo: [''],
+      sexo: ['', [Validators.required]],
       genero: [''],
-      orientacionSexual: [''],
+      orientacionSexual: ['', [Validators.required]],
       edadGestacionalSemanas: [0],
-      paisNacimiento: [''],
-      estatusMigratorio: [''],
+      paisNacimiento: ['', [Validators.required]],
+      estatusMigratorio: ['', [Validators.required]],
       lugarAtencionParto: ['-'],
-  regimenAfiliacion: ['', [Validators.required]],
-  aseguradora: ['', [Validators.required]],
-  pertenenciaEtnica: ['', [Validators.required]],
+      regimenAfiliacion: ['', [Validators.required]],
+      aseguradora: ['', [Validators.required]],
+      pertenenciaEtnica: ['', [Validators.required]],
       desplazado: [false],
       discapacitado: [false],
       fallecido: [false],
       victimaConflictoArmado: [false],
       estudiaActualmente: [false],
-      paisResidencia: [''],
-      departamentoResidencia: [''],
-      municipioResidencia: [''],
+      paisResidencia: ['', [Validators.required]],
+      departamentoResidencia: ['', [Validators.required]],
+      municipioResidencia: ['', [Validators.required]],
       comunaLocalidad: [''],
-      area: [''],
-      direccion: [''],
-      indicativoTelefono: ['', [Validators.required]],
+      area: ['', [Validators.required]],
+      direccion: ['', [Validators.required]],
+      indicativoTelefono: [''],
       telefonoFijo: ['', [Validators.required]],
       celular: ['', [Validators.required]],
-      email: [''],
+      email: ['', [Validators.required, Validators.email]],
       autorizaLlamadasTelefonicas: [false],
       autorizaEnvioCorreo: [false],
       antecedentes: this.fb.array([]),
@@ -453,6 +441,7 @@ export class PacienteComponent implements OnInit {
       this.pacienteForm.get('primerApellido')?.invalid ||
       this.pacienteForm.get('segundoApellido')?.invalid ||
       this.pacienteForm.get('fechaNacimiento')?.invalid ||
+      this.pacienteForm.get('paisNacimiento')?.invalid ||
       this.pacienteForm.get('estatusMigratorio')?.invalid ||
       this.pacienteForm.get('sexo')?.invalid ||
       this.pacienteForm.get('orientacionSexual')?.invalid ||
@@ -460,6 +449,7 @@ export class PacienteComponent implements OnInit {
       this.pacienteForm.get('departamentoResidencia')?.invalid ||
       this.pacienteForm.get('municipioResidencia')?.invalid ||
       this.pacienteForm.get('direccion')?.invalid ||
+      this.pacienteForm.get('area')?.invalid ||
       this.pacienteForm.get('email')?.invalid ||
       this.pacienteForm.get('telefonoFijo')?.invalid ||
       this.pacienteForm.get('celular')?.invalid ||
@@ -757,15 +747,6 @@ export class PacienteComponent implements OnInit {
       console.error('Error enfocando control inválido:', e);
     }
   }
-
-    ValidationMessages = {
-    required: 'El número de identificación es obligatorio',
-    minlength: 'Debe tener mínimo 7 dígitos',
-    pattern: 'Solo se permiten números'
-  };
-
-
-
 
   cancelar(): void {
     Swal.fire({
